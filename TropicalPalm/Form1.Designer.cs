@@ -27,41 +27,42 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.pRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.qRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.fRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.maxPlusRadioButton = new System.Windows.Forms.RadioButton();
             this.maxTimesRadioButton = new System.Windows.Forms.RadioButton();
             this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
             this.minTimesRadioButton = new System.Windows.Forms.RadioButton();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.pDbyQRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.otherRadioButton = new System.Windows.Forms.RadioButton();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.kNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.xFromTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.xToTextBox = new System.Windows.Forms.TextBox();
+            this.BuildButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
-            // richTextBox1
+            // pRichTextBox
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox1.Location = new System.Drawing.Point(86, 15);
-            this.richTextBox1.Multiline = false;
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(269, 32);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.pRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pRichTextBox.Location = new System.Drawing.Point(86, 15);
+            this.pRichTextBox.Multiline = false;
+            this.pRichTextBox.Name = "pRichTextBox";
+            this.pRichTextBox.Size = new System.Drawing.Size(269, 32);
+            this.pRichTextBox.TabIndex = 0;
+            this.pRichTextBox.Text = "";
             // 
             // label1
             // 
@@ -83,25 +84,25 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Q(x)";
             // 
-            // richTextBox4
+            // qRichTextBox
             // 
-            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox4.Location = new System.Drawing.Point(86, 53);
-            this.richTextBox4.Multiline = false;
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(269, 32);
-            this.richTextBox4.TabIndex = 5;
-            this.richTextBox4.Text = "";
+            this.qRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.qRichTextBox.Location = new System.Drawing.Point(86, 53);
+            this.qRichTextBox.Multiline = false;
+            this.qRichTextBox.Name = "qRichTextBox";
+            this.qRichTextBox.Size = new System.Drawing.Size(269, 32);
+            this.qRichTextBox.TabIndex = 5;
+            this.qRichTextBox.Text = "";
             // 
-            // richTextBox2
+            // fRichTextBox
             // 
-            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox2.Location = new System.Drawing.Point(86, 136);
-            this.richTextBox2.Multiline = false;
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(269, 32);
-            this.richTextBox2.TabIndex = 6;
-            this.richTextBox2.Text = "";
+            this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fRichTextBox.Location = new System.Drawing.Point(86, 136);
+            this.fRichTextBox.Multiline = false;
+            this.fRichTextBox.Name = "fRichTextBox";
+            this.fRichTextBox.Size = new System.Drawing.Size(269, 32);
+            this.fRichTextBox.TabIndex = 6;
+            this.fRichTextBox.Text = "";
             // 
             // label3
             // 
@@ -113,21 +114,21 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "f(x)";
             // 
-            // chart1
+            // chart
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(361, 15);
-            this.chart1.Name = "chart1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(361, 15);
+            this.chart.Name = "chart";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(608, 403);
-            this.chart1.TabIndex = 8;
-            this.chart1.Text = "chart1";
+            this.chart.Series.Add(series1);
+            this.chart.Size = new System.Drawing.Size(772, 513);
+            this.chart.TabIndex = 8;
+            this.chart.Text = "chart1";
             // 
             // groupBox1
             // 
@@ -137,7 +138,7 @@
             this.groupBox1.Controls.Add(this.maxTimesRadioButton);
             this.groupBox1.Controls.Add(this.maxPlusRadioButton);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(15, 262);
+            this.groupBox1.Location = new System.Drawing.Point(15, 345);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(340, 156);
             this.groupBox1.TabIndex = 9;
@@ -147,6 +148,7 @@
             // maxPlusRadioButton
             // 
             this.maxPlusRadioButton.AutoSize = true;
+            this.maxPlusRadioButton.Checked = true;
             this.maxPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maxPlusRadioButton.Location = new System.Drawing.Point(6, 29);
             this.maxPlusRadioButton.Name = "maxPlusRadioButton";
@@ -164,7 +166,6 @@
             this.maxTimesRadioButton.Name = "maxTimesRadioButton";
             this.maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
             this.maxTimesRadioButton.TabIndex = 1;
-            this.maxTimesRadioButton.TabStop = true;
             this.maxTimesRadioButton.Text = "(max, ×)";
             this.maxTimesRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -176,7 +177,6 @@
             this.minPlusRadioButton.Name = "minPlusRadioButton";
             this.minPlusRadioButton.Size = new System.Drawing.Size(77, 22);
             this.minPlusRadioButton.TabIndex = 2;
-            this.minPlusRadioButton.TabStop = true;
             this.minPlusRadioButton.Text = "(min, +)";
             this.minPlusRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -188,20 +188,19 @@
             this.minTimesRadioButton.Name = "minTimesRadioButton";
             this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
             this.minTimesRadioButton.TabIndex = 3;
-            this.minTimesRadioButton.TabStop = true;
             this.minTimesRadioButton.Text = "(min, ×)";
             this.minTimesRadioButton.UseVisualStyleBackColor = true;
             // 
-            // richTextBox3
+            // pDbyQRichTextBox
             // 
-            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox3.Location = new System.Drawing.Point(86, 91);
-            this.richTextBox3.Multiline = false;
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.ReadOnly = true;
-            this.richTextBox3.Size = new System.Drawing.Size(269, 32);
-            this.richTextBox3.TabIndex = 11;
-            this.richTextBox3.Text = "";
+            this.pDbyQRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pDbyQRichTextBox.Location = new System.Drawing.Point(86, 91);
+            this.pDbyQRichTextBox.Multiline = false;
+            this.pDbyQRichTextBox.Name = "pDbyQRichTextBox";
+            this.pDbyQRichTextBox.ReadOnly = true;
+            this.pDbyQRichTextBox.Size = new System.Drawing.Size(269, 32);
+            this.pDbyQRichTextBox.TabIndex = 11;
+            this.pDbyQRichTextBox.Text = "";
             // 
             // label4
             // 
@@ -221,17 +220,16 @@
             this.otherRadioButton.Name = "otherRadioButton";
             this.otherRadioButton.Size = new System.Drawing.Size(63, 22);
             this.otherRadioButton.TabIndex = 4;
-            this.otherRadioButton.TabStop = true;
             this.otherRadioButton.Text = "Other";
             this.otherRadioButton.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // kNumericUpDown
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown1.Location = new System.Drawing.Point(86, 183);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 24);
-            this.numericUpDown1.TabIndex = 12;
+            this.kNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.kNumericUpDown.Location = new System.Drawing.Point(86, 183);
+            this.kNumericUpDown.Name = "kNumericUpDown";
+            this.kNumericUpDown.Size = new System.Drawing.Size(120, 24);
+            this.kNumericUpDown.TabIndex = 12;
             // 
             // label5
             // 
@@ -253,13 +251,13 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "x from";
             // 
-            // textBox1
+            // xFromTextBox
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(86, 220);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 24);
-            this.textBox1.TabIndex = 15;
+            this.xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.xFromTextBox.Location = new System.Drawing.Point(86, 220);
+            this.xFromTextBox.Name = "xFromTextBox";
+            this.xFromTextBox.Size = new System.Drawing.Size(100, 24);
+            this.xFromTextBox.TabIndex = 15;
             // 
             // label7
             // 
@@ -271,42 +269,53 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "to";
             // 
-            // textBox2
+            // xToTextBox
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(255, 220);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 24);
-            this.textBox2.TabIndex = 17;
+            this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.xToTextBox.Location = new System.Drawing.Point(255, 220);
+            this.xToTextBox.Name = "xToTextBox";
+            this.xToTextBox.Size = new System.Drawing.Size(100, 24);
+            this.xToTextBox.TabIndex = 17;
+            // 
+            // BuildButton
+            // 
+            this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BuildButton.Location = new System.Drawing.Point(67, 277);
+            this.BuildButton.Name = "BuildButton";
+            this.BuildButton.Size = new System.Drawing.Size(77, 29);
+            this.BuildButton.TabIndex = 18;
+            this.BuildButton.Text = "Build";
+            this.BuildButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(981, 450);
-            this.Controls.Add(this.textBox2);
+            this.ClientSize = new System.Drawing.Size(1145, 540);
+            this.Controls.Add(this.BuildButton);
+            this.Controls.Add(this.xToTextBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.xFromTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.richTextBox3);
+            this.Controls.Add(this.kNumericUpDown);
+            this.Controls.Add(this.pDbyQRichTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.chart);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.richTextBox2);
-            this.Controls.Add(this.richTextBox4);
+            this.Controls.Add(this.fRichTextBox);
+            this.Controls.Add(this.qRichTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.pRichTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Tropical Palm";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,27 +323,28 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox pRichTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox qRichTextBox;
+        private System.Windows.Forms.RichTextBox fRichTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton otherRadioButton;
         private System.Windows.Forms.RadioButton minTimesRadioButton;
         private System.Windows.Forms.RadioButton minPlusRadioButton;
         private System.Windows.Forms.RadioButton maxTimesRadioButton;
         private System.Windows.Forms.RadioButton maxPlusRadioButton;
-        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.RichTextBox pDbyQRichTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown kNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox xFromTextBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox xToTextBox;
+        private System.Windows.Forms.Button BuildButton;
     }
 }
 
