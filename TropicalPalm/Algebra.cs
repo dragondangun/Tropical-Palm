@@ -9,7 +9,7 @@ namespace TropicalPalm {
         public Algebra(binaryOperation plus, binaryOperation multiply, binaryOperation pow) {
             this.plus = plus;
             this.multiply = multiply;
-            this.pow = pow;
+            this.pow = pow; 
         }
 
         public Algebra() {
