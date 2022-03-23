@@ -35,13 +35,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maxPlusRadioButton = new System.Windows.Forms.RadioButton();
-            this.maxTimesRadioButton = new System.Windows.Forms.RadioButton();
-            this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
+            this.otherRadioButton = new System.Windows.Forms.RadioButton();
             this.minTimesRadioButton = new System.Windows.Forms.RadioButton();
+            this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
+            this.maxTimesRadioButton = new System.Windows.Forms.RadioButton();
+            this.maxPlusRadioButton = new System.Windows.Forms.RadioButton();
             this.pDbyQRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.otherRadioButton = new System.Windows.Forms.RadioButton();
             this.kNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -145,29 +145,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select algebra";
             // 
-            // maxPlusRadioButton
+            // otherRadioButton
             // 
-            this.maxPlusRadioButton.AutoSize = true;
-            this.maxPlusRadioButton.Checked = true;
-            this.maxPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maxPlusRadioButton.Location = new System.Drawing.Point(6, 29);
-            this.maxPlusRadioButton.Name = "maxPlusRadioButton";
-            this.maxPlusRadioButton.Size = new System.Drawing.Size(81, 22);
-            this.maxPlusRadioButton.TabIndex = 0;
-            this.maxPlusRadioButton.TabStop = true;
-            this.maxPlusRadioButton.Text = "(max, +)";
-            this.maxPlusRadioButton.UseVisualStyleBackColor = true;
+            this.otherRadioButton.AutoSize = true;
+            this.otherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.otherRadioButton.Location = new System.Drawing.Point(132, 106);
+            this.otherRadioButton.Name = "otherRadioButton";
+            this.otherRadioButton.Size = new System.Drawing.Size(63, 22);
+            this.otherRadioButton.TabIndex = 4;
+            this.otherRadioButton.Text = "Other";
+            this.otherRadioButton.UseVisualStyleBackColor = true;
             // 
-            // maxTimesRadioButton
+            // minTimesRadioButton
             // 
-            this.maxTimesRadioButton.AutoSize = true;
-            this.maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maxTimesRadioButton.Location = new System.Drawing.Point(6, 74);
-            this.maxTimesRadioButton.Name = "maxTimesRadioButton";
-            this.maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
-            this.maxTimesRadioButton.TabIndex = 1;
-            this.maxTimesRadioButton.Text = "(max, ×)";
-            this.maxTimesRadioButton.UseVisualStyleBackColor = true;
+            this.minTimesRadioButton.AutoSize = true;
+            this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.minTimesRadioButton.Location = new System.Drawing.Point(257, 74);
+            this.minTimesRadioButton.Name = "minTimesRadioButton";
+            this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
+            this.minTimesRadioButton.TabIndex = 3;
+            this.minTimesRadioButton.Text = "(min, ×)";
+            this.minTimesRadioButton.UseVisualStyleBackColor = true;
             // 
             // minPlusRadioButton
             // 
@@ -180,16 +178,29 @@
             this.minPlusRadioButton.Text = "(min, +)";
             this.minPlusRadioButton.UseVisualStyleBackColor = true;
             // 
-            // minTimesRadioButton
+            // maxTimesRadioButton
             // 
-            this.minTimesRadioButton.AutoSize = true;
-            this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.minTimesRadioButton.Location = new System.Drawing.Point(257, 74);
-            this.minTimesRadioButton.Name = "minTimesRadioButton";
-            this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
-            this.minTimesRadioButton.TabIndex = 3;
-            this.minTimesRadioButton.Text = "(min, ×)";
-            this.minTimesRadioButton.UseVisualStyleBackColor = true;
+            this.maxTimesRadioButton.AutoSize = true;
+            this.maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maxTimesRadioButton.Location = new System.Drawing.Point(6, 74);
+            this.maxTimesRadioButton.Name = "maxTimesRadioButton";
+            this.maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
+            this.maxTimesRadioButton.TabIndex = 1;
+            this.maxTimesRadioButton.Text = "(max, ×)";
+            this.maxTimesRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // maxPlusRadioButton
+            // 
+            this.maxPlusRadioButton.AutoSize = true;
+            this.maxPlusRadioButton.Checked = true;
+            this.maxPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maxPlusRadioButton.Location = new System.Drawing.Point(6, 29);
+            this.maxPlusRadioButton.Name = "maxPlusRadioButton";
+            this.maxPlusRadioButton.Size = new System.Drawing.Size(81, 22);
+            this.maxPlusRadioButton.TabIndex = 0;
+            this.maxPlusRadioButton.TabStop = true;
+            this.maxPlusRadioButton.Text = "(max, +)";
+            this.maxPlusRadioButton.UseVisualStyleBackColor = true;
             // 
             // pDbyQRichTextBox
             // 
@@ -211,17 +222,6 @@
             this.label4.Size = new System.Drawing.Size(68, 18);
             this.label4.TabIndex = 10;
             this.label4.Text = "P(x)/Q(x)";
-            // 
-            // otherRadioButton
-            // 
-            this.otherRadioButton.AutoSize = true;
-            this.otherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.otherRadioButton.Location = new System.Drawing.Point(132, 106);
-            this.otherRadioButton.Name = "otherRadioButton";
-            this.otherRadioButton.Size = new System.Drawing.Size(63, 22);
-            this.otherRadioButton.TabIndex = 4;
-            this.otherRadioButton.Text = "Other";
-            this.otherRadioButton.UseVisualStyleBackColor = true;
             // 
             // kNumericUpDown
             // 
@@ -258,6 +258,7 @@
             this.xFromTextBox.Name = "xFromTextBox";
             this.xFromTextBox.Size = new System.Drawing.Size(100, 24);
             this.xFromTextBox.TabIndex = 15;
+            this.xFromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // label7
             // 
@@ -276,6 +277,7 @@
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(100, 24);
             this.xToTextBox.TabIndex = 17;
+            this.xToTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // BuildButton
             // 
