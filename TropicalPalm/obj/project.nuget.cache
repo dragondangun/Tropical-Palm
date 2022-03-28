@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "1fadtlX8KY/hZ28Kt2yII3tfZEjjlMshIevHBpi9tZSEaDi4mKl4k9UU6d+nAQSe48pK2o0BMzG5DrywRYz/Rw==",
+  "dgSpecHash": "e11I8v3gYGfO/bb/7fjVmyq8FSdwR5BWSL3IUMYy572Sz39L8GRMTRrVWqq42LCofN3e18ItNk7d+lbRpRCB8Q==",
   "success": true,
   "projectFilePath": "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\dan\\.nuget\\packages\\angourimath\\1.3.0\\angourimath.1.3.0.nupkg.sha512",
+    "C:\\Users\\dan\\.nuget\\packages\\antlr4.runtime.standard\\4.9.2\\antlr4.runtime.standard.4.9.2.nupkg.sha512",
+    "C:\\Users\\dan\\.nuget\\packages\\generictensor\\1.0.4\\generictensor.1.0.4.nupkg.sha512",
+    "C:\\Users\\dan\\.nuget\\packages\\honksharp\\1.0.1\\honksharp.1.0.1.nupkg.sha512",
+    "C:\\Users\\dan\\.nuget\\packages\\petero.numbers\\1.8.0\\petero.numbers.1.8.0.nupkg.sha512"
+  ],
   "logs": []
 }

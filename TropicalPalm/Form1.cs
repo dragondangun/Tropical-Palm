@@ -10,8 +10,6 @@ using System.Windows.Forms;
 
 namespace TropicalPalm {
 
-    delegate double binaryOperation(double x, double y);
-
     public partial class Form1:Form {
         public Form1() {
             InitializeComponent();
