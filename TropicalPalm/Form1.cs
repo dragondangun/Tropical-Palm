@@ -7,10 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AngouriMath.Extensions;
+using static AngouriMath.MathS;
+using AngouriMath;
+using static AngouriMath.Entity.Number;
+using static AngouriMath.Entity;
 
-namespace TropicalPalm {
+    namespace TropicalPalm {
 
     public partial class Form1:Form {
+
+        double MaxPlus(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
+            Powf(var a, var b) => MaxPlus(a) * MaxPlus(b),
+            Minusf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
+            Mulf(var a, var b) => MaxPlus(a) + MaxPlus(b),
+            Divf(var a, var b) => MaxPlus(a) - MaxPlus(b),
+        };
+
+        double MinPlus(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
+            Powf(var a, var b) => MinPlus(a) * MinPlus(b),
+            Minusf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
+            Mulf(var a, var b) => MinPlus(a) + MinPlus(b),
+            Divf(var a, var b) => MinPlus(a) - MinPlus(b),
+        };
+
         public Form1() {
             InitializeComponent();
         }
