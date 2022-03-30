@@ -137,6 +137,7 @@
             // otherRadioButton
             // 
             this.otherRadioButton.AutoSize = true;
+            this.otherRadioButton.Enabled = false;
             this.otherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.otherRadioButton.Location = new System.Drawing.Point(154, 122);
             this.otherRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -149,6 +150,7 @@
             // minTimesRadioButton
             // 
             this.minTimesRadioButton.AutoSize = true;
+            this.minTimesRadioButton.Enabled = false;
             this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.minTimesRadioButton.Location = new System.Drawing.Point(300, 85);
             this.minTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -169,10 +171,12 @@
             this.minPlusRadioButton.TabIndex = 2;
             this.minPlusRadioButton.Text = "(min, +)";
             this.minPlusRadioButton.UseVisualStyleBackColor = true;
+            this.minPlusRadioButton.CheckedChanged += new System.EventHandler(this.minPlusRadioButton_CheckedChanged);
             // 
             // maxTimesRadioButton
             // 
             this.maxTimesRadioButton.AutoSize = true;
+            this.maxTimesRadioButton.Enabled = false;
             this.maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.maxTimesRadioButton.Location = new System.Drawing.Point(7, 85);
             this.maxTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -195,6 +199,7 @@
             this.maxPlusRadioButton.TabStop = true;
             this.maxPlusRadioButton.Text = "(max, +)";
             this.maxPlusRadioButton.UseVisualStyleBackColor = true;
+            this.maxPlusRadioButton.CheckedChanged += new System.EventHandler(this.maxPlusRadioButton_CheckedChanged);
             // 
             // pDbyQRichTextBox
             // 
@@ -329,6 +334,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Tropical Palm";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).EndInit();

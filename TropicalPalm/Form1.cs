@@ -37,6 +37,9 @@ using static AngouriMath.Entity;
             Divf(var a, var b) => MinPlus(a) - MinPlus(b),
         };
 
+        delegate double Algebra(Entity expr);
+        Algebra currAlgebra;
+
         public Form1() {
             InitializeComponent();
         }
@@ -104,9 +107,9 @@ using static AngouriMath.Entity;
             if(F.Length > 0) {
                 for(int i = 0; from < to; from += step, i++) {
                     var x = Var("x");
-                    pY[i] = MaxPlus(P.Substitute(x, from));
-                    qY[i] = MaxPlus(Q.Substitute(x, from));
-                    pbyqY[i] = MaxPlus(pbyq.Substitute(x, from));
+                    pY[i] = currAlgebra(P.Substitute(x, from));
+                    qY[i] = currAlgebra(Q.Substitute(x, from));
+                    pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
                     fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
                     xArr[i] = from;
                 }
@@ -114,9 +117,9 @@ using static AngouriMath.Entity;
             else {
                 for(int i = 0; from < to; from += step, i++) {
                     var x = Var("x");
-                    pY[i] = MaxPlus(P.Substitute(x, from));
-                    qY[i] = MaxPlus(Q.Substitute(x, from));
-                    pbyqY[i] = MaxPlus(pbyq.Substitute(x, from));
+                    pY[i] = currAlgebra(P.Substitute(x, from));
+                    qY[i] = currAlgebra(Q.Substitute(x, from));
+                    pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
                     xArr[i] = from;
                 }
             }
@@ -130,6 +133,18 @@ using static AngouriMath.Entity;
             
             plot.Plot.Legend();
             plot.Refresh();
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            currAlgebra = MaxPlus;
+        }
+
+        private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MinPlus;
+        }
+
+        private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MaxPlus;
         }
     }
 }
