@@ -63,5 +63,73 @@ using static AngouriMath.Entity;
                 e.Handled = true;
             }
         }
+
+        private void BuildButton_Click(object sender, EventArgs e) {
+            if(pRichTextBox.Text.Length == 0)
+                return;
+
+            double to, from;
+            if(xFromTextBox.Text.Length != 0)
+                from = Convert.ToDouble(xFromTextBox.Text);
+            else
+                return;
+
+            if(xToTextBox.Text.Length != 0)
+                to = Convert.ToDouble(xToTextBox.Text);
+            else
+                return;
+
+            if(to < from)
+                return;
+
+            plot.Plot.Clear();
+
+            double step = 0.1;
+
+            var P = pRichTextBox.Text;
+            var Q = qRichTextBox.Text;
+            var F = fRichTextBox.Text;
+            var pbyq = ("(" + P + ")-(" + Q + ")").Simplify();
+
+            pDbyQRichTextBox.Text = pbyq.Stringize();
+
+            int range = (int) (Math.Abs(to - from) / step) + 1;
+
+            double[] pY = new double[range];
+            double[] qY = new double[range];
+            double[] pbyqY = new double[range];
+            double[] fY = new double[range];
+            double[] xArr = new double[range];
+
+            if(F.Length > 0) {
+                for(int i = 0; from < to; from += step, i++) {
+                    var x = Var("x");
+                    pY[i] = MaxPlus(P.Substitute(x, from));
+                    qY[i] = MaxPlus(Q.Substitute(x, from));
+                    pbyqY[i] = MaxPlus(pbyq.Substitute(x, from));
+                    fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
+                    xArr[i] = from;
+                }
+            }
+            else {
+                for(int i = 0; from < to; from += step, i++) {
+                    var x = Var("x");
+                    pY[i] = MaxPlus(P.Substitute(x, from));
+                    qY[i] = MaxPlus(Q.Substitute(x, from));
+                    pbyqY[i] = MaxPlus(pbyq.Substitute(x, from));
+                    xArr[i] = from;
+                }
+            }
+            
+
+            plot.Plot.AddScatter(xArr, pY, label : "P");
+            plot.Plot.AddScatter(xArr, qY, label : "Q");
+            plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
+            if(F.Length>0)
+                plot.Plot.AddScatter(xArr, fY, label: "f");
+            
+            plot.Plot.Legend();
+            plot.Refresh();
+        }
     }
 }

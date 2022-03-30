@@ -45,6 +45,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.xToTextBox = new System.Windows.Forms.TextBox();
             this.BuildButton = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.plot = new ScottPlot.FormsPlot();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -256,6 +258,7 @@
             this.xFromTextBox.Name = "xFromTextBox";
             this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
             this.xFromTextBox.TabIndex = 15;
+            this.xFromTextBox.Text = "-10";
             this.xFromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // label7
@@ -277,6 +280,7 @@
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
             this.xToTextBox.TabIndex = 17;
+            this.xToTextBox.Text = "10";
             this.xToTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // BuildButton
@@ -289,12 +293,22 @@
             this.BuildButton.TabIndex = 18;
             this.BuildButton.Text = "Build";
             this.BuildButton.UseVisualStyleBackColor = true;
+            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
+            // 
+            // plot
+            // 
+            this.plot.Location = new System.Drawing.Point(422, 12);
+            this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.plot.Name = "plot";
+            this.plot.Size = new System.Drawing.Size(901, 514);
+            this.plot.TabIndex = 19;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
+            this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.xToTextBox);
             this.Controls.Add(this.label7);
@@ -346,6 +360,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox xToTextBox;
         private System.Windows.Forms.Button BuildButton;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private ScottPlot.FormsPlot plot;
     }
 }
 

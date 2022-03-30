@@ -1,14 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "e11I8v3gYGfO/bb/7fjVmyq8FSdwR5BWSL3IUMYy572Sz39L8GRMTRrVWqq42LCofN3e18ItNk7d+lbRpRCB8Q==",
+  "dgSpecHash": "BXmzkGZoJXPQ3mesHGAUDWnWXcqt6yA1hVLU+jNL73MI/RKlgO0TaohmO29SkaDu0ESXPlT0aF12qo18kySE5A==",
   "success": true,
-  "projectFilePath": "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
+  "projectFilePath": "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\dan\\.nuget\\packages\\angourimath\\1.3.0\\angourimath.1.3.0.nupkg.sha512",
-    "C:\\Users\\dan\\.nuget\\packages\\antlr4.runtime.standard\\4.9.2\\antlr4.runtime.standard.4.9.2.nupkg.sha512",
-    "C:\\Users\\dan\\.nuget\\packages\\generictensor\\1.0.4\\generictensor.1.0.4.nupkg.sha512",
-    "C:\\Users\\dan\\.nuget\\packages\\honksharp\\1.0.1\\honksharp.1.0.1.nupkg.sha512",
-    "C:\\Users\\dan\\.nuget\\packages\\petero.numbers\\1.8.0\\petero.numbers.1.8.0.nupkg.sha512"
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\angourimath\\1.3.0\\angourimath.1.3.0.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\antlr4.runtime.standard\\4.9.2\\antlr4.runtime.standard.4.9.2.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\generictensor\\1.0.4\\generictensor.1.0.4.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\honksharp\\1.0.1\\honksharp.1.0.1.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\microsoft.win32.systemevents\\4.6.0\\microsoft.win32.systemevents.4.6.0.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\petero.numbers\\1.8.0\\petero.numbers.1.8.0.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\scottplot\\4.1.37\\scottplot.4.1.37.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\scottplot.winforms\\4.1.37\\scottplot.winforms.4.1.37.nupkg.sha512",
+    "C:\\Users\\ShkuratD\\.nuget\\packages\\system.drawing.common\\4.6.1\\system.drawing.common.4.6.1.nupkg.sha512"
   ],
   "logs": []
 }

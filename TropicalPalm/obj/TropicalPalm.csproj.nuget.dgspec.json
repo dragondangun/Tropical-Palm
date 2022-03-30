@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj": {}
+    "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj": {}
   },
   "projects": {
-    "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj": {
+    "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
+        "projectUniqueName": "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
         "projectName": "TropicalPalm",
-        "projectPath": "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
-        "packagesPath": "C:\\Users\\dan\\.nuget\\packages\\",
-        "outputPath": "E:\\BackUp\\Docs\\My\\Study\\University\\SPbU\\TropicalPalm\\TropicalPalm\\obj\\",
+        "projectPath": "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\TropicalPalm.csproj",
+        "packagesPath": "C:\\Users\\ShkuratD\\.nuget\\packages\\",
+        "outputPath": "E:\\Dan\\SPbU\\TropicalPalm\\TropicalPalm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ShkuratD\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +47,10 @@
             "AngouriMath": {
               "target": "Package",
               "version": "[1.3.0, )"
+            },
+            "ScottPlot.WinForms": {
+              "target": "Package",
+              "version": "[4.1.37, )"
             }
           },
           "imports": [
@@ -66,7 +71,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
