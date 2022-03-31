@@ -68,8 +68,10 @@ using static AngouriMath.Entity;
         }
 
         private void BuildButton_Click(object sender, EventArgs e) {
-            if(pRichTextBox.Text.Length == 0)
+            if(pRichTextBox.Text.Length == 0 || qRichTextBox.Text.Length == 0) {
+                MessageBox.Show("P(x) and Q(x) must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
 
             double to, from;
             if(xFromTextBox.Text.Length != 0)
