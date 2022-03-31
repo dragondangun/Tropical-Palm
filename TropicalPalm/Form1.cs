@@ -146,5 +146,11 @@ using static AngouriMath.Entity;
         private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             currAlgebra = MaxPlus;
         }
+
+        private void pRichTextBox_MouseHover(object sender, EventArgs e) {
+            //ToolTip
+            //toolTip1.SetToolTip(this, "Enter polynomial. Example:\n3*x^3+2x2+x+1"); 
+            //toolTip1.AutoPopDelay = 1000;
+        }
     }
 }

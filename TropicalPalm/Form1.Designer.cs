@@ -23,6 +23,7 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,8 +46,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.xToTextBox = new System.Windows.Forms.TextBox();
             this.BuildButton = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.plot = new ScottPlot.FormsPlot();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +62,9 @@
             this.pRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.pRichTextBox.TabIndex = 0;
             this.pRichTextBox.Text = "";
+            this.toolTip.SetToolTip(this.pRichTextBox, "Insert polynomial. Example: \r\n3*x^3+2x2-x+1+x^(-1)\r\nNB: x^(2/3) will be read as x" +
+        "^(-1) in (max/min, +)-algebra\r\nNB: This field is obligatory to fill in");
+            this.pRichTextBox.MouseHover += new System.EventHandler(this.pRichTextBox_MouseHover);
             // 
             // label1
             // 
@@ -94,6 +98,8 @@
             this.qRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.qRichTextBox.TabIndex = 5;
             this.qRichTextBox.Text = "";
+            this.toolTip.SetToolTip(this.qRichTextBox, "Insert polynomial. Example: \r\n3*x^3+2x2-x+1+x^(-1)\r\nNB: x^(2/3) will be read as x" +
+        "^(-1) in (max/min, +)-algebra\r\nNB: This field is obligatory to fill in");
             // 
             // fRichTextBox
             // 
@@ -105,6 +111,7 @@
             this.fRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.fRichTextBox.TabIndex = 6;
             this.fRichTextBox.Text = "";
+            this.toolTip.SetToolTip(this.fRichTextBox, "Insert function. Examples:\r\nx^2+x+3\r\n3x2-7\r\nsin(x)\r\ne^x+1");
             // 
             // label3
             // 
@@ -297,6 +304,7 @@
             this.BuildButton.Size = new System.Drawing.Size(90, 33);
             this.BuildButton.TabIndex = 18;
             this.BuildButton.Text = "Build";
+            this.toolTip.SetToolTip(this.BuildButton, "Click to build plot\r\nNB: P(x) and Q(x) are obligatory to be filled in");
             this.BuildButton.UseVisualStyleBackColor = true;
             this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
             // 
@@ -366,8 +374,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox xToTextBox;
         private System.Windows.Forms.Button BuildButton;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private ScottPlot.FormsPlot plot;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 
