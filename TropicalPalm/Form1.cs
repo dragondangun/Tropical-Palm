@@ -12,8 +12,9 @@ using static AngouriMath.MathS;
 using AngouriMath;
 using static AngouriMath.Entity.Number;
 using static AngouriMath.Entity;
+using System.Text.RegularExpressions;
 
-    namespace TropicalPalm {
+namespace TropicalPalm {
 
     public partial class Form1:Form {
         double MaxPlus(Entity expr)
@@ -67,40 +68,37 @@ using static AngouriMath.Entity;
         }
 
         private void BuildButton_Click(object sender, EventArgs e) {
-            if(pRichTextBox.Text.Length == 0 || qRichTextBox.Text.Length == 0) {
-                MessageBox.Show("P(x) and Q(x) must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            int errorCode = checkInput();
+
+            if(errorCode != -1) {
+                showError(errorCode);
                 return;
             }
 
             double to, from;
-            if(xFromTextBox.Text.Length != 0)
-                from = Convert.ToDouble(xFromTextBox.Text);
-            else
-                return;
-
-            if(xToTextBox.Text.Length != 0)
-                to = Convert.ToDouble(xToTextBox.Text);
-            else
-                return;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
 
             if(to < from) {
                 MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            var P = pRichTextBox.Text;
+            var Q = qRichTextBox.Text;
+            var F = fRichTextBox.Text;
+
             plot.Plot.Clear();
 
             double step = 0.1;
 
-            var P = pRichTextBox.Text;
-            var Q = qRichTextBox.Text;
-            var F = fRichTextBox.Text;
             var pbyq = ("(" + P + ")-(" + Q + ")").Simplify();
 
             pDbyQRichTextBox.Text = pbyq.Stringize();
 
             int range = (int) (Math.Abs(to - from) / step)+1;
-
+            
+            var x = Var("x");
             double[] pY = new double[range];
             double[] qY = new double[range];
             double[] pbyqY = new double[range];
@@ -109,7 +107,6 @@ using static AngouriMath.Entity;
 
             if(F.Length > 0) {
                 for(int i = 0; from < to; from += step, i++) {
-                    var x = Var("x");
                     pY[i] = currAlgebra(P.Substitute(x, from));
                     qY[i] = currAlgebra(Q.Substitute(x, from));
                     pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
@@ -124,7 +121,6 @@ using static AngouriMath.Entity;
             }
             else {
                 for(int i = 0; from < to; from += step, i++) {
-                    var x = Var("x");
                     pY[i] = currAlgebra(P.Substitute(x, from));
                     qY[i] = currAlgebra(Q.Substitute(x, from));
                     pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
@@ -167,5 +163,67 @@ using static AngouriMath.Entity;
             //toolTip1.AutoPopDelay = 1000;
         }
 
+        int checkInput() {
+            if(pRichTextBox.Text.Length == 0) 
+                return 10;
+            if(qRichTextBox.Text.Length == 0) 
+                return 20;
+
+            if(xFromTextBox.Text.Length == 0)
+                return 40;
+            if(xToTextBox.Text.Length == 0)
+                return 50;
+
+
+            string pattern = "[a-wyzA-WYZ]";
+            var m = Regex.Match(pRichTextBox.Text, pattern);
+            if(m.Success) 
+                return 1;
+
+            m = Regex.Match(qRichTextBox.Text, pattern);
+            if(m.Success) 
+                return 2;
+
+            var x = Var("x");
+            int r = 1;
+            try {
+                pRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                r++;
+                qRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                if(fRichTextBox.Text.Length != 0) {
+                    r++;
+                    fRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                }
+            }
+            catch {
+                return r;
+            }
+
+            return -1;
+        }
+
+        void showError(int errorCode) {
+            switch(errorCode) {
+                case 1:
+                    MessageBox.Show("There's an error in P!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case 2:
+                    MessageBox.Show("There's an error in Q!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case 3:
+                    MessageBox.Show("There's an error in F!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+
+                case 10: case 20:
+                    MessageBox.Show("P(x) and Q(x) must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case 40:
+                    MessageBox.Show("From must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case 50:
+                    MessageBox.Show("To must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+        }
     }
 }
