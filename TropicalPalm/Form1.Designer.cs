@@ -315,12 +315,11 @@
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(901, 514);
             this.plot.TabIndex = 19;
-            // 
-            // Form1
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
+
             this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.xToTextBox);
@@ -351,7 +350,7 @@
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.RichTextBox pRichTextBox;
         private System.Windows.Forms.Label label1;

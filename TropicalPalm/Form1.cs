@@ -16,7 +16,6 @@ using static AngouriMath.Entity;
     namespace TropicalPalm {
 
     public partial class Form1:Form {
-
         double MaxPlus(Entity expr)
         => expr switch {
             Number.Real r => (double)r,
@@ -98,7 +97,7 @@ using static AngouriMath.Entity;
 
             pDbyQRichTextBox.Text = pbyq.Stringize();
 
-            int range = (int) (Math.Abs(to - from) / step) + 1;
+            int range = (int) (Math.Abs(to - from) / step)+1;
 
             double[] pY = new double[range];
             double[] qY = new double[range];
@@ -115,6 +114,11 @@ using static AngouriMath.Entity;
                     fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
                     xArr[i] = from;
                 }
+
+                if(xArr[xArr.Length - 1] == 0) {
+                    fY = fY.SkipLast(1).ToArray();
+                    xArr = xArr.SkipLast(1).ToArray();
+                }
             }
             else {
                 for(int i = 0; from < to; from += step, i++) {
@@ -125,7 +129,13 @@ using static AngouriMath.Entity;
                     xArr[i] = from;
                 }
             }
-            
+
+            if(xArr[xArr.Length - 1] == 0) {
+                pY = pY.SkipLast(1).ToArray();
+                qY = qY.SkipLast(1).ToArray();
+                xArr = xArr.SkipLast(1).ToArray();
+                pbyqY = pbyqY.SkipLast(1).ToArray();
+            }
 
             plot.Plot.AddScatter(xArr, pY, label : "P");
             plot.Plot.AddScatter(xArr, qY, label : "Q");
@@ -154,5 +164,6 @@ using static AngouriMath.Entity;
             //toolTip1.SetToolTip(this, "Enter polynomial. Example:\n3*x^3+2x2+x+1"); 
             //toolTip1.AutoPopDelay = 1000;
         }
+
     }
 }
