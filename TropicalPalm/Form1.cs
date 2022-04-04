@@ -83,8 +83,10 @@ using static AngouriMath.Entity;
             else
                 return;
 
-            if(to < from)
+            if(to < from) {
+                MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
 
             plot.Plot.Clear();
 
