@@ -114,7 +114,7 @@ namespace TropicalPalm {
                     xArr[i] = from;
                 }
 
-                if(xArr[xArr.Length - 1] == 0 && from != 0) {
+                if(xArr[xArr.Length - 1] == 0 && to != 0) {
                     fY = fY.SkipLast(1).ToArray();
                 }
             }
@@ -127,7 +127,7 @@ namespace TropicalPalm {
                 }
             }
 
-            if(xArr[xArr.Length - 1] == 0 && from != 0) {
+            if(xArr[xArr.Length - 1] == 0 && to != 0) {
                 pY = pY.SkipLast(1).ToArray();
                 qY = qY.SkipLast(1).ToArray();
                 xArr = xArr.SkipLast(1).ToArray();
