@@ -20,9 +20,9 @@ namespace TropicalPalm {
         double MaxPlus(Entity expr)
         => expr switch {
             Number.Real r => (double)r,
+            Minusf(var a, var b) => /*MaxPlus(a+MaxPlus(-b))*/(MaxPlus(a) > MaxPlus(-MaxPlus(b))) ? MaxPlus(a) : MaxPlus(-MaxPlus(b)),
             Sumf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
             Powf(var a, var b) => MaxPlus(a) * MaxPlus(b),
-            Minusf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
             Mulf(var a, var b) => MaxPlus(a) + MaxPlus(b),
             Divf(var a, var b) => MaxPlus(a) - MaxPlus(b),
         };
