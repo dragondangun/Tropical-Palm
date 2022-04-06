@@ -92,9 +92,9 @@ namespace TropicalPalm {
 
             double step = 0.1;
 
-            var pbyq = ("(" + P + ")-(" + Q + ")").Simplify();
+            pDbyQRichTextBox.Text = $"({P})-({Q})".Simplify().Stringize();
 
-            pDbyQRichTextBox.Text = pbyq.Stringize();
+            var pbyq = $"({P})/({Q})";
 
             int range = (int) (Math.Abs(to - from) / step)+1;
             
