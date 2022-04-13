@@ -90,14 +90,15 @@ namespace TropicalPalm {
 
             plot.Plot.Clear();
 
-            double step = 0.1;
+            double step = 0.01;
 
             pDbyQRichTextBox.Text = $"({P})-({Q})".Simplify().Stringize();
 
             var pbyq = $"({P})/({Q})";
 
-            int range = (int) (Math.Abs(to - from) / step)+1;
-            
+            int range = (int) Math.Ceiling(Math.Abs(to - from) / step)+1;
+            to += step/2;
+
             var x = Var("x");
             double[] pY = new double[range];
             double[] qY = new double[range];
@@ -106,16 +107,12 @@ namespace TropicalPalm {
             double[] xArr = new double[range];
 
             if(F.Length > 0) {
-                for(int i = 0; from < to; from += step, i++) {
+                for(int i = 0; from < to ; from += step, i++) {
                     pY[i] = currAlgebra(P.Substitute(x, from));
                     qY[i] = currAlgebra(Q.Substitute(x, from));
                     pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
                     fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
                     xArr[i] = from;
-                }
-
-                if(xArr[xArr.Length - 1] == 0 && to != 0) {
-                    fY = fY.SkipLast(1).ToArray();
                 }
             }
             else {
@@ -125,13 +122,6 @@ namespace TropicalPalm {
                     pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
                     xArr[i] = from;
                 }
-            }
-
-            if(xArr[xArr.Length - 1] == 0 && to != 0) {
-                pY = pY.SkipLast(1).ToArray();
-                qY = qY.SkipLast(1).ToArray();
-                xArr = xArr.SkipLast(1).ToArray();
-                pbyqY = pbyqY.SkipLast(1).ToArray();
             }
 
             plot.Plot.AddScatter(xArr, pY, label : "P");
