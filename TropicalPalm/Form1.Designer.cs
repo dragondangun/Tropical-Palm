@@ -62,8 +62,7 @@
             this.pRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.pRichTextBox.TabIndex = 0;
             this.pRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.pRichTextBox, "Insert polynomial. Example: \r\n3*x^3+2x2-x+1+x^(-1)\r\nNB: x^(2/3) will be read as x" +
-        "^(-1) in (max/min, +)-algebra\r\nNB: This field is obligatory to fill in");
+            this.toolTip.SetToolTip(this.pRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)");
             this.pRichTextBox.MouseHover += new System.EventHandler(this.pRichTextBox_MouseHover);
             // 
             // label1
@@ -98,8 +97,7 @@
             this.qRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.qRichTextBox.TabIndex = 5;
             this.qRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.qRichTextBox, "Insert polynomial. Example: \r\n3*x^3+2x2-x+1+x^(-1)\r\nNB: x^(2/3) will be read as x" +
-        "^(-1) in (max/min, +)-algebra\r\nNB: This field is obligatory to fill in");
+            this.toolTip.SetToolTip(this.qRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)\r\n");
             // 
             // fRichTextBox
             // 
@@ -111,7 +109,7 @@
             this.fRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.fRichTextBox.TabIndex = 6;
             this.fRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.fRichTextBox, "Insert function. Examples:\r\nx^2+x+3\r\n3x2-7\r\nsin(x)\r\ne^x+1");
+            this.toolTip.SetToolTip(this.fRichTextBox, "Example:\r\nx^2+2*x+3*e+sin(x)");
             // 
             // label3
             // 
@@ -219,6 +217,7 @@
             this.pDbyQRichTextBox.Size = new System.Drawing.Size(313, 36);
             this.pDbyQRichTextBox.TabIndex = 11;
             this.pDbyQRichTextBox.Text = "";
+            this.pDbyQRichTextBox.Visible = false;
             // 
             // label4
             // 
@@ -230,6 +229,7 @@
             this.label4.Size = new System.Drawing.Size(68, 18);
             this.label4.TabIndex = 10;
             this.label4.Text = "P(x)/Q(x)";
+            this.label4.Visible = false;
             // 
             // kNumericUpDown
             // 
@@ -239,6 +239,7 @@
             this.kNumericUpDown.Name = "kNumericUpDown";
             this.kNumericUpDown.Size = new System.Drawing.Size(140, 24);
             this.kNumericUpDown.TabIndex = 12;
+            this.kNumericUpDown.Visible = false;
             // 
             // label5
             // 
@@ -250,6 +251,7 @@
             this.label5.Size = new System.Drawing.Size(16, 18);
             this.label5.TabIndex = 13;
             this.label5.Text = "k";
+            this.label5.Visible = false;
             // 
             // label6
             // 
@@ -315,11 +317,18 @@
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(901, 514);
             this.plot.TabIndex = 19;
-
+            // 
+            // toolTip
+            // 
+            this.toolTip.AutoPopDelay = 5000;
+            this.toolTip.InitialDelay = 500;
+            this.toolTip.ReshowDelay = 100;
+            // 
+            // Form1
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
-
             this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.xToTextBox);
