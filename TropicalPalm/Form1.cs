@@ -17,6 +17,9 @@ using System.Text.RegularExpressions;
 namespace TropicalPalm {
 
     public partial class Form1:Form {
+        bool inftyCheck;
+        double step = 0.1;
+
         double MaxPlus(Entity expr)
         => expr switch {
             Number.Real r => (double)r,
@@ -35,6 +38,24 @@ namespace TropicalPalm {
             Minusf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
             Mulf(var a, var b) => MinPlus(a) + MinPlus(b),
             Divf(var a, var b) => MinPlus(a) - MinPlus(b),
+        };
+
+        double MaxTimes(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MaxTimes(a) > MaxTimes(b)) ? MaxTimes(a) : MaxTimes(b),
+            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
+            Mulf(var a, var b) => MaxTimes(a) * MaxTimes(b),
+            Divf(var a, var b) => MaxTimes(a) / MaxTimes(b),
+        };
+
+        double MinTimes(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MinTimes(a) < MinTimes(b)) ? MinTimes(a) : MinTimes(b),
+            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
+            Mulf(var a, var b) => MinTimes(a) * MinTimes(b),
+            Divf(var a, var b) => MinTimes(a) / MinTimes(b),
         };
 
         delegate double Algebra(Entity expr);
@@ -90,8 +111,6 @@ namespace TropicalPalm {
 
             plot.Plot.Clear();
 
-            double step = 0.01;
-
             pDbyQRichTextBox.Text = $"({P})-({Q})".Simplify().Stringize();
 
             var pbyq = $"({P})/({Q})";
@@ -124,6 +143,12 @@ namespace TropicalPalm {
                 }
             }
 
+            if(inftyCheck) {
+                correctInfty(pY);
+                correctInfty(qY);
+                correctInfty(pbyqY);
+            }
+
             plot.Plot.AddScatter(xArr, pY, label : "P");
             plot.Plot.AddScatter(xArr, qY, label : "Q");
             plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
@@ -134,16 +159,45 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
+        private void correctInfty(double[] arr) {
+            for(int i = 0; i < arr.Length; i++) {
+                if(double.IsPositiveInfinity(arr[i])) {
+                    arr[i] = 9000000d;
+                }
+                else if(double.IsNegativeInfinity(arr[i])) {
+                    arr[i] = -9000000d;
+                }
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e) {
             currAlgebra = MaxPlus;
+            inftyCheck = false;
+            step = 0.01;
         }
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             currAlgebra = MinPlus;
+            inftyCheck = false;
+            step = 0.01;
         }
 
         private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             currAlgebra = MaxPlus;
+            inftyCheck = false;
+            step = 0.01;
+        }
+
+        private void maxTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MaxTimes;
+            inftyCheck = true;
+            step = 0.1;
+        }
+
+        private void minTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MinTimes;
+            inftyCheck = true;
+            step = 0.1;
         }
 
         private void pRichTextBox_MouseHover(object sender, EventArgs e) {
@@ -214,5 +268,6 @@ namespace TropicalPalm {
                     return;
             }
         }
+
     }
 }
