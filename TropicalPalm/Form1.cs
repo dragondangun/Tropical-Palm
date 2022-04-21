@@ -22,7 +22,7 @@ namespace TropicalPalm {
             Number.Real r => (double)r,
             Minusf(var a, var b) => /*MaxPlus(a+MaxPlus(-b))*/(MaxPlus(a) > MaxPlus(-MaxPlus(b))) ? MaxPlus(a) : MaxPlus(-MaxPlus(b)),
             Sumf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
-            Powf(var a, var b) => MaxPlus(a) * MaxPlus(b),
+            Powf(var a, var b) => MaxPlus(a) * (double)b.EvalNumerical().RealPart,
             Mulf(var a, var b) => MaxPlus(a) + MaxPlus(b),
             Divf(var a, var b) => MaxPlus(a) - MaxPlus(b),
         };
@@ -31,7 +31,7 @@ namespace TropicalPalm {
         => expr switch {
             Number.Real r => (double)r,
             Sumf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
-            Powf(var a, var b) => MinPlus(a) * MinPlus(b),
+            Powf(var a, var b) => MinPlus(a) * (double)b.EvalNumerical().RealPart,
             Minusf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
             Mulf(var a, var b) => MinPlus(a) + MinPlus(b),
             Divf(var a, var b) => MinPlus(a) - MinPlus(b),
