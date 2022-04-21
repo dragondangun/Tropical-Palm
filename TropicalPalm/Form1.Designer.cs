@@ -48,6 +48,8 @@
             this.BuildButton = new System.Windows.Forms.Button();
             this.plot = new ScottPlot.FormsPlot();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.minDivRadioButton = new System.Windows.Forms.RadioButton();
+            this.maxDivRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -124,6 +126,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.minDivRadioButton);
+            this.groupBox1.Controls.Add(this.maxDivRadioButton);
             this.groupBox1.Controls.Add(this.otherRadioButton);
             this.groupBox1.Controls.Add(this.minTimesRadioButton);
             this.groupBox1.Controls.Add(this.minPlusRadioButton);
@@ -151,19 +155,20 @@
             this.otherRadioButton.TabIndex = 4;
             this.otherRadioButton.Text = "Other";
             this.otherRadioButton.UseVisualStyleBackColor = true;
+            this.otherRadioButton.Visible = false;
             // 
             // minTimesRadioButton
             // 
             this.minTimesRadioButton.AutoSize = true;
-            this.minTimesRadioButton.Enabled = false;
             this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minTimesRadioButton.Location = new System.Drawing.Point(300, 85);
+            this.minTimesRadioButton.Location = new System.Drawing.Point(300, 61);
             this.minTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.minTimesRadioButton.Name = "minTimesRadioButton";
             this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
             this.minTimesRadioButton.TabIndex = 3;
             this.minTimesRadioButton.Text = "(min, ×)";
             this.minTimesRadioButton.UseVisualStyleBackColor = true;
+            this.minTimesRadioButton.CheckedChanged += new System.EventHandler(this.minTimesRadioButton_CheckedChanged);
             // 
             // minPlusRadioButton
             // 
@@ -181,15 +186,15 @@
             // maxTimesRadioButton
             // 
             this.maxTimesRadioButton.AutoSize = true;
-            this.maxTimesRadioButton.Enabled = false;
             this.maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.maxTimesRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.maxTimesRadioButton.Location = new System.Drawing.Point(8, 61);
             this.maxTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.maxTimesRadioButton.Name = "maxTimesRadioButton";
             this.maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
             this.maxTimesRadioButton.TabIndex = 1;
             this.maxTimesRadioButton.Text = "(max, ×)";
             this.maxTimesRadioButton.UseVisualStyleBackColor = true;
+            this.maxTimesRadioButton.CheckedChanged += new System.EventHandler(this.maxTimesRadioButton_CheckedChanged);
             // 
             // maxPlusRadioButton
             // 
@@ -324,6 +329,32 @@
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
+            // minDivRadioButton
+            // 
+            this.minDivRadioButton.AutoSize = true;
+            this.minDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.minDivRadioButton.Location = new System.Drawing.Point(299, 89);
+            this.minDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.minDivRadioButton.Name = "minDivRadioButton";
+            this.minDivRadioButton.Size = new System.Drawing.Size(72, 22);
+            this.minDivRadioButton.TabIndex = 6;
+            this.minDivRadioButton.Text = "(min, /)";
+            this.minDivRadioButton.UseVisualStyleBackColor = true;
+            this.minDivRadioButton.CheckedChanged += new System.EventHandler(this.minDivRadioButton_CheckedChanged);
+            // 
+            // maxDivRadioButton
+            // 
+            this.maxDivRadioButton.AutoSize = true;
+            this.maxDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.maxDivRadioButton.Location = new System.Drawing.Point(7, 89);
+            this.maxDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.maxDivRadioButton.Name = "maxDivRadioButton";
+            this.maxDivRadioButton.Size = new System.Drawing.Size(76, 22);
+            this.maxDivRadioButton.TabIndex = 5;
+            this.maxDivRadioButton.Text = "(max, /)";
+            this.maxDivRadioButton.UseVisualStyleBackColor = true;
+            this.maxDivRadioButton.CheckedChanged += new System.EventHandler(this.maxDivRadioButton_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -384,6 +415,8 @@
         private System.Windows.Forms.Button BuildButton;
         private ScottPlot.FormsPlot plot;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.RadioButton minDivRadioButton;
+        private System.Windows.Forms.RadioButton maxDivRadioButton;
     }
 }
 

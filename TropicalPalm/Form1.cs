@@ -58,6 +58,24 @@ namespace TropicalPalm {
             Divf(var a, var b) => MinTimes(a) / MinTimes(b),
         };
 
+        double MaxDiv(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MaxDiv(a) > MaxDiv(b)) ? MaxDiv(a) : MaxDiv(b),
+            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
+            Mulf(var a, var b) => MaxDiv(a) / MaxDiv(b),
+            Divf(var a, var b) => MaxDiv(a) * MaxDiv(b),
+        };
+
+        double MinDiv(Entity expr)
+        => expr switch {
+            Number.Real r => (double)r,
+            Sumf(var a, var b) => (MinDiv(a) < MinDiv(b)) ? MinDiv(a) : MinDiv(b),
+            Powf(var a, var b) => (double)Pow(MinDiv(a), (double)b.EvalNumerical().RealPart).RealPart,
+            Mulf(var a, var b) => MinDiv(a) / MinDiv(b),
+            Divf(var a, var b) => MinDiv(a) * MinDiv(b),
+        };
+
         delegate double Algebra(Entity expr);
         Algebra currAlgebra;
 
@@ -200,6 +218,18 @@ namespace TropicalPalm {
             step = 0.1;
         }
 
+        private void minDivRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MinDiv;
+            inftyCheck = true;
+            step = 0.1;
+        }
+
+        private void maxDivRadioButton_CheckedChanged(object sender, EventArgs e) {
+            currAlgebra = MaxDiv;
+            inftyCheck = true;
+            step = 0.1;
+        }
+
         private void pRichTextBox_MouseHover(object sender, EventArgs e) {
             //ToolTip
             //toolTip1.SetToolTip(this, "Enter polynomial. Example:\n3*x^3+2x2+x+1"); 
@@ -231,11 +261,17 @@ namespace TropicalPalm {
             int r = 1;
             try {
                 pRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                pRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
+                pRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
                 r++;
                 qRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                qRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
+                qRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
                 if(fRichTextBox.Text.Length != 0) {
                     r++;
                     fRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
+                    fRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
+                    fRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
                 }
             }
             catch {
@@ -268,6 +304,5 @@ namespace TropicalPalm {
                     return;
             }
         }
-
     }
 }
