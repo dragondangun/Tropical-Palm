@@ -114,51 +114,50 @@ namespace TropicalPalm {
                 return;
             }
 
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
-
-            if(to < from) {
-                MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var P = pRichTextBox.Text;
-            var Q = qRichTextBox.Text;
             var F = fRichTextBox.Text;
 
             plot.Plot.Clear();
 
-            pDbyQRichTextBox.Text = $"({P})-({Q})".Simplify().Stringize();
+            fillArrays(out double[] pY, out double[] qY, out double[] pbyqY, out double[] fY, out double[] errY, out double[] xArr);
 
-            var pbyq = $"({P})/({Q})";
+            plot.Plot.AddScatter(xArr, pY, label : "P");
+            plot.Plot.AddScatter(xArr, qY, label : "Q");
+            plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
+            if(F.Length > 0) {
+                plot.Plot.AddScatter(xArr, fY, label: "f");
+                if(errorFuncCheckBox.Checked) {
+                    plot.Plot.AddScatter(xArr, errY, label: "error");
+                }
+            }
+
+            plot.Plot.Legend();
+            plot.Refresh();
+        }
+
+        private void fillArrays(out double[] pY, out double[] qY, out double[] pbyqY, out double[] fY, out double[] errY, out double[] xArr) {
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
 
             int range = (int) Math.Ceiling(Math.Abs(to - from) / step)+1;
-            to += step/2;
 
-            var x = Var("x");
-            double[] pY = new double[range];
-            double[] qY = new double[range];
-            double[] pbyqY = new double[range];
-            double[] fY = new double[range];
-            double[] xArr = new double[range];
+            pY = new double[range];
+            qY = new double[range];
+            pbyqY = new double[range];
+            fY = new double[range];
+            errY = new double[range];
+            xArr = new double[range];
 
-            if(F.Length > 0) {
-                for(int i = 0; from < to ; from += step, i++) {
-                    pY[i] = currAlgebra(P.Substitute(x, from));
-                    qY[i] = currAlgebra(Q.Substitute(x, from));
-                    pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
-                    fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
-                    xArr[i] = from;
+            if(fRichTextBox.Text.Length > 0) {
+                if(errorFuncCheckBox.Checked) {
+                    fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY);
+                }
+                else {
+                    fillWithApproxFunc(pY, qY, pbyqY, xArr, fY);
                 }
             }
             else {
-                for(int i = 0; from < to; from += step, i++) {
-                    pY[i] = currAlgebra(P.Substitute(x, from));
-                    qY[i] = currAlgebra(Q.Substitute(x, from));
-                    pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
-                    xArr[i] = from;
-                }
+                fillOnlyPolynomials(pY, qY, pbyqY, xArr);
             }
 
             if(inftyCheck) {
@@ -166,15 +165,64 @@ namespace TropicalPalm {
                 correctInfty(qY);
                 correctInfty(pbyqY);
             }
+        }
 
-            plot.Plot.AddScatter(xArr, pY, label : "P");
-            plot.Plot.AddScatter(xArr, qY, label : "Q");
-            plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
-            if(F.Length>0)
-                plot.Plot.AddScatter(xArr, fY, label: "f");
-            
-            plot.Plot.Legend();
-            plot.Refresh();
+        private void fillOnlyPolynomials(double[] pY, double[] qY, double[] pbyqY, double[] xArr) {
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+            var P = pRichTextBox.Text;
+            var Q = qRichTextBox.Text;
+            var pbyq = $"({P})/({Q})";
+            var x = Var("x");
+
+            for(int i = 0; from < to; from += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(x, from));
+                qY[i] = currAlgebra(Q.Substitute(x, from));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
+                xArr[i] = from;
+            }
+        }
+
+        private void fillWithApproxFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY) {
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+            var P = pRichTextBox.Text;
+            var Q = qRichTextBox.Text;
+            var pbyq = $"({P})/({Q})";
+            var x = Var("x");
+
+            var F = fRichTextBox.Text;
+
+            for(int i = 0; from < to; from += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(x, from));
+                qY[i] = currAlgebra(Q.Substitute(x, from));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
+                fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
+                xArr[i] = from;
+            }
+        }
+
+        private void fillWithErrFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY) {
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+            var P = pRichTextBox.Text;
+            var Q = qRichTextBox.Text;
+            var pbyq = $"({P})/({Q})";
+            var x = Var("x");
+
+            var F = fRichTextBox.Text;
+
+            for(int i = 0; from < to; from += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(x, from));
+                qY[i] = currAlgebra(Q.Substitute(x, from));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
+                fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
+                errY[i] = fY[i] - pbyqY[i];
+                xArr[i] = from;
+            }
         }
 
         private void correctInfty(double[] arr) {
@@ -247,6 +295,13 @@ namespace TropicalPalm {
             if(xToTextBox.Text.Length == 0)
                 return 50;
 
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+
+            if(to < from) {
+                return 60;
+            }
 
             string pattern = "[a-wyzA-WYZ]";
             var m = Regex.Match(pRichTextBox.Text, pattern);
@@ -301,6 +356,9 @@ namespace TropicalPalm {
                     return;
                 case 50:
                     MessageBox.Show("To must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                case 60:
+                    MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
             }
         }

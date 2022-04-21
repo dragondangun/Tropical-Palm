@@ -50,6 +50,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.minDivRadioButton = new System.Windows.Forms.RadioButton();
             this.maxDivRadioButton = new System.Windows.Forms.RadioButton();
+            this.errorFuncCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -355,11 +356,23 @@
             this.maxDivRadioButton.UseVisualStyleBackColor = true;
             this.maxDivRadioButton.CheckedChanged += new System.EventHandler(this.maxDivRadioButton_CheckedChanged);
             // 
+            // errorFuncCheckBox
+            //
+            this.errorFuncCheckBox.AutoSize = true;
+            this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(185, 326);
+            this.errorFuncCheckBox.Name = "errorFuncCheckBox";
+            this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
+            this.errorFuncCheckBox.TabIndex = 20;
+            this.errorFuncCheckBox.Text = "Error function";
+            this.errorFuncCheckBox.UseVisualStyleBackColor = true;
+            //
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
+            this.Controls.Add(this.errorFuncCheckBox);
             this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
             this.Controls.Add(this.xToTextBox);
@@ -417,6 +430,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.RadioButton minDivRadioButton;
         private System.Windows.Forms.RadioButton maxDivRadioButton;
+        private System.Windows.Forms.CheckBox errorFuncCheckBox;
     }
 }
 
