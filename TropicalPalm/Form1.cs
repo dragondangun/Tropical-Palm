@@ -117,7 +117,20 @@ namespace TropicalPalm {
 
             plot.Plot.Clear();
 
-            double rootMeanSquaredError = fillArrays(out double[] pY, out double[] qY, out double[] pbyqY, out double[] fY, out double[] errY, out double[] xArr);
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+
+            int range = (int)Math.Ceiling(Math.Abs(to - from) / step) + 1;
+
+            double[] pY = new double[range];
+            double[] qY = new double[range];
+            double[] pbyqY = new double[range];
+            double[] fY = new double[range];
+            double[] errY = new double[range];
+            double[] xArr = new double[range];
+
+            double rootMeanSquaredError = fillArrays(pY, qY, pbyqY, fY, errY, xArr, range);
 
             if(rootMeanSquaredError != -1) {
                 rootMeanSquaredErrorValueLabel.Text = rootMeanSquaredError.ToString("F2");
@@ -143,28 +156,37 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
-        private double fillArrays(out double[] pY, out double[] qY, out double[] pbyqY, out double[] fY, out double[] errY, out double[] xArr) {
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
-
+        private double fillArrays(double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY, double[] xArr, int range) {
+            
             double rootMeanSquaredError = -1;
 
-            int range = (int) Math.Ceiling(Math.Abs(to - from) / step)+1;
-
-            pY = new double[range];
-            qY = new double[range];
-            pbyqY = new double[range];
-            fY = new double[range];
-            errY = new double[range];
-            xArr = new double[range];
-
-            if(fRichTextBox.Text.Length > 0) {
-                double squaredError = fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY);
-                rootMeanSquaredError = Math.Sqrt(squaredError / range);
+            if(range < 3) {
+                if(fRichTextBox.Text.Length > 0) {
+                    double squaredError = fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, range);
+                    rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                }
+                else {
+                    fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, range);
+                }
             }
             else {
-                fillOnlyPolynomials(pY, qY, pbyqY, xArr);
+                int oneThirdRange = range / 3;
+                int twoThirdRange = oneThirdRange + oneThirdRange;
+                if(fRichTextBox.Text.Length > 0) {
+                    Task firstPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, oneThirdRange));
+                    Task secondPart = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
+                    Task thirdPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, twoThirdRange, range));
+                    Task.WaitAll(firstPart, secondPart, thirdPart);
+                }
+                else {
+                    Task<double> firstPart  = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
+                    Task<double> secondPart = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
+                    Task<double> thirdPart  = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
+                    Task.WaitAll(firstPart, secondPart, thirdPart);
+
+                    double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
+                    rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                }
             }
 
             if(inftyCheck) {
@@ -176,63 +198,41 @@ namespace TropicalPalm {
             return rootMeanSquaredError;
         }
 
-        private void fillOnlyPolynomials(double[] pY, double[] qY, double[] pbyqY, double[] xArr) {
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
+        private void fillOnlyPolynomials(double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
+            double xValue;
+            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom*step;
             var P = pRichTextBox.Text;
             var Q = qRichTextBox.Text;
             var pbyq = $"({P})/({Q})";
-            var x = Var("x");
+            var xVariable = Var("x");
 
-            for(int i = 0; from < to; from += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(x, from));
-                qY[i] = currAlgebra(Q.Substitute(x, from));
-                pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
-                xArr[i] = from;
+            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                xArr[i] = xValue;
             }
         }
 
-        //private void fillWithApproxFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY) {
-        //    double to, from;
-        //    from = Convert.ToDouble(xFromTextBox.Text);
-        //    to = Convert.ToDouble(xToTextBox.Text);
-        //    var P = pRichTextBox.Text;
-        //    var Q = qRichTextBox.Text;
-        //    var pbyq = $"({P})/({Q})";
-        //    var x = Var("x");
-
-        //    var F = fRichTextBox.Text;
-
-        //    for(int i = 0; from < to; from += step, i++) {
-        //        pY[i] = currAlgebra(P.Substitute(x, from));
-        //        qY[i] = currAlgebra(Q.Substitute(x, from));
-        //        pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
-        //        fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
-        //        xArr[i] = from;
-        //    }
-        //}
-
-        private double fillWithErrFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY) {
-            double to, from;
-            double squaredError=0;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
+        private double fillWithErrFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
+            double xValue;
+            double squaredError = 0;
+            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
             var P = pRichTextBox.Text;
             var Q = qRichTextBox.Text;
             var pbyq = $"({P})/({Q})";
-            var x = Var("x");
+            var xVariable = Var("x");
 
             var F = fRichTextBox.Text;
 
-            for(int i = 0; from < to; from += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(x, from));
-                qY[i] = currAlgebra(Q.Substitute(x, from));
-                pbyqY[i] = currAlgebra(pbyq.Substitute(x, from));
-                fY[i] = ((double)F.Substitute(x, from).EvalNumerical().RealPart);
+            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
                 errY[i] = fY[i] - pbyqY[i];
                 squaredError += errY[i] * errY[i];
-                xArr[i] = from;
+                xArr[i] = xValue;
             }
 
             return squaredError;
