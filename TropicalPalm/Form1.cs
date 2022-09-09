@@ -23,7 +23,6 @@ namespace TropicalPalm {
         double MaxPlus(Entity expr)
         => expr switch {
             Number.Real r => (double)r,
-            Minusf(var a, var b) => /*MaxPlus(a+MaxPlus(-b))*/(MaxPlus(a) > MaxPlus(-MaxPlus(b))) ? MaxPlus(a) : MaxPlus(-MaxPlus(b)),
             Sumf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
             Powf(var a, var b) => MaxPlus(a) * (double)b.EvalNumerical().RealPart,
             Mulf(var a, var b) => MaxPlus(a) + MaxPlus(b),
@@ -107,9 +106,9 @@ namespace TropicalPalm {
         }
 
         private void BuildButton_Click(object sender, EventArgs e) {
-            int errorCode = checkInput();
+            ErrorCodes errorCode = checkInput();
 
-            if(errorCode != -1) {
+            if(errorCode != ErrorCodes.ALL_IS_GOOD) {
                 showError(errorCode);
                 return;
             }
@@ -284,33 +283,33 @@ namespace TropicalPalm {
             //toolTip1.AutoPopDelay = 1000;
         }
 
-        int checkInput() {
+        ErrorCodes checkInput() {
             if(pRichTextBox.Text.Length == 0) 
-                return 10;
+                return ErrorCodes.P_EMPTY;
             if(qRichTextBox.Text.Length == 0) 
-                return 20;
+                return ErrorCodes.Q_EMPTY;
 
             if(xFromTextBox.Text.Length == 0)
-                return 40;
+                return ErrorCodes.FROM_EMPTY;
             if(xToTextBox.Text.Length == 0)
-                return 50;
+                return ErrorCodes.TO_EMPTY;
 
             double to, from;
             from = Convert.ToDouble(xFromTextBox.Text);
             to = Convert.ToDouble(xToTextBox.Text);
 
             if(to < from) {
-                return 60;
+                return ErrorCodes.UNCORRECT_BORDERS;
             }
 
             string pattern = "[a-wyzA-WYZ]";
             var m = Regex.Match(pRichTextBox.Text, pattern);
             if(m.Success) 
-                return 1;
+                return ErrorCodes.P_UNCORRECT;
 
             m = Regex.Match(qRichTextBox.Text, pattern);
             if(m.Success) 
-                return 2;
+                return ErrorCodes.Q_UNCORRECT;
 
             var x = Var("x");
             int r = 1;
@@ -330,37 +329,49 @@ namespace TropicalPalm {
                 }
             }
             catch {
-                return r;
+                return (ErrorCodes)r;
             }
 
-            return -1;
+            return ErrorCodes.ALL_IS_GOOD;
         }
 
-        void showError(int errorCode) {
+        void showError(ErrorCodes errorCode) {
             switch(errorCode) {
-                case 1:
+                case ErrorCodes.P_UNCORRECT:
                     MessageBox.Show("There's an error in P!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                case 2:
+                case ErrorCodes.Q_UNCORRECT:
                     MessageBox.Show("There's an error in Q!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                case 3:
+                case ErrorCodes.F_UNCORRECT:
                     MessageBox.Show("There's an error in F!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
 
-                case 10: case 20:
+                case ErrorCodes.P_EMPTY: case ErrorCodes.Q_EMPTY:
                     MessageBox.Show("P(x) and Q(x) must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                case 40:
+                case ErrorCodes.FROM_EMPTY:
                     MessageBox.Show("From must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                case 50:
+                case ErrorCodes.TO_EMPTY:
                     MessageBox.Show("To must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                case 60:
+                case ErrorCodes.UNCORRECT_BORDERS:
                     MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
             }
         }
+
+        enum ErrorCodes {
+            ALL_IS_GOOD = 0,
+            P_UNCORRECT = 1,
+            Q_UNCORRECT = 2,
+            F_UNCORRECT = 3,
+            P_EMPTY = 10,
+            Q_EMPTY = 20,
+            FROM_EMPTY = 40,
+            TO_EMPTY = 50,
+            UNCORRECT_BORDERS = 60,
+        };
     }
 }
