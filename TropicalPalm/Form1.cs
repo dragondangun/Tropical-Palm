@@ -34,7 +34,6 @@ namespace TropicalPalm {
             Number.Real r => (double)r,
             Sumf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
             Powf(var a, var b) => MinPlus(a) * (double)b.EvalNumerical().RealPart,
-            Minusf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
             Mulf(var a, var b) => MinPlus(a) + MinPlus(b),
             Divf(var a, var b) => MinPlus(a) - MinPlus(b),
         };
