@@ -325,28 +325,51 @@ namespace TropicalPalm {
             if(m.Success) 
                 return ErrorCodes.Q_UNCORRECT;
 
-            var x = Var("x");
-            int r = 1;
-            try {
-                currAlgebra(pRichTextBox.Text.Substitute(x, 0.4));
-                currAlgebra(pRichTextBox.Text.Substitute(x, -0.4));
-                currAlgebra(pRichTextBox.Text.Substitute(x, 0.0));
-                r++;
-                currAlgebra(qRichTextBox.Text.Substitute(x, 0.4));
-                currAlgebra(qRichTextBox.Text.Substitute(x, -0.4));
-                currAlgebra(qRichTextBox.Text.Substitute(x, 0.0));
-                if(fRichTextBox.Text.Length != 0) {
-                    r++;
-                    fRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
-                    fRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
-                    fRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
-                }
+            if(!isCurrentAlgebraExpressionCorrect(pRichTextBox.Text)) {
+                return ErrorCodes.P_UNCORRECT;
             }
-            catch {
-                return (ErrorCodes)r;
+
+            if(!isCurrentAlgebraExpressionCorrect(qRichTextBox.Text)) {
+                return ErrorCodes.Q_UNCORRECT;
+            }
+
+            if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                return ErrorCodes.Q_UNCORRECT;
             }
 
             return ErrorCodes.ALL_IS_GOOD;
+        }
+
+        bool isCurrentAlgebraExpressionCorrect(string expression) {
+            bool result = true;
+            var x = Var("x");
+
+            try {
+                currAlgebra(expression.Substitute(x, 0.4));
+                currAlgebra(expression.Substitute(x, -0.4));
+                currAlgebra(expression.Substitute(x, 0.0));
+            }
+            catch {
+                result = false;
+            }
+
+            return result;
+        }
+
+        bool isConventionalAlgebraExpressionCorrect(string expression) {
+            bool result = true;
+            var x = Var("x");
+
+            try {
+                expression.Substitute(x, 0.4).EvalNumerical();
+                expression.Substitute(x, -0.4).EvalNumerical();
+                expression.Substitute(x, 0.0).EvalNumerical();
+            }
+            catch {
+                result = false;
+            }
+
+            return result;
         }
 
         void showError(ErrorCodes errorCode) {
