@@ -328,13 +328,13 @@ namespace TropicalPalm {
             var x = Var("x");
             int r = 1;
             try {
-                pRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
-                pRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
-                pRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
+                currAlgebra(pRichTextBox.Text.Substitute(x, 0.4));
+                currAlgebra(pRichTextBox.Text.Substitute(x, -0.4));
+                currAlgebra(pRichTextBox.Text.Substitute(x, 0.0));
                 r++;
-                qRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
-                qRichTextBox.Text.Substitute(x, -0.4).EvalNumerical();
-                qRichTextBox.Text.Substitute(x, 0.0).EvalNumerical();
+                currAlgebra(qRichTextBox.Text.Substitute(x, 0.4));
+                currAlgebra(qRichTextBox.Text.Substitute(x, -0.4));
+                currAlgebra(qRichTextBox.Text.Substitute(x, 0.0));
                 if(fRichTextBox.Text.Length != 0) {
                     r++;
                     fRichTextBox.Text.Substitute(x, 0.4).EvalNumerical();
