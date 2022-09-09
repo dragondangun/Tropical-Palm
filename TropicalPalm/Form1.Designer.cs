@@ -32,6 +32,8 @@
             this.fRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.minDivRadioButton = new System.Windows.Forms.RadioButton();
+            this.maxDivRadioButton = new System.Windows.Forms.RadioButton();
             this.otherRadioButton = new System.Windows.Forms.RadioButton();
             this.minTimesRadioButton = new System.Windows.Forms.RadioButton();
             this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
@@ -48,9 +50,9 @@
             this.BuildButton = new System.Windows.Forms.Button();
             this.plot = new ScottPlot.FormsPlot();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.minDivRadioButton = new System.Windows.Forms.RadioButton();
-            this.maxDivRadioButton = new System.Windows.Forms.RadioButton();
             this.errorFuncCheckBox = new System.Windows.Forms.CheckBox();
+            this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
+            this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -143,6 +145,32 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select algebra";
+            // 
+            // minDivRadioButton
+            // 
+            this.minDivRadioButton.AutoSize = true;
+            this.minDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.minDivRadioButton.Location = new System.Drawing.Point(299, 89);
+            this.minDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.minDivRadioButton.Name = "minDivRadioButton";
+            this.minDivRadioButton.Size = new System.Drawing.Size(72, 22);
+            this.minDivRadioButton.TabIndex = 6;
+            this.minDivRadioButton.Text = "(min, /)";
+            this.minDivRadioButton.UseVisualStyleBackColor = true;
+            this.minDivRadioButton.CheckedChanged += new System.EventHandler(this.minDivRadioButton_CheckedChanged);
+            // 
+            // maxDivRadioButton
+            // 
+            this.maxDivRadioButton.AutoSize = true;
+            this.maxDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.maxDivRadioButton.Location = new System.Drawing.Point(7, 89);
+            this.maxDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.maxDivRadioButton.Name = "maxDivRadioButton";
+            this.maxDivRadioButton.Size = new System.Drawing.Size(76, 22);
+            this.maxDivRadioButton.TabIndex = 5;
+            this.maxDivRadioButton.Text = "(max, /)";
+            this.maxDivRadioButton.UseVisualStyleBackColor = true;
+            this.maxDivRadioButton.CheckedChanged += new System.EventHandler(this.maxDivRadioButton_CheckedChanged);
             // 
             // otherRadioButton
             // 
@@ -306,7 +334,7 @@
             // BuildButton
             // 
             this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BuildButton.Location = new System.Drawing.Point(78, 320);
+            this.BuildButton.Location = new System.Drawing.Point(75, 302);
             this.BuildButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(90, 33);
@@ -330,48 +358,47 @@
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 100;
             // 
-            // minDivRadioButton
-            // 
-            this.minDivRadioButton.AutoSize = true;
-            this.minDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minDivRadioButton.Location = new System.Drawing.Point(299, 89);
-            this.minDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.minDivRadioButton.Name = "minDivRadioButton";
-            this.minDivRadioButton.Size = new System.Drawing.Size(72, 22);
-            this.minDivRadioButton.TabIndex = 6;
-            this.minDivRadioButton.Text = "(min, /)";
-            this.minDivRadioButton.UseVisualStyleBackColor = true;
-            this.minDivRadioButton.CheckedChanged += new System.EventHandler(this.minDivRadioButton_CheckedChanged);
-            // 
-            // maxDivRadioButton
-            // 
-            this.maxDivRadioButton.AutoSize = true;
-            this.maxDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.maxDivRadioButton.Location = new System.Drawing.Point(7, 89);
-            this.maxDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.maxDivRadioButton.Name = "maxDivRadioButton";
-            this.maxDivRadioButton.Size = new System.Drawing.Size(76, 22);
-            this.maxDivRadioButton.TabIndex = 5;
-            this.maxDivRadioButton.Text = "(max, /)";
-            this.maxDivRadioButton.UseVisualStyleBackColor = true;
-            this.maxDivRadioButton.CheckedChanged += new System.EventHandler(this.maxDivRadioButton_CheckedChanged);
-            // 
             // errorFuncCheckBox
-            //
+            // 
             this.errorFuncCheckBox.AutoSize = true;
             this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(185, 326);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(182, 308);
             this.errorFuncCheckBox.Name = "errorFuncCheckBox";
             this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
             this.errorFuncCheckBox.TabIndex = 20;
             this.errorFuncCheckBox.Text = "Error function";
             this.errorFuncCheckBox.UseVisualStyleBackColor = true;
-            //
+            // 
+            // rootMeanSquaredErrorLabel
+            // 
+            this.rootMeanSquaredErrorLabel.AutoSize = true;
+            this.rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(14, 353);
+            this.rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
+            this.rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(84, 25);
+            this.rootMeanSquaredErrorLabel.TabIndex = 21;
+            this.rootMeanSquaredErrorLabel.Text = "RMSE:";
+            this.rootMeanSquaredErrorLabel.Visible = false;
+            // 
+            // rootMeanSquaredErrorValueLabel
+            // 
+            this.rootMeanSquaredErrorValueLabel.AutoSize = true;
+            this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(106, 353);
+            this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
+            this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 25);
+            this.rootMeanSquaredErrorValueLabel.TabIndex = 22;
+            this.rootMeanSquaredErrorValueLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
+            this.Controls.Add(this.rootMeanSquaredErrorValueLabel);
+            this.Controls.Add(this.rootMeanSquaredErrorLabel);
             this.Controls.Add(this.errorFuncCheckBox);
             this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
@@ -431,6 +458,8 @@
         private System.Windows.Forms.RadioButton minDivRadioButton;
         private System.Windows.Forms.RadioButton maxDivRadioButton;
         private System.Windows.Forms.CheckBox errorFuncCheckBox;
+        private System.Windows.Forms.Label rootMeanSquaredErrorLabel;
+        private System.Windows.Forms.Label rootMeanSquaredErrorValueLabel;
     }
 }
 
