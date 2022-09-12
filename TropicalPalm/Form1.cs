@@ -18,6 +18,7 @@ namespace TropicalPalm {
 
     public partial class Form1:Form {
         bool inftyCheck;
+        bool nonNegativeField;
         double step = 0.1;
 
         double MaxPlus(Entity expr)
@@ -94,7 +95,7 @@ namespace TropicalPalm {
                 return;
             }
 
-            if(ch == 45 && ((sender as TextBox).Text.IndexOf('-') != -1 || (sender as TextBox).SelectionStart != 0)) {
+            if(ch == 45 && ((sender as TextBox).Text.IndexOf('-') != -1 || nonNegativeField || (sender as TextBox).SelectionStart != 0)) {
                 e.Handled = true;
                 return;
             }
@@ -250,44 +251,69 @@ namespace TropicalPalm {
 
         private void Form1_Load(object sender, EventArgs e) {
             currAlgebra = MaxPlus;
-            inftyCheck = false;
-            step = 0.01;
+            sumFieldSettings();
         }
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MinPlus;
-            inftyCheck = false;
-            step = 0.01;
+            if(minPlusRadioButton.Checked) {
+                currAlgebra = MinPlus;
+                sumFieldSettings();
+            }
         }
 
         private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MaxPlus;
-            inftyCheck = false;
-            step = 0.01;
+            if(maxPlusRadioButton.Checked) {
+                currAlgebra = MaxPlus;
+                sumFieldSettings();
+            }
         }
 
         private void maxTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MaxTimes;
-            inftyCheck = true;
-            step = 0.1;
+            if(maxTimesRadioButton.Checked) {
+                currAlgebra = MaxTimes;
+                mulFieldSettings();
+            }
         }
 
         private void minTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MinTimes;
-            inftyCheck = true;
-            step = 0.1;
+            if(minTimesRadioButton.Checked) {
+                currAlgebra = MinTimes;
+                mulFieldSettings();
+            }
         }
 
         private void minDivRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MinDiv;
-            inftyCheck = true;
-            step = 0.1;
+            if(minDivRadioButton.Checked) {
+                currAlgebra = MinDiv;
+                mulFieldSettings();
+            }
         }
 
         private void maxDivRadioButton_CheckedChanged(object sender, EventArgs e) {
-            currAlgebra = MaxDiv;
+            if(maxDivRadioButton.Checked) {
+                currAlgebra = MaxDiv;
+                mulFieldSettings();
+            }
+        }
+
+        private void sumFieldSettings() {
+            inftyCheck = false;
+            nonNegativeField = false;
+            step = 0.01;
+        }
+
+        private void mulFieldSettings() {
             inftyCheck = true;
+            nonNegativeField = true;
             step = 0.1;
+
+            double from = Convert.ToDouble(xFromTextBox.Text);
+            from = from < 0 ? 0 : from;
+            double to = Convert.ToDouble(xToTextBox.Text);
+            to = to < from ? from+10 : to;
+
+            xFromTextBox.Text = from.ToString();
+            xToTextBox.Text = to.ToString();
         }
 
         private void pRichTextBox_MouseHover(object sender, EventArgs e) {
