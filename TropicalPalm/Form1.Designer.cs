@@ -53,14 +53,17 @@
             this.errorFuncCheckBox = new System.Windows.Forms.CheckBox();
             this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
             this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pRichTextBox
             // 
             this.pRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pRichTextBox.Location = new System.Drawing.Point(100, 17);
+            this.pRichTextBox.Location = new System.Drawing.Point(100, 32);
             this.pRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pRichTextBox.Multiline = false;
             this.pRichTextBox.Name = "pRichTextBox";
@@ -74,7 +77,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(52, 21);
+            this.label1.Location = new System.Drawing.Point(52, 36);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 18);
@@ -85,7 +88,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(50, 65);
+            this.label2.Location = new System.Drawing.Point(50, 80);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 18);
@@ -95,7 +98,7 @@
             // qRichTextBox
             // 
             this.qRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.qRichTextBox.Location = new System.Drawing.Point(100, 61);
+            this.qRichTextBox.Location = new System.Drawing.Point(100, 76);
             this.qRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.qRichTextBox.Multiline = false;
             this.qRichTextBox.Name = "qRichTextBox";
@@ -107,7 +110,7 @@
             // fRichTextBox
             // 
             this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.fRichTextBox.Location = new System.Drawing.Point(100, 157);
+            this.fRichTextBox.Location = new System.Drawing.Point(100, 172);
             this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.fRichTextBox.Multiline = false;
             this.fRichTextBox.Name = "fRichTextBox";
@@ -120,7 +123,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(59, 160);
+            this.label3.Location = new System.Drawing.Point(59, 175);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 18);
@@ -137,7 +140,7 @@
             this.groupBox1.Controls.Add(this.maxTimesRadioButton);
             this.groupBox1.Controls.Add(this.maxPlusRadioButton);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(18, 398);
+            this.groupBox1.Location = new System.Drawing.Point(18, 413);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -243,7 +246,7 @@
             // pDbyQRichTextBox
             // 
             this.pDbyQRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pDbyQRichTextBox.Location = new System.Drawing.Point(100, 105);
+            this.pDbyQRichTextBox.Location = new System.Drawing.Point(100, 120);
             this.pDbyQRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pDbyQRichTextBox.Multiline = false;
             this.pDbyQRichTextBox.Name = "pDbyQRichTextBox";
@@ -257,7 +260,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(14, 108);
+            this.label4.Location = new System.Drawing.Point(14, 123);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 18);
@@ -268,7 +271,7 @@
             // kNumericUpDown
             // 
             this.kNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.kNumericUpDown.Location = new System.Drawing.Point(100, 211);
+            this.kNumericUpDown.Location = new System.Drawing.Point(100, 226);
             this.kNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.kNumericUpDown.Name = "kNumericUpDown";
             this.kNumericUpDown.Size = new System.Drawing.Size(140, 24);
@@ -279,7 +282,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(75, 213);
+            this.label5.Location = new System.Drawing.Point(75, 228);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(16, 18);
@@ -291,7 +294,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(14, 256);
+            this.label6.Location = new System.Drawing.Point(14, 271);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 18);
@@ -301,7 +304,7 @@
             // xFromTextBox
             // 
             this.xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xFromTextBox.Location = new System.Drawing.Point(100, 254);
+            this.xFromTextBox.Location = new System.Drawing.Point(100, 269);
             this.xFromTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xFromTextBox.Name = "xFromTextBox";
             this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
@@ -313,7 +316,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(247, 257);
+            this.label7.Location = new System.Drawing.Point(247, 272);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 18);
@@ -323,7 +326,7 @@
             // xToTextBox
             // 
             this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xToTextBox.Location = new System.Drawing.Point(298, 254);
+            this.xToTextBox.Location = new System.Drawing.Point(298, 269);
             this.xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
@@ -334,7 +337,7 @@
             // BuildButton
             // 
             this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BuildButton.Location = new System.Drawing.Point(75, 302);
+            this.BuildButton.Location = new System.Drawing.Point(75, 317);
             this.BuildButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(90, 33);
@@ -346,7 +349,7 @@
             // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(422, 12);
+            this.plot.Location = new System.Drawing.Point(422, 27);
             this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(901, 514);
@@ -362,7 +365,7 @@
             // 
             this.errorFuncCheckBox.AutoSize = true;
             this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(182, 308);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(182, 323);
             this.errorFuncCheckBox.Name = "errorFuncCheckBox";
             this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
             this.errorFuncCheckBox.TabIndex = 20;
@@ -373,7 +376,7 @@
             // 
             this.rootMeanSquaredErrorLabel.AutoSize = true;
             this.rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(14, 353);
+            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(14, 368);
             this.rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
             this.rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(84, 25);
@@ -385,18 +388,36 @@
             // 
             this.rootMeanSquaredErrorValueLabel.AutoSize = true;
             this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(106, 353);
+            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(106, 368);
             this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
             this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 25);
             this.rootMeanSquaredErrorValueLabel.TabIndex = 22;
             this.rootMeanSquaredErrorValueLabel.Visible = false;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripLabel});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1336, 25);
+            this.toolStrip1.TabIndex = 23;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // aboutToolStripLabel
+            // 
+            this.aboutToolStripLabel.Name = "aboutToolStripLabel";
+            this.aboutToolStripLabel.Size = new System.Drawing.Size(82, 22);
+            this.aboutToolStripLabel.Text = "О программе";
+            this.aboutToolStripLabel.Click += new System.EventHandler(this.aboutToolStripLabel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 623);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.rootMeanSquaredErrorValueLabel);
             this.Controls.Add(this.rootMeanSquaredErrorLabel);
             this.Controls.Add(this.errorFuncCheckBox);
@@ -425,6 +446,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -460,6 +483,8 @@
         private System.Windows.Forms.CheckBox errorFuncCheckBox;
         private System.Windows.Forms.Label rootMeanSquaredErrorLabel;
         private System.Windows.Forms.Label rootMeanSquaredErrorValueLabel;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel aboutToolStripLabel;
     }
 }
 

@@ -435,5 +435,14 @@ namespace TropicalPalm {
             TO_EMPTY = 50,
             UNCORRECT_BORDERS = 60,
         };
+
+        private void aboutToolStripLabel_Click(object sender, EventArgs e) {
+            string version = $"{Properties.Settings.Default["version"]}v";
+            string Merzalov = "TropicalPalm названа в честь пальмы Мерцалова.";
+            string ico = "Пальма icon by Icons8";
+            string message = $"{version}\n\n{Merzalov}\n\n{ico}";
+            MessageBox.Show(message, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
     }
 }
