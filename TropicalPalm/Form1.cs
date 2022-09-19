@@ -172,7 +172,7 @@ namespace TropicalPalm {
             else {
                 int oneThirdRange = range / 3;
                 int twoThirdRange = oneThirdRange + oneThirdRange;
-                if(fRichTextBox.Text.Length > 0) {
+                if(fRichTextBox.Text.Length == 0) {
                     Task firstPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, oneThirdRange));
                     Task secondPart = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
                     Task thirdPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, twoThirdRange, range));
