@@ -13,6 +13,7 @@ using AngouriMath;
 using static AngouriMath.Entity.Number;
 using static AngouriMath.Entity;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace TropicalPalm {
 
@@ -182,16 +183,19 @@ namespace TropicalPalm {
                     int twoThirdRange = oneThirdRange + oneThirdRange;
                     string P = pRichTextBox.Text, Q = qRichTextBox.Text;
 
+                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                    CancellationToken cancellationToken = cancellationTokenSource.Token;
+
                     if(fRichTextBox.Text.Length == 0) {
-                        Task firstPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, oneThirdRange));
-                        Task secondPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
-                        Task thirdPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, twoThirdRange, range));
+                        Task firstPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
+                        Task secondPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
+                        Task thirdPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, twoThirdRange, range, cancellationTokenSource, cancellationToken));
                         Task.WaitAll(firstPart, secondPart, thirdPart);
                     }
                     else {
-                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
-                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
-                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
+                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
                         Task.WaitAll(firstPart, secondPart, thirdPart);
 
                         double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
@@ -237,7 +241,7 @@ namespace TropicalPalm {
             }
         }
 
-        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
+        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
             double xValue;
             xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
             var pbyq = $"({P})/({Q})";
@@ -253,7 +257,12 @@ namespace TropicalPalm {
                 error |= double.IsNaN(pbyqY[i]);
 
                 if(error) {
+                    cancellationTokenSource.Cancel();
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
+                }
+
+                if(cancellationToken.IsCancellationRequested) {
+                    return;
                 }
             }
         }
@@ -293,7 +302,7 @@ namespace TropicalPalm {
             return squaredError;
         }
 
-        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
+        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
             double xValue;
             double squaredError = 0;
             xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
@@ -315,7 +324,11 @@ namespace TropicalPalm {
                 error |= double.IsNaN(fY[i]);
 
                 if(error) {
+                    cancellationTokenSource.Cancel();
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
+                }
+                if(cancellationToken.IsCancellationRequested) {
+                    return -1;
                 }
 
                 errY[i] = fY[i] - pbyqY[i];
