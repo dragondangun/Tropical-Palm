@@ -489,8 +489,10 @@ namespace TropicalPalm {
 
             try {
                 expression.Substitute(x, 0.4).EvalNumerical();
-                expression.Substitute(x, -0.4).EvalNumerical();
                 expression.Substitute(x, 0.0).EvalNumerical();
+                if(!nonNegativeField) {
+                    expression.Substitute(x, -0.4).EvalNumerical();
+                }
             }
             catch {
                 result = false;
