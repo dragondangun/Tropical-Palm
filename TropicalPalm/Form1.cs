@@ -358,8 +358,8 @@ namespace TropicalPalm {
                 return ErrorCodes.Q_UNCORRECT;
             }
 
-            if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                return ErrorCodes.Q_UNCORRECT;
+            if(fRichTextBox.Text.Length > 0 && !isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                return ErrorCodes.F_UNCORRECT;
             }
 
             return ErrorCodes.ALL_IS_GOOD;
