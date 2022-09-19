@@ -173,15 +173,15 @@ namespace TropicalPalm {
                 int oneThirdRange = range / 3;
                 int twoThirdRange = oneThirdRange + oneThirdRange;
                 if(fRichTextBox.Text.Length == 0) {
-                    Task firstPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, oneThirdRange));
-                    Task secondPart = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
-                    Task thirdPart  = Task.Run(() => fillOnlyPolynomials(pY, qY, pbyqY, xArr, twoThirdRange, range));
+                    Task firstPart  = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, 0, oneThirdRange));
+                    Task secondPart = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
+                    Task thirdPart  = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, twoThirdRange, range));
                     Task.WaitAll(firstPart, secondPart, thirdPart);
                 }
                 else {
-                    Task<double> firstPart  = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
-                    Task<double> secondPart = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
-                    Task<double> thirdPart  = Task.Run(() => fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
+                    Task<double> firstPart  = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
+                    Task<double> secondPart = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
+                    Task<double> thirdPart  = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
                     Task.WaitAll(firstPart, secondPart, thirdPart);
 
                     double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
@@ -203,6 +203,20 @@ namespace TropicalPalm {
             xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom*step;
             var P = pRichTextBox.Text;
             var Q = qRichTextBox.Text;
+            var pbyq = $"({P})/({Q})";
+            var xVariable = Var("x");
+
+            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                xArr[i] = xValue;
+            }
+        }
+
+        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
+            double xValue;
+            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
@@ -237,6 +251,29 @@ namespace TropicalPalm {
 
             return squaredError;
         }
+
+        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
+            double xValue;
+            double squaredError = 0;
+            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
+            var pbyq = $"({P})/({Q})";
+            var xVariable = Var("x");
+
+            var F = fRichTextBox.Text;
+
+            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
+                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
+                errY[i] = fY[i] - pbyqY[i];
+                squaredError += errY[i] * errY[i];
+                xArr[i] = xValue;
+            }
+
+            return squaredError;
+        }
+
 
         private void correctInfty(double[] arr) {
             for(int i = 0; i < arr.Length; i++) {
