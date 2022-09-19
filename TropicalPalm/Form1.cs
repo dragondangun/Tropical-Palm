@@ -130,7 +130,14 @@ namespace TropicalPalm {
             double[] errY = new double[range];
             double[] xArr = new double[range];
 
-            double rootMeanSquaredError = fillArrays(pY, qY, pbyqY, fY, errY, xArr, range);
+            double rootMeanSquaredError = -1;
+            try {
+                rootMeanSquaredError = fillArrays(pY, qY, pbyqY, fY, errY, xArr, range);
+            }
+            catch(NotFiniteNumberException ex) {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if(rootMeanSquaredError != -1) {
                 rootMeanSquaredErrorValueLabel.Text = rootMeanSquaredError.ToString("F2");
@@ -160,33 +167,40 @@ namespace TropicalPalm {
             
             double rootMeanSquaredError = -1;
 
-            if(range < 3) {
-                if(fRichTextBox.Text.Length > 0) {
-                    double squaredError = fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, range);
-                    rootMeanSquaredError = Math.Sqrt(squaredError / range);
+            try {
+                if(range < 3) {
+                    if(fRichTextBox.Text.Length > 0) {
+                        double squaredError = fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, range);
+                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                    }
+                    else {
+                        fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, range);
+                    }
                 }
                 else {
-                    fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, range);
+                    int oneThirdRange = range / 3;
+                    int twoThirdRange = oneThirdRange + oneThirdRange;
+                    string P = pRichTextBox.Text, Q = qRichTextBox.Text;
+
+                    if(fRichTextBox.Text.Length == 0) {
+                        Task firstPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, oneThirdRange));
+                        Task secondPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
+                        Task thirdPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, twoThirdRange, range));
+                        Task.WaitAll(firstPart, secondPart, thirdPart);
+                    }
+                    else {
+                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
+                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
+                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
+                        Task.WaitAll(firstPart, secondPart, thirdPart);
+
+                        double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
+                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                    }
                 }
             }
-            else {
-                int oneThirdRange = range / 3;
-                int twoThirdRange = oneThirdRange + oneThirdRange;
-                if(fRichTextBox.Text.Length == 0) {
-                    Task firstPart  = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, 0, oneThirdRange));
-                    Task secondPart = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange));
-                    Task thirdPart  = Task.Run(() => fillOnlyPolynomials(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, twoThirdRange, range));
-                    Task.WaitAll(firstPart, secondPart, thirdPart);
-                }
-                else {
-                    Task<double> firstPart  = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange));
-                    Task<double> secondPart = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange));
-                    Task<double> thirdPart  = Task.Run(() => fillWithErrFunc(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range));
-                    Task.WaitAll(firstPart, secondPart, thirdPart);
-
-                    double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
-                    rootMeanSquaredError = Math.Sqrt(squaredError / range);
-                }
+            catch(AggregateException ae) {
+                throw ae.InnerException;
             }
 
             if(inftyCheck) {
@@ -206,10 +220,19 @@ namespace TropicalPalm {
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
+            bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
                 pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pY[i]);
                 qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                error |= double.IsNaN(qY[i]);
                 pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pbyqY[i]);
+
+                if(error) {
+                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
+                }
+
                 xArr[i] = xValue;
             }
         }
@@ -220,11 +243,18 @@ namespace TropicalPalm {
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
+            bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
                 pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pY[i]);
                 qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                error |= double.IsNaN(qY[i]);
                 pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                xArr[i] = xValue;
+                error |= double.IsNaN(pbyqY[i]);
+
+                if(error) {
+                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
+                }
             }
         }
 
@@ -239,11 +269,22 @@ namespace TropicalPalm {
 
             var F = fRichTextBox.Text;
 
+            bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
                 pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pY[i]);
                 qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                error |= double.IsNaN(qY[i]);
                 pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pbyqY[i]);
+
                 fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
+                error |= double.IsNaN(fY[i]);
+
+                if(error) {
+                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
+                }
+
                 errY[i] = fY[i] - pbyqY[i];
                 squaredError += errY[i] * errY[i];
                 xArr[i] = xValue;
@@ -261,11 +302,22 @@ namespace TropicalPalm {
 
             var F = fRichTextBox.Text;
 
+            bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
                 pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pY[i]);
                 qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
+                error |= double.IsNaN(qY[i]);
                 pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
+                error |= double.IsNaN(pbyqY[i]);
+
                 fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
+                error |= double.IsNaN(fY[i]);
+
+                if(error) {
+                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
+                }
+
                 errY[i] = fY[i] - pbyqY[i];
                 squaredError += errY[i] * errY[i];
                 xArr[i] = xValue;
