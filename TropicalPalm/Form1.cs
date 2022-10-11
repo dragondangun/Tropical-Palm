@@ -14,6 +14,7 @@ using static AngouriMath.Entity.Number;
 using static AngouriMath.Entity;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.IO;
 
 namespace TropicalPalm {
 
@@ -550,7 +551,15 @@ namespace TropicalPalm {
         }
 
         private void openFileButton_Click(object sender, EventArgs e) {
+            OpenFileDialog openFileDialog = new() {
+                Filter = "Текстовые файлы (*.txt)|*.txt",
+                AddExtension = true
+            };
+            openFileDialog.ShowDialog();
 
+            if(openFileDialog.FileName.Length > 0) {
+                preProcessFilePolynomials(openFileDialog.FileName);
+            }
         }
     }
 }
