@@ -51,10 +51,11 @@
             this.plot = new ScottPlot.FormsPlot();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.errorFuncCheckBox = new System.Windows.Forms.CheckBox();
-            this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
-            this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.openFileButton = new System.Windows.Forms.Button();
+            this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
+            this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -114,7 +115,7 @@
             this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.fRichTextBox.Multiline = false;
             this.fRichTextBox.Name = "fRichTextBox";
-            this.fRichTextBox.Size = new System.Drawing.Size(313, 36);
+            this.fRichTextBox.Size = new System.Drawing.Size(399, 36);
             this.fRichTextBox.TabIndex = 6;
             this.fRichTextBox.Text = "";
             this.toolTip.SetToolTip(this.fRichTextBox, "Example:\r\nx^2+2*x+3*e+sin(x)");
@@ -140,11 +141,11 @@
             this.groupBox1.Controls.Add(this.maxTimesRadioButton);
             this.groupBox1.Controls.Add(this.maxPlusRadioButton);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(18, 413);
+            this.groupBox1.Location = new System.Drawing.Point(13, 305);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(397, 180);
+            this.groupBox1.Size = new System.Drawing.Size(486, 180);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select algebra";
@@ -153,7 +154,7 @@
             // 
             this.minDivRadioButton.AutoSize = true;
             this.minDivRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minDivRadioButton.Location = new System.Drawing.Point(299, 89);
+            this.minDivRadioButton.Location = new System.Drawing.Point(400, 89);
             this.minDivRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.minDivRadioButton.Name = "minDivRadioButton";
             this.minDivRadioButton.Size = new System.Drawing.Size(72, 22);
@@ -180,7 +181,7 @@
             this.otherRadioButton.AutoSize = true;
             this.otherRadioButton.Enabled = false;
             this.otherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.otherRadioButton.Location = new System.Drawing.Point(154, 122);
+            this.otherRadioButton.Location = new System.Drawing.Point(211, 123);
             this.otherRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.otherRadioButton.Name = "otherRadioButton";
             this.otherRadioButton.Size = new System.Drawing.Size(63, 22);
@@ -193,7 +194,7 @@
             // 
             this.minTimesRadioButton.AutoSize = true;
             this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minTimesRadioButton.Location = new System.Drawing.Point(300, 61);
+            this.minTimesRadioButton.Location = new System.Drawing.Point(401, 61);
             this.minTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.minTimesRadioButton.Name = "minTimesRadioButton";
             this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
@@ -206,7 +207,7 @@
             // 
             this.minPlusRadioButton.AutoSize = true;
             this.minPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minPlusRadioButton.Location = new System.Drawing.Point(300, 33);
+            this.minPlusRadioButton.Location = new System.Drawing.Point(401, 33);
             this.minPlusRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.minPlusRadioButton.Name = "minPlusRadioButton";
             this.minPlusRadioButton.Size = new System.Drawing.Size(77, 22);
@@ -251,7 +252,7 @@
             this.pDbyQRichTextBox.Multiline = false;
             this.pDbyQRichTextBox.Name = "pDbyQRichTextBox";
             this.pDbyQRichTextBox.ReadOnly = true;
-            this.pDbyQRichTextBox.Size = new System.Drawing.Size(313, 36);
+            this.pDbyQRichTextBox.Size = new System.Drawing.Size(399, 36);
             this.pDbyQRichTextBox.TabIndex = 11;
             this.pDbyQRichTextBox.Text = "";
             this.pDbyQRichTextBox.Visible = false;
@@ -316,7 +317,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(247, 272);
+            this.label7.Location = new System.Drawing.Point(285, 269);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 18);
@@ -326,7 +327,7 @@
             // xToTextBox
             // 
             this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xToTextBox.Location = new System.Drawing.Point(298, 269);
+            this.xToTextBox.Location = new System.Drawing.Point(383, 268);
             this.xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
@@ -336,11 +337,11 @@
             // 
             // BuildButton
             // 
-            this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BuildButton.Location = new System.Drawing.Point(75, 317);
+            this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BuildButton.Location = new System.Drawing.Point(21, 491);
             this.BuildButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BuildButton.Name = "BuildButton";
-            this.BuildButton.Size = new System.Drawing.Size(90, 33);
+            this.BuildButton.Size = new System.Drawing.Size(479, 76);
             this.BuildButton.TabIndex = 18;
             this.BuildButton.Text = "Build";
             this.toolTip.SetToolTip(this.BuildButton, "Click to build plot\r\nNB: P(x) and Q(x) are obligatory to be filled in");
@@ -349,7 +350,7 @@
             // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(422, 27);
+            this.plot.Location = new System.Drawing.Point(508, 12);
             this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(901, 514);
@@ -365,35 +366,12 @@
             // 
             this.errorFuncCheckBox.AutoSize = true;
             this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(182, 323);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(247, 226);
             this.errorFuncCheckBox.Name = "errorFuncCheckBox";
             this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
             this.errorFuncCheckBox.TabIndex = 20;
             this.errorFuncCheckBox.Text = "Error function";
             this.errorFuncCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // rootMeanSquaredErrorLabel
-            // 
-            this.rootMeanSquaredErrorLabel.AutoSize = true;
-            this.rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(14, 368);
-            this.rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
-            this.rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(84, 25);
-            this.rootMeanSquaredErrorLabel.TabIndex = 21;
-            this.rootMeanSquaredErrorLabel.Text = "RMSE:";
-            this.rootMeanSquaredErrorLabel.Visible = false;
-            // 
-            // rootMeanSquaredErrorValueLabel
-            // 
-            this.rootMeanSquaredErrorValueLabel.AutoSize = true;
-            this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(106, 368);
-            this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
-            this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 25);
-            this.rootMeanSquaredErrorValueLabel.TabIndex = 22;
-            this.rootMeanSquaredErrorValueLabel.Visible = false;
             // 
             // toolStrip1
             // 
@@ -401,7 +379,7 @@
             this.aboutToolStripLabel});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1336, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1435, 25);
             this.toolStrip1.TabIndex = 23;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -412,14 +390,49 @@
             this.aboutToolStripLabel.Text = "О программе";
             this.aboutToolStripLabel.Click += new System.EventHandler(this.aboutToolStripLabel_Click);
             // 
+            // openFileButton
+            // 
+            this.openFileButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.openFileButton.Location = new System.Drawing.Point(420, 32);
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(80, 80);
+            this.openFileButton.TabIndex = 24;
+            this.openFileButton.Text = "Open file";
+            this.openFileButton.UseVisualStyleBackColor = true;
+            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
+            // 
+            // rootMeanSquaredErrorValueLabel
+            // 
+            this.rootMeanSquaredErrorValueLabel.AutoSize = true;
+            this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(625, 533);
+            this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
+            this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 29);
+            this.rootMeanSquaredErrorValueLabel.TabIndex = 26;
+            this.rootMeanSquaredErrorValueLabel.Visible = false;
+            // 
+            // rootMeanSquaredErrorLabel
+            // 
+            this.rootMeanSquaredErrorLabel.AutoSize = true;
+            this.rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(524, 529);
+            this.rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
+            this.rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(93, 29);
+            this.rootMeanSquaredErrorLabel.TabIndex = 25;
+            this.rootMeanSquaredErrorLabel.Text = "RMSE:";
+            this.rootMeanSquaredErrorLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 623);
-            this.Controls.Add(this.toolStrip1);
+            this.ClientSize = new System.Drawing.Size(1435, 582);
             this.Controls.Add(this.rootMeanSquaredErrorValueLabel);
             this.Controls.Add(this.rootMeanSquaredErrorLabel);
+            this.Controls.Add(this.openFileButton);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.errorFuncCheckBox);
             this.Controls.Add(this.plot);
             this.Controls.Add(this.BuildButton);
@@ -481,10 +494,11 @@
         private System.Windows.Forms.RadioButton minDivRadioButton;
         private System.Windows.Forms.RadioButton maxDivRadioButton;
         private System.Windows.Forms.CheckBox errorFuncCheckBox;
-        private System.Windows.Forms.Label rootMeanSquaredErrorLabel;
-        private System.Windows.Forms.Label rootMeanSquaredErrorValueLabel;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel aboutToolStripLabel;
+        private System.Windows.Forms.Button openFileButton;
+        private System.Windows.Forms.Label rootMeanSquaredErrorValueLabel;
+        private System.Windows.Forms.Label rootMeanSquaredErrorLabel;
     }
 }
 

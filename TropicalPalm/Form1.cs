@@ -548,5 +548,9 @@ namespace TropicalPalm {
             MessageBox.Show(message, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
+
+        private void openFileButton_Click(object sender, EventArgs e) {
+
+        }
     }
 }
