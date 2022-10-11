@@ -561,5 +561,29 @@ namespace TropicalPalm {
                 preProcessFilePolynomials(openFileDialog.FileName);
             }
         }
+
+        private void preProcessFilePolynomials(string path) {
+            string content;
+
+            using(StreamReader sr = new(path)) {
+                content = sr.ReadToEnd();
+            }
+
+            string pattern = "[a-zA-Zа-яА-Я!@#$%^&*()+=/\\\'\"| ]";
+            var m = Regex.Match(content, pattern);
+            if(m.Success) {
+                MessageBox.Show("Ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            content = content.Trim();
+
+            string[] polynomials = content.Split(new[] { $"{Environment.NewLine}{Environment.NewLine}" }, StringSplitOptions.None);
+
+            if(polynomials.Length % 2 == 1) {
+                MessageBox.Show("Нечётное количество полиномов!\nИли ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }
