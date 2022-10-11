@@ -444,7 +444,7 @@ namespace TropicalPalm {
                 return ErrorCodes.UNCORRECT_BORDERS;
             }
 
-            string pattern = "[a-wyzA-WYZ]";
+            string pattern = "[a-wyzA-WYZа-яА-Я]";
             var m = Regex.Match(pRichTextBox.Text, pattern);
             if(m.Success) 
                 return ErrorCodes.P_UNCORRECT;
