@@ -115,8 +115,6 @@ namespace TropicalPalm {
                 return;
             }
 
-            var F = fRichTextBox.Text;
-
             plot.Plot.Clear();
 
             double to, from;
@@ -132,7 +130,7 @@ namespace TropicalPalm {
             double[] errY = new double[range];
             double[] xArr = new double[range];
 
-            double rootMeanSquaredError = -1;
+            double rootMeanSquaredError;
             try {
                 rootMeanSquaredError = fillArrays(pY, qY, pbyqY, fY, errY, xArr, range);
             }
@@ -141,6 +139,12 @@ namespace TropicalPalm {
                 return;
             }
 
+            showRmse(rootMeanSquaredError);
+
+            plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+        }
+
+        private void showRmse(double rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
                 rootMeanSquaredErrorValueLabel.Text = rootMeanSquaredError.ToString("F2");
                 rootMeanSquaredErrorValueLabel.Visible = true;
@@ -150,11 +154,13 @@ namespace TropicalPalm {
                 rootMeanSquaredErrorValueLabel.Visible = false;
                 rootMeanSquaredErrorLabel.Visible = false;
             }
+        }
 
-            plot.Plot.AddScatter(xArr, pY, label : "P");
-            plot.Plot.AddScatter(xArr, qY, label : "Q");
+        private void plotArrays(double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY,double[] xArr) {
+            plot.Plot.AddScatter(xArr, pY, label: "P");
+            plot.Plot.AddScatter(xArr, qY, label: "Q");
             plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
-            if(F.Length > 0) {
+            if(fRichTextBox.Text.Length > 0) {
                 plot.Plot.AddScatter(xArr, fY, label: "f");
                 if(errorFuncCheckBox.Checked) {
                     plot.Plot.AddScatter(xArr, errY, label: "error");
