@@ -265,6 +265,8 @@ namespace TropicalPalm {
                 if(cancellationToken.IsCancellationRequested) {
                     return;
                 }
+
+                xArr[i] = xValue;
             }
         }
 
