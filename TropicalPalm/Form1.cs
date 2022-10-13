@@ -115,7 +115,6 @@ namespace TropicalPalm {
                 return;
             }
 
-            plot.Plot.Clear();
             int range = calculateRange();
 
             double[] pY = new double[range];
@@ -160,6 +159,7 @@ namespace TropicalPalm {
         }
 
         private void plotArrays(double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY,double[] xArr) {
+            plot.Plot.Clear();
             plot.Plot.AddScatter(xArr, pY, label: "P");
             plot.Plot.AddScatter(xArr, qY, label: "Q");
             plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
