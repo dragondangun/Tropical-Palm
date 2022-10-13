@@ -116,12 +116,7 @@ namespace TropicalPalm {
             }
 
             plot.Plot.Clear();
-
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
-
-            int range = (int)Math.Ceiling(Math.Abs(to - from) / step) + 1;
+            int range = calculateRange();
 
             double[] pY = new double[range];
             double[] qY = new double[range];
@@ -142,6 +137,14 @@ namespace TropicalPalm {
             showRmse(rootMeanSquaredError);
 
             plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+        }
+
+        private int calculateRange() {
+            double to, from;
+            from = Convert.ToDouble(xFromTextBox.Text);
+            to = Convert.ToDouble(xToTextBox.Text);
+
+            return (int)Math.Ceiling(Math.Abs(to - from) / step) + 1;
         }
 
         private void showRmse(double rootMeanSquaredError) {
