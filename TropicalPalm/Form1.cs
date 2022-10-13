@@ -590,6 +590,76 @@ namespace TropicalPalm {
                 MessageBox.Show("Нечётное количество полиномов!\nИли ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if(fRichTextBox.Text.Length == 0) {
+                var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
+                                             "Внимание",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                if(result == DialogResult.No) {
+                    return;
+                }
+            }
+            else {
+                if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                    MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            selectBestRationalFunction(makePolynomialPairs(polynomials));
+        }
+
+        private void selectBestRationalFunction(PolynomialPair[] polynomialPairs) {
+            int range = calculateRange();
+
+            double[] pY = new double[range];
+            double[] qY = new double[range];
+            double[] pbyqY = new double[range];
+            double[] fY = new double[range];
+            double[] errY = new double[range];
+            double[] xArr = new double[range];
+            
+            double minRmse = double.MaxValue;
+            double rmse;
+            foreach(PolynomialPair polynomialPair in polynomialPairs) {
+                rmse = fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
+                if(rmse < minRmse) {
+                    pRichTextBox.Text = polynomialPair.P;
+                    qRichTextBox.Text = polynomialPair.Q;
+                    plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+                    showRmse(rmse);
+                }
+            }
+        }
+
+        private PolynomialPair[] makePolynomialPairs(string[] polynomials) {
+            PolynomialPair[] polynomialPairs = new PolynomialPair[polynomials.Length / 2];
+            for(int i = 0, j = 0; i < polynomials.Length; i += 2, j++) {
+                polynomialPairs[j].P = stringToPolynomial(polynomials[i]);
+                polynomialPairs[j].Q = stringToPolynomial(polynomials[i + 1]);
+            }
+
+            return polynomialPairs;
+        }
+
+        private string stringToPolynomial(string rawPolynomial) {
+            string polynomial = "";
+            string[] nomials = rawPolynomial.Split($"{Environment.NewLine}");
+            foreach(string n in nomials) {
+                string[] line = n.Split('\t');
+                string coeff = line[0], power = line[1];
+                polynomial += $"({coeff})*x^({power})+";
+            }
+            return polynomial[..^1];
+        }
+
+        struct PolynomialPair {
+            string p;
+            public string P { get; set; }
+            string q;
+            public string Q { get; set; }
         }
     }
 }
