@@ -132,7 +132,7 @@ namespace TropicalPalm {
 
             double rootMeanSquaredError;
             try {
-                rootMeanSquaredError = fillArrays(pY, qY, pbyqY, fY, errY, xArr, range);
+                rootMeanSquaredError = fillArrays(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, fY, errY, xArr, range);
             }
             catch(NotFiniteNumberException ex) {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -171,24 +171,23 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
-        private double fillArrays(double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY, double[] xArr, int range) {
+        private double fillArrays(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY, double[] xArr, int range) {
             
             double rootMeanSquaredError = -1;
 
             try {
                 if(range < 3) {
                     if(fRichTextBox.Text.Length > 0) {
-                        double squaredError = fillWithErrFunc(pY, qY, pbyqY, xArr, fY, errY, 0, range);
+                        double squaredError = fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, range);
                         rootMeanSquaredError = Math.Sqrt(squaredError / range);
                     }
                     else {
-                        fillOnlyPolynomials(pY, qY, pbyqY, xArr, 0, range);
+                        fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, range);
                     }
                 }
                 else {
                     int oneThirdRange = range / 3;
                     int twoThirdRange = oneThirdRange + oneThirdRange;
-                    string P = pRichTextBox.Text, Q = qRichTextBox.Text;
 
                     CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
@@ -223,11 +222,9 @@ namespace TropicalPalm {
             return rootMeanSquaredError;
         }
 
-        private void fillOnlyPolynomials(double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
+        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
             double xValue;
             xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom*step;
-            var P = pRichTextBox.Text;
-            var Q = qRichTextBox.Text;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
@@ -276,12 +273,10 @@ namespace TropicalPalm {
             }
         }
 
-        private double fillWithErrFunc(double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
+        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
             double xValue;
             double squaredError = 0;
             xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var P = pRichTextBox.Text;
-            var Q = qRichTextBox.Text;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
