@@ -598,9 +598,10 @@ namespace TropicalPalm {
             }
         }
 
+        private PolynomialPair[] preProcessFilePolynomials(string content) {
             if(containsInappropriateCharacters(content)) {
                 MessageBox.Show("Ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return null;
             }
 
             content = content.Trim();
@@ -609,7 +610,7 @@ namespace TropicalPalm {
 
             if(polynomials.Length % 2 == 1) {
                 MessageBox.Show("Нечётное количество полиномов!\nИли ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return null;
             }
 
             if(fRichTextBox.Text.Length == 0) {
@@ -619,17 +620,17 @@ namespace TropicalPalm {
                                              MessageBoxIcon.Question);
 
                 if(result == DialogResult.No) {
-                    return;
+                    return null;
                 }
             }
             else {
                 if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
                     MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return null;
                 }
             }
 
-            selectBestRationalFunction(makePolynomialPairs(polynomials));
+            return makePolynomialPairs(polynomials);
         }
 
         private bool containsInappropriateCharacters(string content) {
