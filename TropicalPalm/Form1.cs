@@ -640,7 +640,7 @@ namespace TropicalPalm {
             double progressStep = 100 / _polynomialPairs.Length;
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {
                 rmse = fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
-                if(rmse < minRmse) {
+                if(rmse <= minRmse) {
                     pRichTextBox.Text = polynomialPair.P;
                     qRichTextBox.Text = polynomialPair.Q;
                     plotArrays(pY, qY, pbyqY, fY, errY, xArr);
