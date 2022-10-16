@@ -636,6 +636,8 @@ namespace TropicalPalm {
             
             double minRmse = double.MaxValue;
             double rmse;
+            double progress = 0;
+            double progressStep = 100 / _polynomialPairs.Length;
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {
                 rmse = fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
                 if(rmse < minRmse) {
@@ -645,7 +647,10 @@ namespace TropicalPalm {
                     showRmse(rmse);
                     minRmse = rmse;
                 }
+                progress += progressStep;
+                progressBar.Value = (int)progress;
             }
+            progressBar.Value = 100;
         }
 
         private PolynomialPair[] makePolynomialPairs(string[] polynomials) {
