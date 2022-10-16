@@ -630,6 +630,7 @@ namespace TropicalPalm {
                     qRichTextBox.Text = polynomialPair.Q;
                     plotArrays(pY, qY, pbyqY, fY, errY, xArr);
                     showRmse(rmse);
+                    minRmse = rmse;
                 }
             }
         }
