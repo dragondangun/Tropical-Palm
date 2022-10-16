@@ -19,6 +19,7 @@ using System.IO;
 namespace TropicalPalm {
 
     public partial class Form1:Form {
+        PolynomialPair[] polynomialPairs;
         bool inftyCheck;
         bool nonNegativeField;
         bool fromFile = false;
@@ -623,7 +624,7 @@ namespace TropicalPalm {
             selectBestRationalFunction(makePolynomialPairs(polynomials));
         }
 
-        private void selectBestRationalFunction(PolynomialPair[] polynomialPairs) {
+        private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
             int range = calculateRange();
 
             double[] pY = new double[range];
@@ -635,7 +636,7 @@ namespace TropicalPalm {
             
             double minRmse = double.MaxValue;
             double rmse;
-            foreach(PolynomialPair polynomialPair in polynomialPairs) {
+            foreach(PolynomialPair polynomialPair in _polynomialPairs) {
                 rmse = fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
                 if(rmse < minRmse) {
                     pRichTextBox.Text = polynomialPair.P;
@@ -648,13 +649,13 @@ namespace TropicalPalm {
         }
 
         private PolynomialPair[] makePolynomialPairs(string[] polynomials) {
-            PolynomialPair[] polynomialPairs = new PolynomialPair[polynomials.Length / 2];
+            PolynomialPair[] _polynomialPairs = new PolynomialPair[polynomials.Length / 2];
             for(int i = 0, j = 0; i < polynomials.Length; i += 2, j++) {
-                polynomialPairs[j].P = stringToPolynomial(polynomials[i]);
-                polynomialPairs[j].Q = stringToPolynomial(polynomials[i + 1]);
+                _polynomialPairs[j].P = stringToPolynomial(polynomials[i]);
+                _polynomialPairs[j].Q = stringToPolynomial(polynomials[i + 1]);
             }
 
-            return polynomialPairs;
+            return _polynomialPairs;
         }
 
         private string stringToPolynomial(string rawPolynomial) {
