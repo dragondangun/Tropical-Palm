@@ -59,6 +59,7 @@
             this.manualButton = new System.Windows.Forms.Button();
             this.pathHolderLabel = new System.Windows.Forms.Label();
             this.pathLabel = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -461,11 +462,20 @@
             this.pathLabel.TabIndex = 29;
             this.pathLabel.Visible = false;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(100, 150);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(313, 32);
+            this.progressBar.TabIndex = 30;
+            this.progressBar.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1435, 582);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.pathLabel);
             this.Controls.Add(this.pathHolderLabel);
             this.Controls.Add(this.manualButton);
@@ -542,6 +552,7 @@
         private System.Windows.Forms.Button manualButton;
         private System.Windows.Forms.Label pathHolderLabel;
         private System.Windows.Forms.Label pathLabel;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
