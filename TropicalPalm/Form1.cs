@@ -576,7 +576,17 @@ namespace TropicalPalm {
             openFileDialog.ShowDialog();
 
             if(openFileDialog.FileName.Length > 0) {
-                preProcessFilePolynomials(openFileDialog.FileName);
+                string content;
+
+                using(StreamReader sr = new(openFileDialog.FileName)) {
+                    content = sr.ReadToEnd();
+                }
+                polynomialPairs = preProcessFilePolynomials(content);
+
+                if(polynomialPairs != null) {
+                    OnBuildModeChanged(true);
+                    pathLabel.Text = openFileDialog.FileName;
+                }
             }
         }
 
