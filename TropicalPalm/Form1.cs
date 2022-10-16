@@ -110,6 +110,16 @@ namespace TropicalPalm {
         }
 
         private void BuildButton_Click(object sender, EventArgs e) {
+            if(fromFile) {
+                progressBar.Value = 0;
+                selectBestRationalFunction(polynomialPairs);
+            }
+            else {
+                manualInputBuild();
+            }
+        }
+
+        private void manualInputBuild() {
             ErrorCodes errorCode = checkInput();
 
             if(errorCode != ErrorCodes.ALL_IS_GOOD) {
