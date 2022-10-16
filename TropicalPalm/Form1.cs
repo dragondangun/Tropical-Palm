@@ -598,9 +598,7 @@ namespace TropicalPalm {
             }
         }
 
-            string pattern = "[a-zA-Zа-яА-Я!@#$%^&*()+=/\\\'\"| ]";
-            var m = Regex.Match(content, pattern);
-            if(m.Success) {
+            if(containsInappropriateCharacters(content)) {
                 MessageBox.Show("Ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -632,6 +630,10 @@ namespace TropicalPalm {
             }
 
             selectBestRationalFunction(makePolynomialPairs(polynomials));
+        }
+
+        private bool containsInappropriateCharacters(string content) {
+            return !Regex.Match(content, $"[1-9.{Environment.NewLine}\t]").Success;
         }
 
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
