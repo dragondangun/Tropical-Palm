@@ -21,6 +21,7 @@ namespace TropicalPalm {
     public partial class Form1:Form {
         bool inftyCheck;
         bool nonNegativeField;
+        bool fromFile = false;
         double step = 0.1;
 
         double MaxPlus(Entity expr)
@@ -568,12 +569,23 @@ namespace TropicalPalm {
             }
         }
 
-        private void preProcessFilePolynomials(string path) {
-            string content;
+        private void OnBuildModeChanged(bool buildFromFile) {
+            pRichTextBox.Enabled = !buildFromFile;
+            qRichTextBox.Enabled = !buildFromFile;
+            manualButton.Visible = buildFromFile;
+            pathHolderLabel.Visible = buildFromFile;
+            pathLabel.Visible = buildFromFile;
+            fromFile = buildFromFile;
+            progressBar.Visible = buildFromFile;
 
-            using(StreamReader sr = new(path)) {
-                content = sr.ReadToEnd();
+            if(!buildFromFile) {
+                pathLabel.Text = "";
             }
+            else {
+                pRichTextBox.Text = "";
+                qRichTextBox.Text = "";
+            }
+        }
 
             string pattern = "[a-zA-Zа-яА-Я!@#$%^&*()+=/\\\'\"| ]";
             var m = Regex.Match(content, pattern);
@@ -661,6 +673,10 @@ namespace TropicalPalm {
             public string P { get; set; }
             string q;
             public string Q { get; set; }
+        }
+
+        private void manualButton_Click(object sender, EventArgs e) {
+            OnBuildModeChanged(false);
         }
     }
 }

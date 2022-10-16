@@ -438,6 +438,7 @@
             this.manualButton.Text = "Manual";
             this.manualButton.UseVisualStyleBackColor = true;
             this.manualButton.Visible = false;
+            this.manualButton.Click += new System.EventHandler(this.manualButton_Click);
             // 
             // pathHolderLabel
             // 
