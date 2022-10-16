@@ -56,6 +56,9 @@
             this.openFileButton = new System.Windows.Forms.Button();
             this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
             this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
+            this.manualButton = new System.Windows.Forms.Button();
+            this.pathHolderLabel = new System.Windows.Forms.Label();
+            this.pathLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -111,7 +114,7 @@
             // fRichTextBox
             // 
             this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.fRichTextBox.Location = new System.Drawing.Point(100, 172);
+            this.fRichTextBox.Location = new System.Drawing.Point(100, 248);
             this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.fRichTextBox.Multiline = false;
             this.fRichTextBox.Name = "fRichTextBox";
@@ -124,7 +127,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(59, 175);
+            this.label3.Location = new System.Drawing.Point(59, 251);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 18);
@@ -141,11 +144,11 @@
             this.groupBox1.Controls.Add(this.maxTimesRadioButton);
             this.groupBox1.Controls.Add(this.maxPlusRadioButton);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(13, 305);
+            this.groupBox1.Location = new System.Drawing.Point(13, 363);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(486, 180);
+            this.groupBox1.Size = new System.Drawing.Size(486, 122);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select algebra";
@@ -181,7 +184,7 @@
             this.otherRadioButton.AutoSize = true;
             this.otherRadioButton.Enabled = false;
             this.otherRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.otherRadioButton.Location = new System.Drawing.Point(211, 123);
+            this.otherRadioButton.Location = new System.Drawing.Point(205, 89);
             this.otherRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.otherRadioButton.Name = "otherRadioButton";
             this.otherRadioButton.Size = new System.Drawing.Size(63, 22);
@@ -247,7 +250,7 @@
             // pDbyQRichTextBox
             // 
             this.pDbyQRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pDbyQRichTextBox.Location = new System.Drawing.Point(100, 120);
+            this.pDbyQRichTextBox.Location = new System.Drawing.Point(100, 196);
             this.pDbyQRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pDbyQRichTextBox.Multiline = false;
             this.pDbyQRichTextBox.Name = "pDbyQRichTextBox";
@@ -261,7 +264,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(14, 123);
+            this.label4.Location = new System.Drawing.Point(14, 199);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 18);
@@ -272,7 +275,7 @@
             // kNumericUpDown
             // 
             this.kNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.kNumericUpDown.Location = new System.Drawing.Point(100, 226);
+            this.kNumericUpDown.Location = new System.Drawing.Point(100, 290);
             this.kNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.kNumericUpDown.Name = "kNumericUpDown";
             this.kNumericUpDown.Size = new System.Drawing.Size(140, 24);
@@ -283,7 +286,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(75, 228);
+            this.label5.Location = new System.Drawing.Point(75, 292);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(16, 18);
@@ -295,7 +298,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(14, 271);
+            this.label6.Location = new System.Drawing.Point(14, 335);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 18);
@@ -305,7 +308,7 @@
             // xFromTextBox
             // 
             this.xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xFromTextBox.Location = new System.Drawing.Point(100, 269);
+            this.xFromTextBox.Location = new System.Drawing.Point(100, 333);
             this.xFromTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xFromTextBox.Name = "xFromTextBox";
             this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
@@ -317,7 +320,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(285, 269);
+            this.label7.Location = new System.Drawing.Point(285, 333);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 18);
@@ -327,7 +330,7 @@
             // xToTextBox
             // 
             this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xToTextBox.Location = new System.Drawing.Point(383, 268);
+            this.xToTextBox.Location = new System.Drawing.Point(383, 332);
             this.xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
@@ -366,7 +369,7 @@
             // 
             this.errorFuncCheckBox.AutoSize = true;
             this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(247, 226);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(247, 290);
             this.errorFuncCheckBox.Name = "errorFuncCheckBox";
             this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
             this.errorFuncCheckBox.TabIndex = 20;
@@ -424,11 +427,48 @@
             this.rootMeanSquaredErrorLabel.Text = "RMSE:";
             this.rootMeanSquaredErrorLabel.Visible = false;
             // 
+            // manualButton
+            // 
+            this.manualButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.manualButton.Location = new System.Drawing.Point(420, 118);
+            this.manualButton.Name = "manualButton";
+            this.manualButton.Size = new System.Drawing.Size(80, 39);
+            this.manualButton.TabIndex = 27;
+            this.manualButton.Text = "Manual";
+            this.manualButton.UseVisualStyleBackColor = true;
+            this.manualButton.Visible = false;
+            // 
+            // pathHolderLabel
+            // 
+            this.pathHolderLabel.AutoSize = true;
+            this.pathHolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pathHolderLabel.Location = new System.Drawing.Point(52, 129);
+            this.pathHolderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pathHolderLabel.Name = "pathHolderLabel";
+            this.pathHolderLabel.Size = new System.Drawing.Size(42, 18);
+            this.pathHolderLabel.TabIndex = 28;
+            this.pathHolderLabel.Text = "Path:";
+            this.pathHolderLabel.Visible = false;
+            // 
+            // pathLabel
+            // 
+            this.pathLabel.AutoSize = true;
+            this.pathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pathLabel.Location = new System.Drawing.Point(100, 129);
+            this.pathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pathLabel.Name = "pathLabel";
+            this.pathLabel.Size = new System.Drawing.Size(0, 18);
+            this.pathLabel.TabIndex = 29;
+            this.pathLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1435, 582);
+            this.Controls.Add(this.pathLabel);
+            this.Controls.Add(this.pathHolderLabel);
+            this.Controls.Add(this.manualButton);
             this.Controls.Add(this.rootMeanSquaredErrorValueLabel);
             this.Controls.Add(this.rootMeanSquaredErrorLabel);
             this.Controls.Add(this.openFileButton);
@@ -499,6 +539,9 @@
         private System.Windows.Forms.Button openFileButton;
         private System.Windows.Forms.Label rootMeanSquaredErrorValueLabel;
         private System.Windows.Forms.Label rootMeanSquaredErrorLabel;
+        private System.Windows.Forms.Button manualButton;
+        private System.Windows.Forms.Label pathHolderLabel;
+        private System.Windows.Forms.Label pathLabel;
     }
 }
 
