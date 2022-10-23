@@ -410,7 +410,7 @@
             // 
             this.rootMeanSquaredErrorValueLabel.AutoSize = true;
             this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(625, 533);
+            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(625, 529);
             this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
             this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 29);
@@ -476,7 +476,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(625, 529);
+            this.label8.Location = new System.Drawing.Point(625, 525);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 29);
