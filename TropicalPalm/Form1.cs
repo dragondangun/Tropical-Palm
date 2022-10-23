@@ -313,7 +313,7 @@ namespace TropicalPalm {
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
                 }
 
-                errY[i] = fY[i] - pbyqY[i];
+                errY[i] = pbyqY[i] - fY[i];
                 squaredError += errY[i] * errY[i];
                 xArr[i] = xValue;
             }
@@ -350,7 +350,7 @@ namespace TropicalPalm {
                     return -1;
                 }
 
-                errY[i] = fY[i] - pbyqY[i];
+                errY[i] = pbyqY[i] - fY[i];
                 squaredError += errY[i] * errY[i];
                 xArr[i] = xValue;
             }
