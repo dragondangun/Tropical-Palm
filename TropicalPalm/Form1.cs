@@ -111,6 +111,23 @@ namespace TropicalPalm {
 
         private void BuildButton_Click(object sender, EventArgs e) {
             if(fromFile) {
+                if(fRichTextBox.Text.Length == 0) {
+                    var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
+                                                 "Внимание",
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                    if(result == DialogResult.No) {
+                        return;
+                    }
+                }
+                else {
+                    if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                        MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
                 progressBar.Value = 0;
                 selectBestRationalFunction(polynomialPairs);
             }
@@ -621,23 +638,6 @@ namespace TropicalPalm {
             if(polynomials.Length % 2 == 1) {
                 MessageBox.Show("Нечётное количество полиномов!\nИли ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
-            }
-
-            if(fRichTextBox.Text.Length == 0) {
-                var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
-                                             "Внимание",
-                                             MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Question);
-
-                if(result == DialogResult.No) {
-                    return null;
-                }
-            }
-            else {
-                if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                    MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
             }
 
             return makePolynomialPairs(polynomials);
