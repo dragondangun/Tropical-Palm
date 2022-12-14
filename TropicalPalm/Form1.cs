@@ -20,10 +20,8 @@ namespace TropicalPalm {
 
     public partial class Form1:Form {
         PolynomialPair[] polynomialPairs;
-        bool inftyCheck;
         bool nonNegativeField;
         bool fromFile = false;
-        double step = 0.1;
 
         double MaxPlus(Entity expr)
         => expr switch {
@@ -79,9 +77,6 @@ namespace TropicalPalm {
             Divf(var a, var b) => MinDiv(a) * MinDiv(b),
         };
 
-        delegate double Algebra(Entity expr);
-        Algebra currAlgebra;
-
         public Form1() {
             InitializeComponent();
         }
@@ -110,6 +105,10 @@ namespace TropicalPalm {
         }
 
         private void BuildButton_Click(object sender, EventArgs e) {
+            ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
+            ArraysFiller.F = fRichTextBox.Text;
+
+
             if(fromFile) {
                 if(fRichTextBox.Text.Length == 0) {
                     var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
@@ -157,12 +156,13 @@ namespace TropicalPalm {
             double[] xArr = new double[range];
 
             double rootMeanSquaredError;
+
             try {
                 if(onePolynomial) {
-                    rootMeanSquaredError = fillArrays(pRichTextBox.Text+qRichTextBox.Text, pY, fY, errY, xArr, range);
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, pY, fY, errY, xArr, range);
                 }
                 else {
-                    rootMeanSquaredError = fillArrays(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, fY, errY, xArr, range);
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, fY, errY, xArr, range);
                 }
             }
             catch(NotFiniteNumberException ex) {
@@ -180,7 +180,7 @@ namespace TropicalPalm {
             from = Convert.ToDouble(xFromTextBox.Text);
             to = Convert.ToDouble(xToTextBox.Text);
 
-            return (int)Math.Ceiling(Math.Abs(to - from) / step) + 1;
+            return (int)Math.Ceiling(Math.Abs(to - from) / ArraysFiller.Step) + 1;
         }
 
         private void showRmse(double rootMeanSquaredError) {
@@ -215,395 +215,63 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
-        private double fillArrays(string P, double[] pY, double[] fY, double[] errY, double[] xArr, int range) {
-            double rootMeanSquaredError = -1;
-
-            try {
-                if(range < 3) {
-                    if(fY is not null) {
-                        double squaredError = fillWithErrFunc(P, pY, xArr, fY, errY, 0, range);
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
-                    }
-                    else {
-                        fillOnlyPolynomials(P, pY, xArr, 0, range);
-                    }
-                }
-                else {
-                    int oneThirdRange = range / 3;
-                    int twoThirdRange = oneThirdRange + oneThirdRange;
-
-                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                    CancellationToken cancellationToken = cancellationTokenSource.Token;
-
-                    if(fY is not null) {
-                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
-                        Task.WaitAll(firstPart, secondPart, thirdPart);
-
-                        double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
-                    }
-                    else {
-                        Task firstPart = Task.Run(() => fillOnlyPolynomials(P, pY, xArr, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task secondPart = Task.Run(() => fillOnlyPolynomials(P, pY, xArr, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task thirdPart = Task.Run(() => fillOnlyPolynomials(P, pY, xArr, twoThirdRange, range, cancellationTokenSource, cancellationToken));
-                        Task.WaitAll(firstPart, secondPart, thirdPart);
-                    }
-                }
-            }
-            catch(AggregateException ae) {
-                throw ae.InnerException;
-            }
-
-            if(inftyCheck) {
-                correctInfty(pY);
-            }
-
-            return rootMeanSquaredError;
-        }
-
-
-        private double fillArrays(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY, double[] xArr, int range) {
-            double rootMeanSquaredError = -1;
-
-            try {
-                if(range < 3) {
-                    if(fY is not null) {
-                        double squaredError = fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, range);
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
-                    }
-                    else {
-                        fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, range);
-                    }
-                }
-                else {
-                    int oneThirdRange = range / 3;
-                    int twoThirdRange = oneThirdRange + oneThirdRange;
-
-                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                    CancellationToken cancellationToken = cancellationTokenSource.Token;
-
-                    if(fY is not null) {
-                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
-                        Task.WaitAll(firstPart, secondPart, thirdPart);
-
-                        double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
-                    }
-                    else {
-                        Task firstPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task secondPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task thirdPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, twoThirdRange, range, cancellationTokenSource, cancellationToken));
-                        Task.WaitAll(firstPart, secondPart, thirdPart);
-                    }
-                }
-            }
-            catch(AggregateException ae) {
-                throw ae.InnerException;
-            }
-
-            if(inftyCheck) {
-                correctInfty(pY);
-                correctInfty(qY);
-                correctInfty(pbyqY);
-            }
-
-            return rootMeanSquaredError;
-        }
-
-        private void fillOnlyPolynomials(string P, double[] pY, double[] xArr, int indexFrom, int indexTo) {
-            double xValue;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var xVariable = Var("x");
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-
-                if(error) {
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
-                }
-
-                xArr[i] = xValue;
-            }
-        }
-
-        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
-            double xValue;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom*step;
-            var pbyq = $"({P})/({Q})";
-            var xVariable = Var("x");
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
-
-                if(error) {
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
-                }
-
-                xArr[i] = xValue;
-            }
-        }
-
-        private void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var pbyq = $"({P})/({Q})";
-            var xVariable = Var("x");
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
-
-                if(error) {
-                    cancellationTokenSource.Cancel();
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
-                }
-
-                if(cancellationToken.IsCancellationRequested) {
-                    return;
-                }
-
-                xArr[i] = xValue;
-            }
-        }
-
-        private void fillOnlyPolynomials(string P, double[] pY, double[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var xVariable = Var("x");
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-
-                if(error) {
-                    cancellationTokenSource.Cancel();
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
-                }
-
-                if(cancellationToken.IsCancellationRequested) {
-                    return;
-                }
-
-                xArr[i] = xValue;
-            }
-        }
-
-        private double fillWithErrFunc(string P, double[] pY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
-            double xValue;
-            double squaredError = 0;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var xVariable = Var("x");
-
-            var F = fRichTextBox.Text;
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-
-                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
-
-                if(error) {
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
-                }
-
-                errY[i] = pY[i] - fY[i];
-                squaredError += errY[i] * errY[i];
-                xArr[i] = xValue;
-            }
-
-            return squaredError;
-        }
-
-        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
-            double xValue;
-            double squaredError = 0;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var pbyq = $"({P})/({Q})";
-            var xVariable = Var("x");
-
-            var F = fRichTextBox.Text;
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
-
-                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
-
-                if(error) {
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
-                }
-
-                errY[i] = pbyqY[i] - fY[i];
-                squaredError += errY[i] * errY[i];
-                xArr[i] = xValue;
-            }
-
-            return squaredError;
-        }
-
-        private double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            double squaredError = 0;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var pbyq = $"({P})/({Q})";
-            var xVariable = Var("x");
-
-            var F = fRichTextBox.Text;
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
-
-                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
-
-                if(error) {
-                    cancellationTokenSource.Cancel();
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
-                }
-                if(cancellationToken.IsCancellationRequested) {
-                    return -1;
-                }
-
-                errY[i] = pbyqY[i] - fY[i];
-                squaredError += errY[i] * errY[i];
-                xArr[i] = xValue;
-            }
-
-            return squaredError;
-        }
-
-        private double fillWithErrFunc(string P, double[] pY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            double squaredError = 0;
-            xValue = Convert.ToDouble(xFromTextBox.Text) + indexFrom * step;
-            var xVariable = Var("x");
-
-            var F = fRichTextBox.Text;
-
-            bool error = false;
-            for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-
-                fY[i] = ((double)F.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
-
-                if(error) {
-                    cancellationTokenSource.Cancel();
-                    throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
-                }
-                if(cancellationToken.IsCancellationRequested) {
-                    return -1;
-                }
-
-                errY[i] = pY[i] - fY[i];
-                squaredError += errY[i] * errY[i];
-                xArr[i] = xValue;
-            }
-
-            return squaredError;
-        }
-
-        private void correctInfty(double[] arr) {
-            for(int i = 0; i < arr.Length; i++) {
-                if(double.IsPositiveInfinity(arr[i])) {
-                    arr[i] = 9000000d;
-                }
-                else if(double.IsNegativeInfinity(arr[i])) {
-                    arr[i] = -9000000d;
-                }
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e) {
-            currAlgebra = MaxPlus;
+            ArraysFiller.CurrAlgebra = MaxPlus;
             sumFieldSettings();
         }
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minPlusRadioButton.Checked) {
-                currAlgebra = MinPlus;
+                ArraysFiller.CurrAlgebra = MinPlus;
                 sumFieldSettings();
             }
         }
 
         private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(maxPlusRadioButton.Checked) {
-                currAlgebra = MaxPlus;
+                ArraysFiller.CurrAlgebra = MaxPlus;
                 sumFieldSettings();
             }
         }
 
         private void maxTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(maxTimesRadioButton.Checked) {
-                currAlgebra = MaxTimes;
+                ArraysFiller.CurrAlgebra = MaxTimes;
                 mulFieldSettings();
             }
         }
 
         private void minTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minTimesRadioButton.Checked) {
-                currAlgebra = MinTimes;
+                ArraysFiller.CurrAlgebra = MinTimes;
                 mulFieldSettings();
             }
         }
 
         private void minDivRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minDivRadioButton.Checked) {
-                currAlgebra = MinDiv;
+                ArraysFiller.CurrAlgebra = MinDiv;
                 mulFieldSettings();
             }
         }
 
         private void maxDivRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(maxDivRadioButton.Checked) {
-                currAlgebra = MaxDiv;
+                ArraysFiller.CurrAlgebra = MaxDiv;
                 mulFieldSettings();
             }
         }
 
         private void sumFieldSettings() {
-            inftyCheck = false;
+            ArraysFiller.InftyCheck = false;
             nonNegativeField = false;
-            step = 0.01;
+            ArraysFiller.Step = 0.01;
         }
 
         private void mulFieldSettings() {
-            inftyCheck = true;
+            ArraysFiller.InftyCheck = true;
             nonNegativeField = true;
-            step = 0.1;
+            ArraysFiller.Step = 0.1;
 
             double from = Convert.ToDouble(xFromTextBox.Text);
             from = from < 0 ? 0 : from;
@@ -666,9 +334,9 @@ namespace TropicalPalm {
             var x = Var("x");
 
             try {
-                currAlgebra(expression.Substitute(x, 0.4));
-                currAlgebra(expression.Substitute(x, -0.4));
-                currAlgebra(expression.Substitute(x, 0.0));
+                ArraysFiller.CurrAlgebra(expression.Substitute(x, 0.4));
+                ArraysFiller.CurrAlgebra(expression.Substitute(x, -0.4));
+                ArraysFiller.CurrAlgebra(expression.Substitute(x, 0.0));
             }
             catch {
                 result = false;
@@ -819,7 +487,7 @@ namespace TropicalPalm {
             double progress = 0;
             double progressStep = 100 / _polynomialPairs.Length;
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {
-                rmse = fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
+                rmse = ArraysFiller.fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
                 if(rmse <= minRmse) {
                     pRichTextBox.Text = polynomialPair.P;
                     qRichTextBox.Text = polynomialPair.Q;
