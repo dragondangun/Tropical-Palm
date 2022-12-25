@@ -39,8 +39,6 @@
             this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
             this.maxTimesRadioButton = new System.Windows.Forms.RadioButton();
             this.maxPlusRadioButton = new System.Windows.Forms.RadioButton();
-            this.pDbyQRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.kNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -61,9 +59,15 @@
             this.pathLabel = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.mNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // pRichTextBox
@@ -116,7 +120,7 @@
             // fRichTextBox
             // 
             this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.fRichTextBox.Location = new System.Drawing.Point(100, 248);
+            this.fRichTextBox.Location = new System.Drawing.Point(100, 290);
             this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.fRichTextBox.Multiline = false;
             this.fRichTextBox.Name = "fRichTextBox";
@@ -129,7 +133,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(59, 251);
+            this.label3.Location = new System.Drawing.Point(59, 293);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 18);
@@ -249,35 +253,10 @@
             this.maxPlusRadioButton.UseVisualStyleBackColor = true;
             this.maxPlusRadioButton.CheckedChanged += new System.EventHandler(this.maxPlusRadioButton_CheckedChanged);
             // 
-            // pDbyQRichTextBox
-            // 
-            this.pDbyQRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pDbyQRichTextBox.Location = new System.Drawing.Point(100, 196);
-            this.pDbyQRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pDbyQRichTextBox.Multiline = false;
-            this.pDbyQRichTextBox.Name = "pDbyQRichTextBox";
-            this.pDbyQRichTextBox.ReadOnly = true;
-            this.pDbyQRichTextBox.Size = new System.Drawing.Size(399, 36);
-            this.pDbyQRichTextBox.TabIndex = 11;
-            this.pDbyQRichTextBox.Text = "";
-            this.pDbyQRichTextBox.Visible = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(14, 199);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 18);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "P(x)/Q(x)";
-            this.label4.Visible = false;
-            // 
             // kNumericUpDown
             // 
             this.kNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.kNumericUpDown.Location = new System.Drawing.Point(100, 290);
+            this.kNumericUpDown.Location = new System.Drawing.Point(100, 188);
             this.kNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.kNumericUpDown.Name = "kNumericUpDown";
             this.kNumericUpDown.Size = new System.Drawing.Size(140, 24);
@@ -288,19 +267,19 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(75, 292);
+            this.label5.Location = new System.Drawing.Point(75, 190);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 18);
+            this.label5.Size = new System.Drawing.Size(18, 18);
             this.label5.TabIndex = 13;
-            this.label5.Text = "k";
+            this.label5.Text = "K";
             this.label5.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(14, 335);
+            this.label6.Location = new System.Drawing.Point(13, 335);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 18);
@@ -310,7 +289,7 @@
             // xFromTextBox
             // 
             this.xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xFromTextBox.Location = new System.Drawing.Point(100, 333);
+            this.xFromTextBox.Location = new System.Drawing.Point(100, 332);
             this.xFromTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xFromTextBox.Name = "xFromTextBox";
             this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
@@ -322,7 +301,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(285, 333);
+            this.label7.Location = new System.Drawing.Point(223, 335);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 18);
@@ -332,7 +311,7 @@
             // xToTextBox
             // 
             this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xToTextBox.Location = new System.Drawing.Point(383, 332);
+            this.xToTextBox.Location = new System.Drawing.Point(253, 332);
             this.xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.xToTextBox.Name = "xToTextBox";
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
@@ -371,7 +350,7 @@
             // 
             this.errorFuncCheckBox.AutoSize = true;
             this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(247, 290);
+            this.errorFuncCheckBox.Location = new System.Drawing.Point(387, 334);
             this.errorFuncCheckBox.Name = "errorFuncCheckBox";
             this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
             this.errorFuncCheckBox.TabIndex = 20;
@@ -483,11 +462,59 @@
             this.label8.TabIndex = 26;
             this.label8.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(75, 220);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(21, 18);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "M";
+            this.label4.Visible = false;
+            // 
+            // mNumericUpDown
+            // 
+            this.mNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.mNumericUpDown.Location = new System.Drawing.Point(100, 218);
+            this.mNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.mNumericUpDown.Name = "mNumericUpDown";
+            this.mNumericUpDown.Size = new System.Drawing.Size(140, 24);
+            this.mNumericUpDown.TabIndex = 31;
+            this.mNumericUpDown.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(75, 250);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(16, 18);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "d";
+            this.label9.Visible = false;
+            // 
+            // dNumericUpDown
+            // 
+            this.dNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dNumericUpDown.Location = new System.Drawing.Point(100, 248);
+            this.dNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dNumericUpDown.Name = "dNumericUpDown";
+            this.dNumericUpDown.Size = new System.Drawing.Size(140, 24);
+            this.dNumericUpDown.TabIndex = 33;
+            this.dNumericUpDown.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1435, 582);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.dNumericUpDown);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.mNumericUpDown);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.pathLabel);
             this.Controls.Add(this.pathHolderLabel);
@@ -506,8 +533,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.kNumericUpDown);
-            this.Controls.Add(this.pDbyQRichTextBox);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.fRichTextBox);
@@ -525,6 +550,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.kNumericUpDown)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,8 +571,6 @@
         private System.Windows.Forms.RadioButton minPlusRadioButton;
         private System.Windows.Forms.RadioButton maxTimesRadioButton;
         private System.Windows.Forms.RadioButton maxPlusRadioButton;
-        private System.Windows.Forms.RichTextBox pDbyQRichTextBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown kNumericUpDown;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -568,6 +593,10 @@
         private System.Windows.Forms.Label pathLabel;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown mNumericUpDown;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown dNumericUpDown;
     }
 }
 
