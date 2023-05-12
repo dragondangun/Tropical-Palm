@@ -23,60 +23,6 @@ namespace TropicalPalm {
         bool nonNegativeField;
         bool fromFile = false;
 
-        double MaxPlus(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MaxPlus(a) > MaxPlus(b)) ? MaxPlus(a) : MaxPlus(b),
-            Powf(var a, var b) => MaxPlus(a) * (double)b.EvalNumerical().RealPart,
-            Mulf(var a, var b) => MaxPlus(a) + MaxPlus(b),
-            Divf(var a, var b) => MaxPlus(a) - MaxPlus(b),
-        };
-
-        double MinPlus(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MinPlus(a) < MinPlus(b)) ? MinPlus(a) : MinPlus(b),
-            Powf(var a, var b) => MinPlus(a) * (double)b.EvalNumerical().RealPart,
-            Mulf(var a, var b) => MinPlus(a) + MinPlus(b),
-            Divf(var a, var b) => MinPlus(a) - MinPlus(b),
-        };
-
-        double MaxTimes(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MaxTimes(a) > MaxTimes(b)) ? MaxTimes(a) : MaxTimes(b),
-            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
-            Mulf(var a, var b) => MaxTimes(a) * MaxTimes(b),
-            Divf(var a, var b) => MaxTimes(a) / MaxTimes(b),
-        };
-
-        double MinTimes(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MinTimes(a) < MinTimes(b)) ? MinTimes(a) : MinTimes(b),
-            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
-            Mulf(var a, var b) => MinTimes(a) * MinTimes(b),
-            Divf(var a, var b) => MinTimes(a) / MinTimes(b),
-        };
-
-        double MaxDiv(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MaxDiv(a) > MaxDiv(b)) ? MaxDiv(a) : MaxDiv(b),
-            Powf(var a, var b) => (double)Pow(MinTimes(a), (double)b.EvalNumerical().RealPart).RealPart,
-            Mulf(var a, var b) => MaxDiv(a) / MaxDiv(b),
-            Divf(var a, var b) => MaxDiv(a) * MaxDiv(b),
-        };
-
-        double MinDiv(Entity expr)
-        => expr switch {
-            Number.Real r => (double)r,
-            Sumf(var a, var b) => (MinDiv(a) < MinDiv(b)) ? MinDiv(a) : MinDiv(b),
-            Powf(var a, var b) => (double)Pow(MinDiv(a), (double)b.EvalNumerical().RealPart).RealPart,
-            Mulf(var a, var b) => MinDiv(a) / MinDiv(b),
-            Divf(var a, var b) => MinDiv(a) * MinDiv(b),
-        };
-
         public Form1() {
             InitializeComponent();
         }
@@ -148,14 +94,14 @@ namespace TropicalPalm {
             bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
             bool isApproximating = fRichTextBox.Text.Length > 0;
 
-            double[] pY = new double[range];
-            double[] qY = onePolynomial ? null : new double[range];
-            double[] pbyqY = onePolynomial ? null : new double[range];
-            double[] fY = isApproximating ? new double[range] : null;
-            double[] errY = isApproximating ? new double[range] : null;
-            double[] xArr = new double[range];
+            Number.Real[] pY = new Number.Real[range];
+            Number.Real[] qY = onePolynomial ? null : new Number.Real[range];
+            Number.Real[] pbyqY = onePolynomial ? null : new Number.Real[range];
+            Number.Real[] fY = isApproximating ? new Number.Real[range] : null;
+            Number.Real[] errY = isApproximating ? new Number.Real[range] : null;
+            Number.Real[] xArr = new Number.Real[range];
 
-            double rootMeanSquaredError;
+            Number.Real rootMeanSquaredError;
 
             try {
                 if(onePolynomial) {
@@ -180,12 +126,14 @@ namespace TropicalPalm {
             from = Convert.ToDouble(xFromTextBox.Text);
             to = Convert.ToDouble(xToTextBox.Text);
 
-            return (int)Math.Ceiling(Math.Abs(to - from) / ArraysFiller.Step) + 1;
+            return (int)Math.Ceiling(Math.Abs(to - from) / (double)ArraysFiller.Step) + 1;
         }
 
-        private void showRmse(double rootMeanSquaredError) {
+        private void showRmse(Number.Real rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
-                rootMeanSquaredErrorValueLabel.Text = rootMeanSquaredError.ToString("F2");
+                string RMSE = rootMeanSquaredError.ToString();
+                RMSE = RMSE.Substring(0, RMSE.IndexOf('.') + 3);
+                rootMeanSquaredErrorValueLabel.Text = RMSE;
                 rootMeanSquaredErrorValueLabel.Visible = true;
                 rootMeanSquaredErrorLabel.Visible = true;
             }
@@ -195,19 +143,25 @@ namespace TropicalPalm {
             }
         }
 
-        private void plotArrays(double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY,double[] xArr) {
+        private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) {
             plot.Plot.Clear();
-            plot.Plot.AddScatter(xArr, pY, label: "P");
+            var dxArr = RealToDouble(xArr);
+            var dpY = RealToDouble(pY);
+            plot.Plot.AddScatter(dxArr, dpY, label: "P");
 
             if(qY != null) {
-                plot.Plot.AddScatter(xArr, qY, label: "Q");
-                plot.Plot.AddScatter(xArr, pbyqY, label: "P/Q");
+                var dqY = RealToDouble(qY);
+                var dpbyqY = RealToDouble(pbyqY);
+                plot.Plot.AddScatter(dxArr, dqY, label: "Q");
+                plot.Plot.AddScatter(dxArr, dpbyqY, label: "P/Q");
             }
 
             if(fY != null) {
-                plot.Plot.AddScatter(xArr, fY, label: "f");
+                var dfY = RealToDouble(fY);
+                plot.Plot.AddScatter(dxArr, dfY, label: "f");
                 if(errorFuncCheckBox.Checked) {
-                    plot.Plot.AddScatter(xArr, errY, label: "error");
+                    var derrY = RealToDouble(errY);
+                    plot.Plot.AddScatter(dxArr, derrY, label: "error");
                 }
             }
 
@@ -215,49 +169,45 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
+        private double[] RealToDouble(Number.Real[] arr) {
+            double[] result = new double[arr.Length];
+
+            for(int i = 0; i < arr.Length; i++) {
+                result[i] = (double)arr[i];
+            }
+
+            return result;
+        }
+
         private void Form1_Load(object sender, EventArgs e) {
-            ArraysFiller.CurrAlgebra = MaxPlus;
+            TropApprox.Current.Algebra = TropApprox.MaxPlus.Instance;
             sumFieldSettings();
         }
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minPlusRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MinPlus;
+                TropApprox.Current.Algebra = TropApprox.MinPlus.Instance;
                 sumFieldSettings();
             }
         }
 
         private void maxPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(maxPlusRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MaxPlus;
+                TropApprox.Current.Algebra = TropApprox.MaxPlus.Instance;
                 sumFieldSettings();
             }
         }
 
         private void maxTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(maxTimesRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MaxTimes;
+                TropApprox.Current.Algebra = TropApprox.MaxTimes.Instance;
                 mulFieldSettings();
             }
         }
 
         private void minTimesRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minTimesRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MinTimes;
-                mulFieldSettings();
-            }
-        }
-
-        private void minDivRadioButton_CheckedChanged(object sender, EventArgs e) {
-            if(minDivRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MinDiv;
-                mulFieldSettings();
-            }
-        }
-
-        private void maxDivRadioButton_CheckedChanged(object sender, EventArgs e) {
-            if(maxDivRadioButton.Checked) {
-                ArraysFiller.CurrAlgebra = MaxDiv;
+                TropApprox.Current.Algebra = TropApprox.MinTimes.Instance;
                 mulFieldSettings();
             }
         }
@@ -265,13 +215,13 @@ namespace TropicalPalm {
         private void sumFieldSettings() {
             ArraysFiller.InftyCheck = false;
             nonNegativeField = false;
-            ArraysFiller.Step = 0.01;
+            ArraysFiller.Step = (Number.Real)1/100;
         }
 
         private void mulFieldSettings() {
             ArraysFiller.InftyCheck = true;
             nonNegativeField = true;
-            ArraysFiller.Step = 0.1;
+            ArraysFiller.Step = (Number.Real)1 /10;
 
             double from = Convert.ToDouble(xFromTextBox.Text);
             from = from < 0 ? 0 : from;
@@ -334,9 +284,11 @@ namespace TropicalPalm {
             var x = Var("x");
 
             try {
-                ArraysFiller.CurrAlgebra(expression.Substitute(x, 0.4));
-                ArraysFiller.CurrAlgebra(expression.Substitute(x, -0.4));
-                ArraysFiller.CurrAlgebra(expression.Substitute(x, 0.0));
+                TropApprox.Current.Algebra.Calculate(expression.Substitute(x,(Number.Real)4/10));
+                if(!nonNegativeField) {
+                    TropApprox.Current.Algebra.Calculate(expression.Substitute(x, -0.4));
+                    TropApprox.Current.Algebra.Calculate(expression.Substitute(x, 0));
+                }
             }
             catch {
                 result = false;
@@ -475,15 +427,15 @@ namespace TropicalPalm {
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
             int range = calculateRange();
 
-            double[] pY = new double[range];
-            double[] qY = new double[range];
-            double[] pbyqY = new double[range];
-            double[] fY = new double[range];
-            double[] errY = new double[range];
-            double[] xArr = new double[range];
-            
-            double minRmse = double.MaxValue;
-            double rmse;
+            Number.Real[] pY = new Number.Real[range];
+            Number.Real[] qY = new Number.Real[range];
+            Number.Real[] pbyqY = new Number.Real[range];
+            Number.Real[] fY = new Number.Real[range];
+            Number.Real[] errY = new Number.Real[range];
+            Number.Real[] xArr = new Number.Real[range];
+
+            Number.Real minRmse = Number.Real.PositiveInfinity;
+            Number.Real rmse;
             double progress = 0;
             double progressStep = 100 / _polynomialPairs.Length;
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {

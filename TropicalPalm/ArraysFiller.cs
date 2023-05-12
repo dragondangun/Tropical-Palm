@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AngouriMath;
+using Current = TropApprox.Current;
+using static AngouriMath.Entity;
 
 namespace TropicalPalm {
     internal static class ArraysFiller {
@@ -14,21 +16,14 @@ namespace TropicalPalm {
         public static bool InftyCheck {
             set => inftyCheck = value;
         }
-        static double step = 0.1;
-        public static double Step {
+        static Number.Real step = 1/10;
+        public static Number.Real Step {
             set => step = value;
             get => step;
         }
-        static double xFrom;
-        public static double XFrom {
+        static Number.Real xFrom;
+        public static Number.Real XFrom {
             set => xFrom = value;
-        }
-
-        public delegate double Algebra(Entity expr);
-        static Algebra currAlgebra;
-        public static Algebra CurrAlgebra {
-            get => currAlgebra;
-            set => currAlgebra = value;
         }
 
         static string f;
@@ -36,14 +31,14 @@ namespace TropicalPalm {
             set => f = value;
         }
 
-        public static double fillArrays(string P, double[] pY, double[] fY, double[] errY, double[] xArr, int range) {
-            double rootMeanSquaredError = -1;
+        public static Number.Real fillArrays(string P, Number.Real[] pY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr, int range) {
+            Number.Real rootMeanSquaredError = -1;
 
             try {
                 if(range < 3) {
                     if(fY is not null) {
-                        double squaredError = fillWithErrFunc(P, pY, xArr, fY, errY, 0, range);
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                        Number.Real squaredError = fillWithErrFunc(P, pY, xArr, fY, errY, 0, range);
+                        rootMeanSquaredError = (Number.Real)MathS.Sqrt(squaredError / range);
                     }
                     else {
                         fillOnlyPolynomials(P, pY, xArr, 0, range);
@@ -57,13 +52,13 @@ namespace TropicalPalm {
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
 
                     if(fY is not null) {
-                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> firstPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> secondPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> thirdPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
                         Task.WaitAll(firstPart, secondPart, thirdPart);
 
-                        double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                        Number.Real squaredError = (firstPart.Result + secondPart.Result + thirdPart.Result).EvalNumerical().RealPart;
+                        rootMeanSquaredError = (Number.Real)(MathS.Sqrt(squaredError / range).EvalNumerical().RealPart);
                     }
                     else {
                         Task firstPart = Task.Run(() => fillOnlyPolynomials(P, pY, xArr, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
@@ -85,14 +80,20 @@ namespace TropicalPalm {
         }
 
 
-        public static double fillArrays(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] fY, double[] errY, double[] xArr, int range) {
-            double rootMeanSquaredError = -1;
+        public static Number.Real fillArrays
+        (
+            string P, string Q,
+            Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr,
+            int range
+        )
+        {
+            Number.Real rootMeanSquaredError = -1;
 
             try {
                 if(range < 3) {
                     if(fY is not null) {
-                        double squaredError = fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, range);
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                        Number.Real squaredError = fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, range);
+                        rootMeanSquaredError = (Number.Real)(MathS.Sqrt(squaredError / range).EvalNumerical());
                     }
                     else {
                         fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, range);
@@ -106,13 +107,13 @@ namespace TropicalPalm {
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
 
                     if(fY is not null) {
-                        Task<double> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
-                        Task<double> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> firstPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> secondPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
+                        Task<Number.Real> thirdPart = Task.Run(() => fillWithErrFunc(P, Q, pY, qY, pbyqY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));
                         Task.WaitAll(firstPart, secondPart, thirdPart);
 
-                        double squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
-                        rootMeanSquaredError = Math.Sqrt(squaredError / range);
+                        Number.Real squaredError = firstPart.Result + secondPart.Result + thirdPart.Result;
+                        rootMeanSquaredError = (Number.Real)(MathS.Sqrt(squaredError / range).EvalNumerical().RealPart);
                     }
                     else {
                         Task firstPart = Task.Run(() => fillOnlyPolynomials(P, Q, pY, qY, pbyqY, xArr, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
@@ -135,15 +136,14 @@ namespace TropicalPalm {
             return rootMeanSquaredError;
         }
 
-        private static void fillOnlyPolynomials(string P, double[] pY, double[] xArr, int indexFrom, int indexTo) {
-            double xValue;
-            xValue = xFrom + indexFrom * step;
+        private static void fillOnlyPolynomials(string P, Number.Real[] pY, Number.Real[] xArr, int indexFrom, int indexTo) {
+            Number.Real xValue = xFrom + indexFrom * step;
             var xVariable = Var("x");
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
 
                 if(error) {
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
@@ -153,20 +153,19 @@ namespace TropicalPalm {
             }
         }
 
-        private static void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo) {
-            double xValue;
-            xValue = xFrom + indexFrom * step;
+        private static void fillOnlyPolynomials(string P, string Q, Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] xArr, int indexFrom, int indexTo) {
+            Number.Real xValue = xFrom + indexFrom * step;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
+                qY[i] = (Number.Real)Current.Algebra.Calculate(Q.Substitute(xVariable, xValue));
+                error |= isNaNTest(qY[i]);
+                pbyqY[i] = (Number.Real)Current.Algebra.Calculate(pbyq.Substitute(xVariable, xValue));
+                error |= isNaNTest(pbyqY[i]);
 
                 if(error) {
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}");
@@ -176,20 +175,19 @@ namespace TropicalPalm {
             }
         }
 
-        private static void fillOnlyPolynomials(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            xValue = xFrom + indexFrom * step;
+        private static void fillOnlyPolynomials(string P, string Q, Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
+            Number.Real xValue = xFrom + indexFrom * step;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
+                qY[i] = (Number.Real)Current.Algebra.Calculate(Q.Substitute(xVariable, xValue));
+                error |= isNaNTest(qY[i]);
+                pbyqY[i] = (Number.Real)Current.Algebra.Calculate(pbyq.Substitute(xVariable, xValue));
+                error |= isNaNTest(pbyqY[i]);
 
                 if(error) {
                     cancellationTokenSource.Cancel();
@@ -204,15 +202,14 @@ namespace TropicalPalm {
             }
         }
 
-        private static void fillOnlyPolynomials(string P, double[] pY, double[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            xValue = xFrom + indexFrom * step;
+        private static void fillOnlyPolynomials(string P, Number.Real[] pY, Number.Real[] xArr, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
+            Number.Real xValue = xFrom + indexFrom * step;
             var xVariable = Var("x");
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
 
                 if(error) {
                     cancellationTokenSource.Cancel();
@@ -227,20 +224,19 @@ namespace TropicalPalm {
             }
         }
 
-        private static double fillWithErrFunc(string P, double[] pY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
-            double xValue;
-            double squaredError = 0;
-            xValue = xFrom + indexFrom * step;
+        private static Number.Real fillWithErrFunc(string P, Number.Real[] pY, Number.Real[] xArr, Number.Real[] fY, Number.Real[] errY, int indexFrom, int indexTo) {
+            Number.Real squaredError = 0;
+            Number.Real xValue = xFrom + indexFrom * step;
             var xVariable = Var("x");
 
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
 
-                fY[i] = ((double)f.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
+                fY[i] = f.Substitute(xVariable, xValue).EvalNumerical().RealPart;
+                error |= isNaNTest(fY[i]);
 
                 if(error) {
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}");
@@ -254,9 +250,14 @@ namespace TropicalPalm {
             return squaredError;
         }
 
-        private static double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo) {
-            double xValue;
-            double squaredError = 0;
+        private static Number.Real fillWithErrFunc(
+            string P, string Q, 
+            Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] xArr, Number.Real[] fY, Number.Real[] errY,
+            int indexFrom, int indexTo
+        )
+        {
+            Number.Real xValue;
+            Number.Real squaredError = 0;
             xValue = xFrom + indexFrom * step;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
@@ -264,15 +265,15 @@ namespace TropicalPalm {
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
+                qY[i] = (Number.Real)Current.Algebra.Calculate(Q.Substitute(xVariable, xValue));
+                error |= isNaNTest(qY[i]);
+                pbyqY[i] = (Number.Real)Current.Algebra.Calculate(pbyq.Substitute(xVariable, xValue));
+                error |= isNaNTest(pbyqY[i]);
 
-                fY[i] = ((double)f.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
+                fY[i] = f.Substitute(xVariable, xValue).EvalNumerical().RealPart;
+                error |= isNaNTest(fY[i]);
 
                 if(error) {
                     throw new NotFiniteNumberException($"When x is {xValue}:\npY={pY[i]}\nqY={qY[i]}\npbyqY={pbyqY[i]}\nfY{fY[i]}");
@@ -286,9 +287,16 @@ namespace TropicalPalm {
             return squaredError;
         }
 
-        private static double fillWithErrFunc(string P, string Q, double[] pY, double[] qY, double[] pbyqY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            double squaredError = 0;
+        private static Number.Real fillWithErrFunc
+        (
+            string P, string Q,
+            Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] xArr, Number.Real[] fY, Number.Real[] errY,
+            int indexFrom, int indexTo,
+            CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken
+        )
+        {
+            Number.Real xValue;
+            Number.Real squaredError = 0;
             xValue = xFrom + indexFrom * step;
             var pbyq = $"({P})/({Q})";
             var xVariable = Var("x");
@@ -296,15 +304,15 @@ namespace TropicalPalm {
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
-                qY[i] = currAlgebra(Q.Substitute(xVariable, xValue));
-                error |= double.IsNaN(qY[i]);
-                pbyqY[i] = currAlgebra(pbyq.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pbyqY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
+                qY[i] = (Number.Real)Current.Algebra.Calculate(Q.Substitute(xVariable, xValue));
+                error |= isNaNTest(qY[i]);
+                pbyqY[i] = (Number.Real)Current.Algebra.Calculate(pbyq.Substitute(xVariable, xValue));
+                error |= isNaNTest(pbyqY[i]);
 
-                fY[i] = ((double)f.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
+                fY[i] = f.Substitute(xVariable, xValue).EvalNumerical().RealPart;
+                error |= isNaNTest(fY[i]);
 
                 if(error) {
                     cancellationTokenSource.Cancel();
@@ -322,20 +330,27 @@ namespace TropicalPalm {
             return squaredError;
         }
 
-        private static double fillWithErrFunc(string P, double[] pY, double[] xArr, double[] fY, double[] errY, int indexFrom, int indexTo, CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken) {
-            double xValue;
-            double squaredError = 0;
+        private static Number.Real fillWithErrFunc
+        (
+            string P, 
+            Number.Real[] pY, Number.Real[] xArr, Number.Real[] fY, Number.Real[] errY, 
+            int indexFrom, int indexTo,
+            CancellationTokenSource cancellationTokenSource, CancellationToken cancellationToken
+        )
+        {
+            Number.Real xValue;
+            Number.Real squaredError = 0;
             xValue = xFrom + indexFrom * step;
             var xVariable = Var("x");
 
 
             bool error = false;
             for(int i = indexFrom; i < indexTo; xValue += step, i++) {
-                pY[i] = currAlgebra(P.Substitute(xVariable, xValue));
-                error |= double.IsNaN(pY[i]);
+                pY[i] = (Number.Real)Current.Algebra.Calculate(P.Substitute(xVariable, xValue));
+                error |= isNaNTest(pY[i]);
 
-                fY[i] = ((double)f.Substitute(xVariable, xValue).EvalNumerical().RealPart);
-                error |= double.IsNaN(fY[i]);
+                fY[i] = f.Substitute(xVariable, xValue).EvalNumerical().RealPart;
+                error |= isNaNTest(fY[i]);
 
                 if(error) {
                     cancellationTokenSource.Cancel();
@@ -353,12 +368,18 @@ namespace TropicalPalm {
             return squaredError;
         }
 
-        private static void correctInfty(double[] arr) {
+        private static bool isNaNTest(Number.Real number) {
+            return number == MathS.NaN ||
+                number == Number.Real.PositiveInfinity || 
+                number == Number.Real.NegativeInfinity;
+        }
+
+        private static void correctInfty(Number.Real[] arr) {
             for(int i = 0; i < arr.Length; i++) {
-                if(double.IsPositiveInfinity(arr[i])) {
+                if(arr[i] == Number.Real.PositiveInfinity) {
                     arr[i] = 9000000d;
                 }
-                else if(double.IsNegativeInfinity(arr[i])) {
+                else if(arr[i] == Number.Real.NegativeInfinity) {
                     arr[i] = -9000000d;
                 }
             }

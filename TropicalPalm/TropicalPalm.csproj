@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
@@ -17,6 +17,12 @@
   <ItemGroup>
     <PackageReference Include="AngouriMath" Version="1.3.0" />
     <PackageReference Include="ScottPlot.WinForms" Version="4.1.37" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TropApprox">
+      <HintPath>..\..\TropApprox\TropApprox\bin\Debug\net6.0\TropApprox.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

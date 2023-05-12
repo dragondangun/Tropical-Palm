@@ -1,3 +1,4 @@
+using AngouriMath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace TropicalPalm {
         /// </summary>
         [STAThread]
         static void Main() {
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
