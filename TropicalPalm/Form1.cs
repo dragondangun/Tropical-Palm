@@ -162,7 +162,7 @@ namespace TropicalPalm {
             }
 
             if(changeBoundsCheckBox.Checked) {
-                changeBounds(xs);
+                changeBorders(xs);
                 ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             }
 
@@ -179,8 +179,6 @@ namespace TropicalPalm {
 
             Number.Real rootMeanSquaredError;
 
-            string pstr, qstr = "";
-
             int d = Convert.ToInt32(dNumericUpDown.Value);
 
             if(polynomialRadioButton.Checked) {
@@ -188,29 +186,25 @@ namespace TropicalPalm {
                 P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), pY, fY, errY, xArr, range);
 
-                pstr = TrimZeros(P);
+                pRichTextBoxROA.Text = TrimZeros(P);
             }
             else {
                 qY = new Number.Real[range];
                 pbyqY = new Number.Real[range];
                 var _ = TropApprox.Approx.ApproximateFunction(fRichTextBox.Text, xs, mLeft, mRight, out P, out Q, d);
 
-                pstr = TrimZeros(P);
-                qstr = TrimZeros(Q);
+                pRichTextBoxROA.Text = TrimZeros(P);
+                qRichTextBoxROA.Text = TrimZeros(Q);
 
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), pY, qY, pbyqY, fY, errY, xArr, range);
-                //rootMeanSquaredError = ArraysFiller.fillArrays(pstr, qstr, pY, qY, pbyqY, fY, errY, xArr, range);
             }
-
-            pRichTextBoxROA.Text = pstr;
-            qRichTextBoxROA.Text = qstr;
 
             showRmse(rootMeanSquaredError);
 
             plotArrays(pY, qY, pbyqY, fY, errY, xArr);
         }
 
-        void changeBounds(Entity.Matrix vector) {
+        void changeBorders(Entity.Matrix vector) {
             double min, max;
             findMinMaxInVector(vector, out min, out max);
             xFromTextBox.Invoke(() => xFromTextBox.Text = min.ToString());

@@ -395,9 +395,9 @@
             this.changeBoundsCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.changeBoundsCheckBox.Location = new System.Drawing.Point(232, 220);
             this.changeBoundsCheckBox.Name = "changeBoundsCheckBox";
-            this.changeBoundsCheckBox.Size = new System.Drawing.Size(138, 25);
+            this.changeBoundsCheckBox.Size = new System.Drawing.Size(140, 25);
             this.changeBoundsCheckBox.TabIndex = 64;
-            this.changeBoundsCheckBox.Text = "Change bounds";
+            this.changeBoundsCheckBox.Text = "Change borders";
             this.changeBoundsCheckBox.UseVisualStyleBackColor = true;
             // 
             // rationalRadioButton
