@@ -15,13 +15,13 @@ using static AngouriMath.Entity;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace TropicalPalm {
 
     public partial class Form1:Form {
         PolynomialPair[] polynomialPairs;
         bool nonNegativeField;
-        bool fromFile = false;
 
         public Form1() {
             InitializeComponent();
@@ -54,34 +54,20 @@ namespace TropicalPalm {
             ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             ArraysFiller.F = fRichTextBox.Text;
 
-
-            if(fromFile) {
-                if(fRichTextBox.Text.Length == 0) {
-                    var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
-                                                 "Внимание",
-                                                 MessageBoxButtons.YesNo,
-                                                 MessageBoxIcon.Question);
-
-                    if(result == DialogResult.No) {
-                        return;
-                    }
-                }
-                else {
-                    if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                        MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-
-                progressBar.Value = 0;
-                selectBestRationalFunction(polynomialPairs);
-            }
-            else {
-                manualInputBuild();
+            switch(tabControl.SelectedIndex) {
+                case 0:
+                    manualInput();
+                    break;
+                case 1:
+                    fromFile();
+                    break;
+                case 2:
+                    approximateBuild();
+                    break;
             }
         }
 
-        private void manualInputBuild() {
+        private void manualInput() {
             ErrorCodes errorCode = checkInput();
 
             if(errorCode != ErrorCodes.ALL_IS_GOOD) {
@@ -119,6 +105,176 @@ namespace TropicalPalm {
             showRmse(rootMeanSquaredError);
 
             plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+        }
+
+        private void fromFile() {
+            if(fRichTextBox.Text.Length == 0) {
+                var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
+                                             "Внимание",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                if(result == DialogResult.No) {
+                    return;
+                }
+            }
+            else {
+                if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                    MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            progressBar.Value = 0;
+            selectBestRationalFunction(polynomialPairs);
+        }
+
+        private void approximateBuild() {
+            if(fRichTextBox.Text.Length == 0) {
+                MessageBox.Show("Поле аппроксимируемой функции -- пустое. ",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            int mLeft = Convert.ToInt32(mLeftNumericUpDown.Value);
+            int mRight;
+            if(nonSymmetryPowersCheckBox.Checked) {
+                mRight = Convert.ToInt32(mRightNumericUpDown.Value);
+                if(mLeft > mRight) {
+                    MessageBox.Show("Левое значение должно быть не больше правого.",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+                }
+            }
+            else {
+                mRight = mLeft;
+                mLeft *= -1;
+            }
+
+            Entity.Matrix xs = null;
+            
+            try {
+                xs = (Entity.Matrix)$"[{xsRichTextBox.Text}]";
+                if(!xs.IsVector || xs.RowCount < 1) {
+                    throw new Exception();
+                }
+            }
+            catch {
+                MessageBox.Show("Ошибка в наборе значений x.",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            if(changeBoundsCheckBox.Checked) {
+                changeBounds(xs);
+            }
+
+            int range = calculateRange();
+
+            Entity P = null, Q = null;
+
+            Number.Real[] pY = new Number.Real[range];
+            Number.Real[] qY = null;
+            Number.Real[] pbyqY = null;
+            Number.Real[] fY = new Number.Real[range];
+            Number.Real[] errY = new Number.Real[range];
+            Number.Real[] xArr = new Number.Real[range];
+
+            Number.Real rootMeanSquaredError;
+
+            string pstr, qstr = "";
+
+            int d = Convert.ToInt32(dNumericUpDown.Value);
+
+            if(polynomialRadioButton.Checked) {
+                P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fRichTextBox.Text, xs, mLeft, mRight, d);
+                P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), pY, fY, errY, xArr, range);
+
+                pstr = TrimZeros(P);
+            }
+            else {
+                qY = new Number.Real[range];
+                pbyqY = new Number.Real[range];
+                var _ = TropApprox.Approx.ApproximateFunction(fRichTextBox.Text, xs, mLeft, mRight, out P, out Q, d);
+
+                pstr = TrimZeros(P);
+                qstr = TrimZeros(Q);
+
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), pY, qY, pbyqY, fY, errY, xArr, range);
+                //rootMeanSquaredError = ArraysFiller.fillArrays(pstr, qstr, pY, qY, pbyqY, fY, errY, xArr, range);
+            }
+
+            pRichTextBoxROA.Text = pstr;
+            qRichTextBoxROA.Text = qstr;
+
+            showRmse(rootMeanSquaredError);
+
+            plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+        }
+
+        void changeBounds(Entity.Matrix vector) {
+            double min, max;
+            findMinMaxInVector(vector, out min, out max);
+            xFromTextBox.BeginInvoke(() => xFromTextBox.Text = min.ToString());
+            xToTextBox.BeginInvoke(() => xToTextBox.Text = max.ToString());
+        }
+
+        void findMinMaxInVector(Entity.Matrix vector, out double min, out double max) {
+            if(vector.RowCount == 0) {
+                throw new ArgumentException("Vector must contain values");
+            }
+
+            min = double.MaxValue;
+            max = double.MinValue;
+            for(int i = 0; i < vector.RowCount; i++) {
+                double v = (double)(Number.Real)vector[i];
+                if(v < min) {
+                    min = v;
+                }
+                if(v > max) {
+                    max = v;
+                }
+            }
+        }
+
+        string TrimZeros(Entity entity) {
+            string result = "";
+            string temp;
+            var arr = entity.ToString().Split(" ");
+            foreach(var entry in arr) {
+                if(entry.Contains('E')) {
+                    result += $"({entry})";
+                    continue;
+                }
+
+                if(!entry.Contains('.')) {
+                    result += entry;
+                    continue;
+                }
+
+                if(entry[^1] == ')') {
+                    temp = entry.TrimEnd(')');
+                    temp = temp.TrimEnd('0');
+                    temp = temp.Length == 0 ? "0" : temp;
+                    temp += ')';
+                }
+                else {
+                    temp = entry.TrimEnd('0');
+                    temp = temp.Length == 0 ? "0" : temp;
+                }
+                
+                result += temp;
+            }
+
+            return result;
         }
 
         private int calculateRange() {
@@ -255,7 +411,7 @@ namespace TropicalPalm {
                 return ErrorCodes.UNCORRECT_BORDERS;
             }
 
-            string pattern = "[a-wyzA-WYZа-яА-Я]";
+            string pattern = "[arr-wyzA-WYZа-яА-Я]";
             var m = Regex.Match(pRichTextBox.Text, pattern);
             if(m.Success) 
                 return ErrorCodes.P_UNCORRECT;
@@ -378,27 +534,10 @@ namespace TropicalPalm {
                 polynomialPairs = preProcessFilePolynomials(content);
 
                 if(polynomialPairs != null) {
-                    OnBuildModeChanged(true);
                     pathLabel.Text = openFileDialog.FileName;
+                    pRichTextBoxRO.Text = "";
+                    qRichTextBoxRO.Text = "";
                 }
-            }
-        }
-
-        private void OnBuildModeChanged(bool buildFromFile) {
-            pRichTextBox.Enabled = !buildFromFile;
-            qRichTextBox.Enabled = !buildFromFile;
-            manualButton.Visible = buildFromFile;
-            pathHolderLabel.Visible = buildFromFile;
-            pathLabel.Visible = buildFromFile;
-            fromFile = buildFromFile;
-            progressBar.Visible = buildFromFile;
-
-            if(!buildFromFile) {
-                pathLabel.Text = "";
-            }
-            else {
-                pRichTextBox.Text = "";
-                qRichTextBox.Text = "";
             }
         }
 
@@ -441,8 +580,8 @@ namespace TropicalPalm {
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {
                 rmse = ArraysFiller.fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
                 if(rmse <= minRmse) {
-                    pRichTextBox.Text = polynomialPair.P;
-                    qRichTextBox.Text = polynomialPair.Q;
+                    pRichTextBoxRO.Text = polynomialPair.P;
+                    qRichTextBoxRO.Text = polynomialPair.Q;
                     plotArrays(pY, qY, pbyqY, fY, errY, xArr);
                     showRmse(rmse);
                     minRmse = rmse;
@@ -481,8 +620,9 @@ namespace TropicalPalm {
             public string Q { get; set; }
         }
 
-        private void manualButton_Click(object sender, EventArgs e) {
-            OnBuildModeChanged(false);
+        private void nonSymmetryPowersCheckBox_CheckedChanged(object sender, EventArgs e) {
+            mRightNumericUpDown.Visible = nonSymmetryPowersCheckBox.Checked;
+            mLeftNumericUpDown.Minimum = nonSymmetryPowersCheckBox.Checked ? -100 : 0;
         }
     }
 }
