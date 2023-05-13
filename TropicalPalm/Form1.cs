@@ -272,7 +272,8 @@ namespace TropicalPalm {
         private void showRmse(Number.Real rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
                 string RMSE = rootMeanSquaredError.ToString();
-                RMSE = RMSE.Substring(0, RMSE.IndexOf('.') + 3);
+                var dotIndex = RMSE.IndexOf('.');
+                RMSE = RMSE.Length > dotIndex+3 ? RMSE.Substring(0, dotIndex + 3) : RMSE;
                 rootMeanSquaredErrorValueLabel.Text = RMSE;
                 rootMeanSquaredErrorValueLabel.Visible = true;
                 rootMeanSquaredErrorLabel.Visible = true;
