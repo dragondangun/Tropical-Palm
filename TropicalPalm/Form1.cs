@@ -163,6 +163,7 @@ namespace TropicalPalm {
 
             if(changeBoundsCheckBox.Checked) {
                 changeBounds(xs);
+                ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             }
 
             int range = calculateRange();
@@ -212,8 +213,8 @@ namespace TropicalPalm {
         void changeBounds(Entity.Matrix vector) {
             double min, max;
             findMinMaxInVector(vector, out min, out max);
-            xFromTextBox.BeginInvoke(() => xFromTextBox.Text = min.ToString());
-            xToTextBox.BeginInvoke(() => xToTextBox.Text = max.ToString());
+            xFromTextBox.Invoke(() => xFromTextBox.Text = min.ToString());
+            xToTextBox.Invoke(() => xToTextBox.Text = max.ToString());
         }
 
         void findMinMaxInVector(Entity.Matrix vector, out double min, out double max) {
