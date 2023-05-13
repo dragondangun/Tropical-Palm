@@ -25,6 +25,7 @@ namespace TropicalPalm {
 
         public Form1() {
             InitializeComponent();
+            BuildButton.Click += manualInput;
         }
 
         private void TextBoxInputHandler(object sender, KeyPressEventArgs e) {
@@ -53,21 +54,9 @@ namespace TropicalPalm {
         private void BuildButton_Click(object sender, EventArgs e) {
             ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             ArraysFiller.F = fRichTextBox.Text;
-
-            switch(tabControl.SelectedIndex) {
-                case 0:
-                    manualInput();
-                    break;
-                case 1:
-                    fromFile();
-                    break;
-                case 2:
-                    approximateBuild();
-                    break;
-            }
         }
 
-        private void manualInput() {
+        private void manualInput(object sender, EventArgs e) {
             ErrorCodes errorCode = checkInput();
 
             if(errorCode != ErrorCodes.ALL_IS_GOOD) {
@@ -107,7 +96,7 @@ namespace TropicalPalm {
             plotArrays(pY, qY, pbyqY, fY, errY, xArr);
         }
 
-        private void fromFile() {
+        private void fromFile(object sender, EventArgs e) {
             if(fRichTextBox.Text.Length == 0) {
                 var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
                                              "Внимание",
@@ -129,7 +118,7 @@ namespace TropicalPalm {
             selectBestRationalFunction(polynomialPairs);
         }
 
-        private void approximateBuild() {
+        private void approximateBuild(object sender, EventArgs e) {
             if(fRichTextBox.Text.Length == 0) {
                 MessageBox.Show("Поле аппроксимируемой функции -- пустое. ",
                     "Ошибка",
@@ -623,6 +612,25 @@ namespace TropicalPalm {
         private void nonSymmetryPowersCheckBox_CheckedChanged(object sender, EventArgs e) {
             mRightNumericUpDown.Visible = nonSymmetryPowersCheckBox.Checked;
             mLeftNumericUpDown.Minimum = nonSymmetryPowersCheckBox.Checked ? -100 : 0;
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e) {
+            BuildButton.Click -= manualInput;
+            BuildButton.Click -= fromFile;
+            BuildButton.Click -= approximateBuild;
+
+            switch(tabControl.SelectedIndex) {
+                case 0:
+                    BuildButton.Click += manualInput;
+                    return;
+                case 1:
+                    BuildButton.Click += fromFile;
+                    return;
+                case 2:
+                    BuildButton.Click += approximateBuild;
+                    return;
+            }
+
         }
     }
 }
