@@ -51,7 +51,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.ApproximateTabPage = new System.Windows.Forms.TabPage();
             this.qRichTextBoxROA = new System.Windows.Forms.RichTextBox();
-            this.changeBoundsCheckBox = new System.Windows.Forms.CheckBox();
+            this.changeBordersCheckBox = new System.Windows.Forms.CheckBox();
             this.rationalRadioButton = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.polynomialRadioButton = new System.Windows.Forms.RadioButton();
@@ -355,7 +355,7 @@
             // ApproximateTabPage
             // 
             this.ApproximateTabPage.Controls.Add(this.qRichTextBoxROA);
-            this.ApproximateTabPage.Controls.Add(this.changeBoundsCheckBox);
+            this.ApproximateTabPage.Controls.Add(this.changeBordersCheckBox);
             this.ApproximateTabPage.Controls.Add(this.rationalRadioButton);
             this.ApproximateTabPage.Controls.Add(this.label12);
             this.ApproximateTabPage.Controls.Add(this.polynomialRadioButton);
@@ -389,16 +389,16 @@
             this.qRichTextBoxROA.TabIndex = 62;
             this.qRichTextBoxROA.Text = "";
             // 
-            // changeBoundsCheckBox
+            // changeBordersCheckBox
             // 
-            this.changeBoundsCheckBox.AutoSize = true;
-            this.changeBoundsCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.changeBoundsCheckBox.Location = new System.Drawing.Point(232, 220);
-            this.changeBoundsCheckBox.Name = "changeBoundsCheckBox";
-            this.changeBoundsCheckBox.Size = new System.Drawing.Size(140, 25);
-            this.changeBoundsCheckBox.TabIndex = 64;
-            this.changeBoundsCheckBox.Text = "Change borders";
-            this.changeBoundsCheckBox.UseVisualStyleBackColor = true;
+            this.changeBordersCheckBox.AutoSize = true;
+            this.changeBordersCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.changeBordersCheckBox.Location = new System.Drawing.Point(232, 220);
+            this.changeBordersCheckBox.Name = "changeBordersCheckBox";
+            this.changeBordersCheckBox.Size = new System.Drawing.Size(140, 25);
+            this.changeBordersCheckBox.TabIndex = 64;
+            this.changeBordersCheckBox.Text = "Change borders";
+            this.changeBordersCheckBox.UseVisualStyleBackColor = true;
             // 
             // rationalRadioButton
             // 
@@ -779,7 +779,7 @@
         private System.Windows.Forms.NumericUpDown mRightNumericUpDown;
         private System.Windows.Forms.RichTextBox xsRichTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox changeBoundsCheckBox;
+        private System.Windows.Forms.CheckBox changeBordersCheckBox;
         private System.Windows.Forms.RichTextBox qRichTextBoxROA;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;

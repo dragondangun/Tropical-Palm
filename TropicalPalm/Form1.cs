@@ -161,7 +161,7 @@ namespace TropicalPalm {
                     MessageBoxIcon.Error);
             }
 
-            if(changeBoundsCheckBox.Checked) {
+            if(changeBordersCheckBox.Checked) {
                 changeBorders(xs);
                 ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             }
