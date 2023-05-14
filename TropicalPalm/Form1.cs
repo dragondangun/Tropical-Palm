@@ -137,7 +137,7 @@ namespace TropicalPalm {
             selectBestRationalFunction(polynomialPairs);
         }
 
-        private void approximateBuild(object sender, EventArgs e) {
+        private void runApproximateBuild(object sender, EventArgs e) {
             if(fRichTextBox.Text.Length == 0) {
                 MessageBox.Show("Поле аппроксимируемой функции -- пустое. ",
                     "Ошибка",
@@ -165,8 +165,10 @@ namespace TropicalPalm {
                 mLeft *= -1;
             }
 
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
+
             Entity.Matrix xs = null;
-            
+
             try {
                 xs = (Entity.Matrix)$"[{xsRichTextBox.Text}]";
                 if(!xs.IsVector || xs.RowCount < 1) {
@@ -184,7 +186,28 @@ namespace TropicalPalm {
                 changeBorders(xs);
                 ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
             }
+            
+            var func = fRichTextBox.Text;
 
+            disableControls();
+            Task.Run(() => approximateBuild(func, xs, mLeft, mRight));
+        }
+
+        private void ChangeControlsEnable(bool enable) {
+            tabControl.Enabled = enable;
+            BuildButton.Enabled = enable;
+        }
+
+        private void disableControls() {
+            ChangeControlsEnable(false);
+        }
+
+        private void enableControls() {
+            ChangeControlsEnable(true);
+        }
+
+        private void approximateBuild(string fucntion, Entity.Matrix vector, int mLeft, int mRight) {
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
             int range = calculateRange();
             var ps = new PlotStruct(range);
 
@@ -193,28 +216,33 @@ namespace TropicalPalm {
             int d = Convert.ToInt32(dNumericUpDown.Value);
 
             Entity P = null;
-            var func = fRichTextBox.Text;
             if(polynomialRadioButton.Checked) {
-                Task<Entity.Matrix> pol = Task.Run(() => TropApprox.Approx.ApproximateFunctionWithPolynomial(func, xs, mLeft, mRight, d));
-                pol.Wait();
-                P = TropApprox.TropicalPolynomial.CreatePolynomial(pol.Result, mLeft, mRight);
+                P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d);
+                //Task<Entity.Matrix> pol = Task.Run(() => TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d));
+                //pol.Wait();
+                P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
 
-                pRichTextBoxROA.Text = TrimZeros(P);
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = TrimZeros(P));
             }
             else {
                 Entity Q = null;
-                Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(func, xs, mLeft, mRight, out P, out Q, d));
+                //TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d);
+                Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d));
                 rational.Wait();
-                pRichTextBoxROA.Text = TrimZeros(P);
-                qRichTextBoxROA.Text = TrimZeros(Q);
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = TrimZeros(P));
+                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = TrimZeros(Q));
+                //pRichTextBoxROA.Text = TrimZeros(P);
+                //qRichTextBoxROA.Text = TrimZeros(Q);
 
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
             }
 
-            showRmse(rootMeanSquaredError);
+            Invoke(() => showRmse(rootMeanSquaredError));
 
-            plotArrays(ps);
+            Invoke(() => plotArrays(ps));
+
+            Invoke(() => enableControls());
         }
 
         void changeBorders(Entity.Matrix vector) {
@@ -588,7 +616,8 @@ namespace TropicalPalm {
         }
 
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
-            int range = calculateRange();
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
+            int range = calculateRange(); 
 
             var ps = new PlotStruct(range);
 
@@ -647,7 +676,7 @@ namespace TropicalPalm {
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e) {
             BuildButton.Click -= manualInput;
             BuildButton.Click -= fromFile;
-            BuildButton.Click -= approximateBuild;
+            BuildButton.Click -= runApproximateBuild;
 
             switch(tabControl.SelectedIndex) {
                 case 0:
@@ -657,7 +686,7 @@ namespace TropicalPalm {
                     BuildButton.Click += fromFile;
                     return;
                 case 2:
-                    BuildButton.Click += approximateBuild;
+                    BuildButton.Click += runApproximateBuild;
                     return;
             }
 
