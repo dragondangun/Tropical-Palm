@@ -51,7 +51,7 @@ namespace TropicalPalm {
                     CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                     CancellationToken cancellationToken = cancellationTokenSource.Token;
 
-                    if(fY is not null) {
+                    if(f.Length != 0) {
                         Task<Number.Real> firstPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, 0, oneThirdRange, cancellationTokenSource, cancellationToken));
                         Task<Number.Real> secondPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, oneThirdRange, twoThirdRange, cancellationTokenSource, cancellationToken));
                         Task<Number.Real> thirdPart = Task.Run(() => fillWithErrFunc(P, pY, xArr, fY, errY, twoThirdRange, range, cancellationTokenSource, cancellationToken));

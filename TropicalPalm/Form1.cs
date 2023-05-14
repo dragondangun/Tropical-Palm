@@ -56,6 +56,30 @@ namespace TropicalPalm {
             ArraysFiller.F = fRichTextBox.Text;
         }
 
+        public struct PlotStruct {
+            Number.Real[] pY;
+            public Number.Real[] PY { get => pY; }
+            Number.Real[] qY;
+            public Number.Real[] QY { get => qY; }
+            Number.Real[] pbyqY;
+            public Number.Real[] PbyQY { get => pbyqY; }
+            Number.Real[] fY;
+            public Number.Real[] FY { get => fY; }
+            Number.Real[] errY;
+            public Number.Real[] ErrY { get => errY; }
+            Number.Real[] xArr;
+            public Number.Real[] XArr { get => xArr; }
+
+            public PlotStruct(int range) {
+                pY = new Number.Real[range];
+                qY = new Number.Real[range];
+                pbyqY = new Number.Real[range];
+                fY = new Number.Real[range];
+                errY = new Number.Real[range];
+                xArr = new Number.Real[range];
+            }
+        }
+
         private void manualInput(object sender, EventArgs e) {
             ErrorCodes errorCode = checkInput();
 
@@ -69,21 +93,16 @@ namespace TropicalPalm {
             bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
             bool isApproximating = fRichTextBox.Text.Length > 0;
 
-            Number.Real[] pY = new Number.Real[range];
-            Number.Real[] qY = onePolynomial ? null : new Number.Real[range];
-            Number.Real[] pbyqY = onePolynomial ? null : new Number.Real[range];
-            Number.Real[] fY = isApproximating ? new Number.Real[range] : null;
-            Number.Real[] errY = isApproximating ? new Number.Real[range] : null;
-            Number.Real[] xArr = new Number.Real[range];
+            var ps = new PlotStruct(range);
 
             Number.Real rootMeanSquaredError;
 
             try {
                 if(onePolynomial) {
-                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, pY, fY, errY, xArr, range);
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
                 }
                 else {
-                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, pY, qY, pbyqY, fY, errY, xArr, range);
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
                 }
             }
             catch(NotFiniteNumberException ex) {
@@ -93,7 +112,7 @@ namespace TropicalPalm {
 
             showRmse(rootMeanSquaredError);
 
-            plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+            plotArrays(ps);
         }
 
         private void fromFile(object sender, EventArgs e) {
@@ -167,41 +186,35 @@ namespace TropicalPalm {
             }
 
             int range = calculateRange();
-
-            Entity P = null, Q = null;
-
-            Number.Real[] pY = new Number.Real[range];
-            Number.Real[] qY = null;
-            Number.Real[] pbyqY = null;
-            Number.Real[] fY = new Number.Real[range];
-            Number.Real[] errY = new Number.Real[range];
-            Number.Real[] xArr = new Number.Real[range];
+            var ps = new PlotStruct(range);
 
             Number.Real rootMeanSquaredError;
 
             int d = Convert.ToInt32(dNumericUpDown.Value);
 
+            Entity P = null;
+            var func = fRichTextBox.Text;
             if(polynomialRadioButton.Checked) {
-                P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fRichTextBox.Text, xs, mLeft, mRight, d);
-                P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
-                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), pY, fY, errY, xArr, range);
+                Task<Entity.Matrix> pol = Task.Run(() => TropApprox.Approx.ApproximateFunctionWithPolynomial(func, xs, mLeft, mRight, d));
+                pol.Wait();
+                P = TropApprox.TropicalPolynomial.CreatePolynomial(pol.Result, mLeft, mRight);
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
 
                 pRichTextBoxROA.Text = TrimZeros(P);
             }
             else {
-                qY = new Number.Real[range];
-                pbyqY = new Number.Real[range];
-                var _ = TropApprox.Approx.ApproximateFunction(fRichTextBox.Text, xs, mLeft, mRight, out P, out Q, d);
-
+                Entity Q = null;
+                Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(func, xs, mLeft, mRight, out P, out Q, d));
+                rational.Wait();
                 pRichTextBoxROA.Text = TrimZeros(P);
                 qRichTextBoxROA.Text = TrimZeros(Q);
 
-                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), pY, qY, pbyqY, fY, errY, xArr, range);
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
             }
 
             showRmse(rootMeanSquaredError);
 
-            plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+            plotArrays(ps);
         }
 
         void changeBorders(Entity.Matrix vector) {
@@ -282,6 +295,32 @@ namespace TropicalPalm {
                 rootMeanSquaredErrorValueLabel.Visible = false;
                 rootMeanSquaredErrorLabel.Visible = false;
             }
+        }
+
+        private void plotArrays(PlotStruct ps) {
+            plot.Plot.Clear();
+            var dxArr = RealToDouble(ps.XArr);
+            var dpY = RealToDouble(ps.PY);
+            plot.Plot.AddScatter(dxArr, dpY, label: "P");
+
+            if(ps.QY[0] != null) {
+                var dqY = RealToDouble(ps.QY);
+                var dpbyqY = RealToDouble(ps.PbyQY);
+                plot.Plot.AddScatter(dxArr, dqY, label: "Q");
+                plot.Plot.AddScatter(dxArr, dpbyqY, label: "P/Q");
+            }
+
+            if(ps.PY[0] != null) {
+                var dfY = RealToDouble(ps.FY);
+                plot.Plot.AddScatter(dxArr, dfY, label: "f");
+                if(errorFuncCheckBox.Checked) {
+                    var derrY = RealToDouble(ps.ErrY);
+                    plot.Plot.AddScatter(dxArr, derrY, label: "error");
+                }
+            }
+
+            plot.Plot.Legend();
+            plot.Refresh();
         }
 
         private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) {
@@ -551,23 +590,18 @@ namespace TropicalPalm {
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
             int range = calculateRange();
 
-            Number.Real[] pY = new Number.Real[range];
-            Number.Real[] qY = new Number.Real[range];
-            Number.Real[] pbyqY = new Number.Real[range];
-            Number.Real[] fY = new Number.Real[range];
-            Number.Real[] errY = new Number.Real[range];
-            Number.Real[] xArr = new Number.Real[range];
+            var ps = new PlotStruct(range);
 
             Number.Real minRmse = Number.Real.PositiveInfinity;
             Number.Real rmse;
             double progress = 0;
             double progressStep = 100 / _polynomialPairs.Length;
             foreach(PolynomialPair polynomialPair in _polynomialPairs) {
-                rmse = ArraysFiller.fillArrays(polynomialPair.P, polynomialPair.Q, pY, qY, pbyqY, fY, errY, xArr, range);
+                rmse = ArraysFiller.fillArrays(polynomialPair.P, polynomialPair.Q, ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
                 if(rmse <= minRmse) {
                     pRichTextBoxRO.Text = polynomialPair.P;
                     qRichTextBoxRO.Text = polynomialPair.Q;
-                    plotArrays(pY, qY, pbyqY, fY, errY, xArr);
+                    plotArrays(ps);
                     showRmse(rmse);
                     minRmse = rmse;
                 }
