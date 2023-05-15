@@ -111,6 +111,10 @@ namespace TropicalPalm {
                     return;
                 }
             }
+            if(polynomialPairs is null) {
+                MessageBox.Show("Не выбран файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             progressBar.Value = 0;
             selectBestRationalFunction(polynomialPairs);
