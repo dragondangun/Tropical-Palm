@@ -30,7 +30,10 @@ namespace TropicalPalm {
         PolynomialPair[] polynomialPairs;
 
         static bool nonNegativeField;
-        public static bool NonNegativeField { get; set; }
+        public static bool NonNegativeField { 
+            get => nonNegativeField; 
+            set => nonNegativeField = value;
+        }
 
         public Form1() {
             InitializeComponent();
@@ -64,73 +67,7 @@ namespace TropicalPalm {
                 e.Handled = true;
             }
         }
-
-        private void BuildButton_Click(object sender, EventArgs e) {
-            ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
-            ArraysFiller.F = fRichTextBox.Text;
-        }
-
-        private void manualInput(object sender, EventArgs e) {
-            Validation.ErrorCodes errorCode = Validation.checkInput(pRichTextBox.Text, qRichTextBox.Text, xFromTextBox.Text, xToTextBox.Text, fRichTextBox.Text);
-
-            if(errorCode != Validation.ErrorCodes.ALL_IS_GOOD) {
-                Validation.showError(errorCode);
-                return;
-            }
-
-            int range = Tools.calculateRange(xFromTextBox.Text, xToTextBox.Text);
-
-            bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
-            bool isApproximating = fRichTextBox.Text.Length > 0;
-
-            var ps = new Tools.PlotStruct(range);
-
-            Number.Real rootMeanSquaredError;
-
-            try {
-                if(onePolynomial) {
-                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
-                }
-                else {
-                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
-                }
-            }
-            catch(NotFiniteNumberException ex) {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            showRmse(rootMeanSquaredError);
-
-            plotArrays(ps);
-        }
-
-        private void fromFile(object sender, EventArgs e) {
-            if(fRichTextBox.Text.Length == 0) {
-                var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
-                                             "Внимание",
-                                             MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Question);
-
-                if(result == DialogResult.No) {
-                    return;
-                }
-            }
-            else {
-                if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                    MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-            if(polynomialPairs is null) {
-                MessageBox.Show("Не выбран файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            progressBar.Value = 0;
-            selectBestRationalFunction(polynomialPairs);
-        }
-
+       
         private void showRmse(Number.Real rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
                 string RMSE = rootMeanSquaredError.ToString();
@@ -230,6 +167,72 @@ namespace TropicalPalm {
             string message = $"{version}\n\n{Merzalov}\n\n{ico}";
             MessageBox.Show(message, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+
+        private void BuildButton_Click(object sender, EventArgs e) {
+            ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
+            ArraysFiller.F = fRichTextBox.Text;
+        }
+
+        private void manualInput(object sender, EventArgs e) {
+            Validation.ErrorCodes errorCode = Validation.checkInput(pRichTextBox.Text, qRichTextBox.Text, xFromTextBox.Text, xToTextBox.Text, fRichTextBox.Text);
+
+            if(errorCode != Validation.ErrorCodes.ALL_IS_GOOD) {
+                Validation.showError(errorCode);
+                return;
+            }
+
+            int range = Tools.calculateRange(xFromTextBox.Text, xToTextBox.Text);
+
+            bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
+            bool isApproximating = fRichTextBox.Text.Length > 0;
+
+            var ps = new Tools.PlotStruct(range);
+
+            Number.Real rootMeanSquaredError;
+
+            try {
+                if(onePolynomial) {
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
+                }
+                else {
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
+                }
+            }
+            catch(NotFiniteNumberException ex) {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            showRmse(rootMeanSquaredError);
+
+            plotArrays(ps);
+        }
+
+        private void fromFile(object sender, EventArgs e) {
+            if(fRichTextBox.Text.Length == 0) {
+                var result = MessageBox.Show("Поле аппроксимируемой функции -- пустое. Продолжить?",
+                                             "Внимание",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                if(result == DialogResult.No) {
+                    return;
+                }
+            }
+            else {
+                if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                    MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            if(polynomialPairs is null) {
+                MessageBox.Show("Не выбран файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            progressBar.Value = 0;
+            selectBestRationalFunction(polynomialPairs);
         }
 
         private void openFileButton_Click(object sender, EventArgs e) {
