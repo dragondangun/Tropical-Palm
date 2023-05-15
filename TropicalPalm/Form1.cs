@@ -96,7 +96,7 @@ namespace TropicalPalm {
                 plot.Plot.AddScatter(dxArr, dpbyqY, label: "P/Q");
             }
 
-            if(ps.PY[0] != null) {
+            if(ps.FY[0] != null) {
                 var dfY = Tools.RealToDouble(ps.FY);
                 plot.Plot.AddScatter(dxArr, dfY, label: "f");
                 if(errorFuncCheckBox.Checked) {
