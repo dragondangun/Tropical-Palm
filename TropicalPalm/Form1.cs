@@ -57,29 +57,7 @@ namespace TropicalPalm {
             ArraysFiller.F = fRichTextBox.Text;
         }
 
-        public struct PlotStruct {
-            Number.Real[] pY;
-            public Number.Real[] PY { get => pY; }
-            Number.Real[] qY;
-            public Number.Real[] QY { get => qY; }
-            Number.Real[] pbyqY;
-            public Number.Real[] PbyQY { get => pbyqY; }
-            Number.Real[] fY;
-            public Number.Real[] FY { get => fY; }
-            Number.Real[] errY;
-            public Number.Real[] ErrY { get => errY; }
-            Number.Real[] xArr;
-            public Number.Real[] XArr { get => xArr; }
-
-            public PlotStruct(int range) {
-                pY = new Number.Real[range];
-                qY = new Number.Real[range];
-                pbyqY = new Number.Real[range];
-                fY = new Number.Real[range];
-                errY = new Number.Real[range];
-                xArr = new Number.Real[range];
-            }
-        }
+        
 
         private void manualInput(object sender, EventArgs e) {
             Validation.ErrorCodes errorCode = Validation.checkInput(pRichTextBox.Text, qRichTextBox.Text, xFromTextBox.Text, xToTextBox.Text, fRichTextBox.Text);
@@ -94,7 +72,7 @@ namespace TropicalPalm {
             bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
             bool isApproximating = fRichTextBox.Text.Length > 0;
 
-            var ps = new PlotStruct(range);
+            var ps = new Tools.PlotStruct(range);
 
             Number.Real rootMeanSquaredError;
 
@@ -215,7 +193,7 @@ namespace TropicalPalm {
         private void approximateBuild(string fucntion, Entity.Matrix vector, int mLeft, int mRight) {
             using var _ = MathS.Settings.DowncastingEnabled.Set(false);
             int range = calculateRange();
-            var ps = new PlotStruct(range);
+            var ps = new Tools.PlotStruct(range);
 
             Number.Real rootMeanSquaredError;
 
@@ -224,22 +202,17 @@ namespace TropicalPalm {
             Entity P = null;
             if(polynomialRadioButton.Checked) {
                 P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d);
-                //Task<Entity.Matrix> pol = Task.Run(() => TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d));
-                //pol.Wait();
                 P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
 
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = TrimZeros(P));
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
             }
             else {
                 Entity Q = null;
-                //TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d);
                 Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d));
                 rational.Wait();
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = TrimZeros(P));
-                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = TrimZeros(Q));
-                //pRichTextBoxROA.Text = TrimZeros(P);
-                //qRichTextBoxROA.Text = TrimZeros(Q);
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
+                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = Tools.TrimZeros(Q));
 
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
             }
@@ -253,59 +226,9 @@ namespace TropicalPalm {
 
         void changeBorders(Entity.Matrix vector) {
             double min, max;
-            findMinMaxInVector(vector, out min, out max);
+            Tools.findMinMaxInVector(vector, out min, out max);
             xFromTextBox.Invoke(() => xFromTextBox.Text = min.ToString());
             xToTextBox.Invoke(() => xToTextBox.Text = max.ToString());
-        }
-
-        void findMinMaxInVector(Entity.Matrix vector, out double min, out double max) {
-            if(vector.RowCount == 0) {
-                throw new ArgumentException("Vector must contain values");
-            }
-
-            min = double.MaxValue;
-            max = double.MinValue;
-            for(int i = 0; i < vector.RowCount; i++) {
-                double v = (double)(Number.Real)vector[i];
-                if(v < min) {
-                    min = v;
-                }
-                if(v > max) {
-                    max = v;
-                }
-            }
-        }
-
-        string TrimZeros(Entity entity) {
-            string result = "";
-            string temp;
-            var arr = entity.ToString().Split(" ");
-            foreach(var entry in arr) {
-                if(entry.Contains('E')) {
-                    result += $"({entry})";
-                    continue;
-                }
-
-                if(!entry.Contains('.')) {
-                    result += entry;
-                    continue;
-                }
-
-                if(entry[^1] == ')') {
-                    temp = entry.TrimEnd(')');
-                    temp = temp.TrimEnd('0');
-                    temp = temp.Length == 0 ? "0" : temp;
-                    temp += ')';
-                }
-                else {
-                    temp = entry.TrimEnd('0');
-                    temp = temp.Length == 0 ? "0" : temp;
-                }
-                
-                result += temp;
-            }
-
-            return result;
         }
 
         private int calculateRange() {
@@ -331,24 +254,24 @@ namespace TropicalPalm {
             }
         }
 
-        private void plotArrays(PlotStruct ps) {
+        private void plotArrays(Tools.PlotStruct ps) {
             plot.Plot.Clear();
-            var dxArr = RealToDouble(ps.XArr);
-            var dpY = RealToDouble(ps.PY);
+            var dxArr = Tools.RealToDouble(ps.XArr);
+            var dpY = Tools.RealToDouble(ps.PY);
             plot.Plot.AddScatter(dxArr, dpY, label: "P");
 
             if(ps.QY[0] != null) {
-                var dqY = RealToDouble(ps.QY);
-                var dpbyqY = RealToDouble(ps.PbyQY);
+                var dqY = Tools.RealToDouble(ps.QY);
+                var dpbyqY = Tools.RealToDouble(ps.PbyQY);
                 plot.Plot.AddScatter(dxArr, dqY, label: "Q");
                 plot.Plot.AddScatter(dxArr, dpbyqY, label: "P/Q");
             }
 
             if(ps.PY[0] != null) {
-                var dfY = RealToDouble(ps.FY);
+                var dfY = Tools.RealToDouble(ps.FY);
                 plot.Plot.AddScatter(dxArr, dfY, label: "f");
                 if(errorFuncCheckBox.Checked) {
-                    var derrY = RealToDouble(ps.ErrY);
+                    var derrY = Tools.RealToDouble(ps.ErrY);
                     plot.Plot.AddScatter(dxArr, derrY, label: "error");
                 }
             }
@@ -357,41 +280,8 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
-        private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) {
-            plot.Plot.Clear();
-            var dxArr = RealToDouble(xArr);
-            var dpY = RealToDouble(pY);
-            plot.Plot.AddScatter(dxArr, dpY, label: "P");
-
-            if(qY != null) {
-                var dqY = RealToDouble(qY);
-                var dpbyqY = RealToDouble(pbyqY);
-                plot.Plot.AddScatter(dxArr, dqY, label: "Q");
-                plot.Plot.AddScatter(dxArr, dpbyqY, label: "P/Q");
-            }
-
-            if(fY != null) {
-                var dfY = RealToDouble(fY);
-                plot.Plot.AddScatter(dxArr, dfY, label: "f");
-                if(errorFuncCheckBox.Checked) {
-                    var derrY = RealToDouble(errY);
-                    plot.Plot.AddScatter(dxArr, derrY, label: "error");
-                }
-            }
-
-            plot.Plot.Legend();
-            plot.Refresh();
-        }
-
-        private double[] RealToDouble(Number.Real[] arr) {
-            double[] result = new double[arr.Length];
-
-            for(int i = 0; i < arr.Length; i++) {
-                result[i] = (double)arr[i];
-            }
-
-            return result;
-        }
+        private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) 
+            => plotArrays(new Tools.PlotStruct(pY, qY, pbyqY, fY, errY, xArr));
 
         private void Form1_Load(object sender, EventArgs e) {
             TropApprox.Current.Algebra = TropApprox.MaxPlus.Instance;
@@ -500,7 +390,7 @@ namespace TropicalPalm {
             using var _ = MathS.Settings.DowncastingEnabled.Set(false);
             int range = calculateRange(); 
 
-            var ps = new PlotStruct(range);
+            var ps = new Tools.PlotStruct(range);
 
             Number.Real minRmse = Number.Real.PositiveInfinity;
             Number.Real rmse;
