@@ -369,6 +369,8 @@ namespace TropicalPalm {
             var func = fRichTextBox.Text;
 
             disableControls();
+            pRichTextBoxROA.Text = "";
+            qRichTextBoxROA.Text = "";
             Task.Run(() => approximateBuild(func, xs, mLeft, mRight));
         }
 
