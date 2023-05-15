@@ -20,13 +20,26 @@ using System.Diagnostics;
 namespace TropicalPalm {
 
     public partial class Form1:Form {
+        struct PolynomialPair {
+            string p;
+            public string P { get; set; }
+            string q;
+            public string Q { get; set; }
+        }
+
         PolynomialPair[] polynomialPairs;
+
         static bool nonNegativeField;
         public static bool NonNegativeField { get; set; }
 
         public Form1() {
             InitializeComponent();
             BuildButton.Click += manualInput;
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            TropApprox.Current.Algebra = TropApprox.MaxPlus.Instance;
+            sumFieldSettings();
         }
 
         private void TextBoxInputHandler(object sender, KeyPressEventArgs e) {
@@ -65,7 +78,7 @@ namespace TropicalPalm {
                 return;
             }
 
-            int range = calculateRange();
+            int range = Tools.calculateRange(xFromTextBox.Text, xToTextBox.Text);
 
             bool onePolynomial = pRichTextBox.Text.Length > 0 ^ qRichTextBox.Text.Length > 0;
             bool isApproximating = fRichTextBox.Text.Length > 0;
@@ -118,129 +131,6 @@ namespace TropicalPalm {
             selectBestRationalFunction(polynomialPairs);
         }
 
-        private void runApproximateBuild(object sender, EventArgs e) {
-            if(fRichTextBox.Text.Length == 0) {
-                MessageBox.Show("Поле аппроксимируемой функции -- пустое. ",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
-                return;
-            }
-
-            if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int mLeft = Convert.ToInt32(mLeftNumericUpDown.Value);
-            int mRight;
-            if(nonSymmetryPowersCheckBox.Checked) {
-                mRight = Convert.ToInt32(mRightNumericUpDown.Value);
-                if(mLeft > mRight) {
-                    MessageBox.Show("Левое значение должно быть не больше правого.",
-                        "Ошибка",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-
-                    return;
-                }
-            }
-            else {
-                mRight = mLeft;
-                mLeft *= -1;
-            }
-
-            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
-
-            Entity.Matrix xs = null;
-
-            try {
-                xs = (Entity.Matrix)$"[{xsRichTextBox.Text}]";
-                if(!xs.IsVector || xs.RowCount < 1) {
-                    throw new Exception();
-                }
-            }
-            catch {
-                MessageBox.Show("Ошибка в наборе значений x.",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-
-            if(changeBordersCheckBox.Checked) {
-                changeBorders(xs);
-                ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
-            }
-            
-            var func = fRichTextBox.Text;
-
-            disableControls();
-            Task.Run(() => approximateBuild(func, xs, mLeft, mRight));
-        }
-
-        private void ChangeControlsEnable(bool enable) {
-            tabControl.Enabled = enable;
-            BuildButton.Enabled = enable;
-        }
-
-        private void disableControls() {
-            ChangeControlsEnable(false);
-        }
-
-        private void enableControls() {
-            ChangeControlsEnable(true);
-        }
-
-        private void approximateBuild(string fucntion, Entity.Matrix vector, int mLeft, int mRight) {
-            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
-            int range = calculateRange();
-            var ps = new Tools.PlotStruct(range);
-
-            Number.Real rootMeanSquaredError;
-
-            int d = Convert.ToInt32(dNumericUpDown.Value);
-
-            Entity P = null;
-            if(polynomialRadioButton.Checked) {
-                P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d);
-                P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
-                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
-
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
-            }
-            else {
-                Entity Q = null;
-                Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d));
-                rational.Wait();
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
-                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = Tools.TrimZeros(Q));
-
-                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
-            }
-
-            Invoke(() => showRmse(rootMeanSquaredError));
-
-            Invoke(() => plotArrays(ps));
-
-            Invoke(() => enableControls());
-        }
-
-        void changeBorders(Entity.Matrix vector) {
-            double min, max;
-            Tools.findMinMaxInVector(vector, out min, out max);
-            xFromTextBox.Invoke(() => xFromTextBox.Text = min.ToString());
-            xToTextBox.Invoke(() => xToTextBox.Text = max.ToString());
-        }
-
-        private int calculateRange() {
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
-
-            return (int)Math.Ceiling(Math.Abs(to - from) / (double)ArraysFiller.Step) + 1;
-        }
-
         private void showRmse(Number.Real rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
                 string RMSE = rootMeanSquaredError.ToString();
@@ -284,11 +174,6 @@ namespace TropicalPalm {
 
         private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) 
             => plotArrays(new Tools.PlotStruct(pY, qY, pbyqY, fY, errY, xArr));
-
-        private void Form1_Load(object sender, EventArgs e) {
-            TropApprox.Current.Algebra = TropApprox.MaxPlus.Instance;
-            sumFieldSettings();
-        }
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
             if(minPlusRadioButton.Checked) {
@@ -390,7 +275,7 @@ namespace TropicalPalm {
 
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
             using var _ = MathS.Settings.DowncastingEnabled.Set(false);
-            int range = calculateRange(); 
+            int range = Tools.calculateRange(xFromTextBox.Text, xToTextBox.Text);
 
             var ps = new Tools.PlotStruct(range);
 
@@ -423,11 +308,119 @@ namespace TropicalPalm {
             return _polynomialPairs;
         }
 
-        struct PolynomialPair {
-            string p;
-            public string P { get; set; }
-            string q;
-            public string Q { get; set; }
+        private void runApproximateBuild(object sender, EventArgs e) {
+            if(fRichTextBox.Text.Length == 0) {
+                MessageBox.Show("Поле аппроксимируемой функции -- пустое. ",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int mLeft = Convert.ToInt32(mLeftNumericUpDown.Value);
+            int mRight;
+            if(nonSymmetryPowersCheckBox.Checked) {
+                mRight = Convert.ToInt32(mRightNumericUpDown.Value);
+                if(mLeft > mRight) {
+                    MessageBox.Show("Левое значение должно быть не больше правого.",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+                }
+            }
+            else {
+                mRight = mLeft;
+                mLeft *= -1;
+            }
+
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
+
+            Entity.Matrix xs = null;
+
+            try {
+                xs = (Entity.Matrix)$"[{xsRichTextBox.Text}]";
+                if(!xs.IsVector || xs.RowCount < 1) {
+                    throw new Exception();
+                }
+            }
+            catch {
+                MessageBox.Show("Ошибка в наборе значений x.",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            if(changeBordersCheckBox.Checked) {
+                changeBorders(xs);
+                ArraysFiller.XFrom = Convert.ToDouble(xFromTextBox.Text);
+            }
+
+            var func = fRichTextBox.Text;
+
+            disableControls();
+            Task.Run(() => approximateBuild(func, xs, mLeft, mRight));
+        }
+
+        private void approximateBuild(string fucntion, Entity.Matrix vector, int mLeft, int mRight) {
+            using var _ = MathS.Settings.DowncastingEnabled.Set(false);
+            int range = Tools.calculateRange(xFromTextBox.Text, xToTextBox.Text);
+            var ps = new Tools.PlotStruct(range);
+
+            Number.Real rootMeanSquaredError;
+
+            int d = Convert.ToInt32(dNumericUpDown.Value);
+
+            Entity P = null;
+            if(polynomialRadioButton.Checked) {
+                P = TropApprox.Approx.ApproximateFunctionWithPolynomial(fucntion, vector, mLeft, mRight, d);
+                P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
+
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
+            }
+            else {
+                Entity Q = null;
+                Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d));
+                rational.Wait();
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
+                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = Tools.TrimZeros(Q));
+
+                rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
+            }
+
+            Invoke(() => showRmse(rootMeanSquaredError));
+
+            Invoke(() => plotArrays(ps));
+
+            Invoke(() => enableControls());
+        }
+
+        private void ChangeControlsEnable(bool enable) {
+            tabControl.Enabled = enable;
+            BuildButton.Enabled = enable;
+        }
+
+        private void disableControls() {
+            ChangeControlsEnable(false);
+        }
+
+        private void enableControls() {
+            ChangeControlsEnable(true);
+        }
+
+        void changeBorders(Entity.Matrix vector) {
+            double min, max;
+            Tools.findMinMaxInVector(vector, out min, out max);
+            xFromTextBox.Invoke(() => xFromTextBox.Text = min.ToString());
+            xToTextBox.Invoke(() => xToTextBox.Text = max.ToString());
         }
 
         private void nonSymmetryPowersCheckBox_CheckedChanged(object sender, EventArgs e) {

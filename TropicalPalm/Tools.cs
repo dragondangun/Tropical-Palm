@@ -41,6 +41,14 @@ namespace TropicalPalm {
             }
         }
 
+        public static int calculateRange(string fromStr, string toStr) {
+            double to, from;
+            from = Convert.ToDouble(fromStr);
+            to = Convert.ToDouble(toStr);
+
+            return (int)Math.Ceiling(Math.Abs(to - from) / (double)ArraysFiller.Step) + 1;
+        }
+
         public static void findMinMaxInVector(Entity.Matrix vector, out double min, out double max) {
             if(vector.RowCount == 0) {
                 throw new ArgumentException("Vector must contain values");
@@ -100,7 +108,6 @@ namespace TropicalPalm {
 
             return result;
         }
-
 
         public static string stringToPolynomial(string rawPolynomial) {
             string polynomial = "";
