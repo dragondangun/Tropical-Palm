@@ -100,5 +100,17 @@ namespace TropicalPalm {
 
             return result;
         }
+
+
+        public static string stringToPolynomial(string rawPolynomial) {
+            string polynomial = "";
+            string[] nomials = rawPolynomial.Split($"{Environment.NewLine}");
+            foreach(string n in nomials) {
+                string[] line = n.Split('\t');
+                string coeff = line[0], power = line[1];
+                polynomial += $"({coeff})*x^({power})+";
+            }
+            return polynomial[..^1];
+        }
     }
 }

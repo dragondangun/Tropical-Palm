@@ -57,8 +57,6 @@ namespace TropicalPalm {
             ArraysFiller.F = fRichTextBox.Text;
         }
 
-        
-
         private void manualInput(object sender, EventArgs e) {
             Validation.ErrorCodes errorCode = Validation.checkInput(pRichTextBox.Text, qRichTextBox.Text, xFromTextBox.Text, xToTextBox.Text, fRichTextBox.Text);
 
@@ -418,22 +416,11 @@ namespace TropicalPalm {
         private PolynomialPair[] makePolynomialPairs(string[] polynomials) {
             PolynomialPair[] _polynomialPairs = new PolynomialPair[polynomials.Length / 2];
             for(int i = 0, j = 0; i < polynomials.Length; i += 2, j++) {
-                _polynomialPairs[j].P = stringToPolynomial(polynomials[i]);
-                _polynomialPairs[j].Q = stringToPolynomial(polynomials[i + 1]);
+                _polynomialPairs[j].P = Tools.stringToPolynomial(polynomials[i]);
+                _polynomialPairs[j].Q = Tools.stringToPolynomial(polynomials[i + 1]);
             }
 
             return _polynomialPairs;
-        }
-
-        private string stringToPolynomial(string rawPolynomial) {
-            string polynomial = "";
-            string[] nomials = rawPolynomial.Split($"{Environment.NewLine}");
-            foreach(string n in nomials) {
-                string[] line = n.Split('\t');
-                string coeff = line[0], power = line[1];
-                polynomial += $"({coeff})*x^({power})+";
-            }
-            return polynomial[..^1];
         }
 
         struct PolynomialPair {
