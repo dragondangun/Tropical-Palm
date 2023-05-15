@@ -21,7 +21,8 @@ namespace TropicalPalm {
 
     public partial class Form1:Form {
         PolynomialPair[] polynomialPairs;
-        bool nonNegativeField;
+        static bool nonNegativeField;
+        public static bool NonNegativeField { get; set; }
 
         public Form1() {
             InitializeComponent();
@@ -81,10 +82,10 @@ namespace TropicalPalm {
         }
 
         private void manualInput(object sender, EventArgs e) {
-            ErrorCodes errorCode = checkInput();
+            Validation.ErrorCodes errorCode = Validation.checkInput(pRichTextBox.Text, qRichTextBox.Text, xFromTextBox.Text, xToTextBox.Text, fRichTextBox.Text);
 
-            if(errorCode != ErrorCodes.ALL_IS_GOOD) {
-                showError(errorCode);
+            if(errorCode != Validation.ErrorCodes.ALL_IS_GOOD) {
+                Validation.showError(errorCode);
                 return;
             }
 
@@ -127,7 +128,7 @@ namespace TropicalPalm {
                 }
             }
             else {
-                if(!isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
                     MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -144,6 +145,11 @@ namespace TropicalPalm {
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
+                return;
+            }
+
+            if(!Validation.isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
+                MessageBox.Show("Ошибка в аппроксимируемой функции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -440,127 +446,6 @@ namespace TropicalPalm {
             xToTextBox.Text = to.ToString();
         }
 
-        private void pRichTextBox_MouseHover(object sender, EventArgs e) {
-            //ToolTip
-            //toolTip1.SetToolTip(this, "Enter polynomial. Example:\n3*x^3+2x2+x+1"); 
-            //toolTip1.AutoPopDelay = 1000;
-        }
-
-        ErrorCodes checkInput() {
-            if(pRichTextBox.Text.Length == 0 && qRichTextBox.Text.Length == 0)
-                return ErrorCodes.POLYNOMIALS_EMPTY;
-
-            if(xFromTextBox.Text.Length == 0)
-                return ErrorCodes.FROM_EMPTY;
-            if(xToTextBox.Text.Length == 0)
-                return ErrorCodes.TO_EMPTY;
-
-            double to, from;
-            from = Convert.ToDouble(xFromTextBox.Text);
-            to = Convert.ToDouble(xToTextBox.Text);
-
-            if(to < from) {
-                return ErrorCodes.UNCORRECT_BORDERS;
-            }
-
-            string pattern = "[arr-wyzA-WYZа-яА-Я]";
-            var m = Regex.Match(pRichTextBox.Text, pattern);
-            if(m.Success) 
-                return ErrorCodes.P_UNCORRECT;
-
-            m = Regex.Match(qRichTextBox.Text, pattern);
-            if(m.Success) 
-                return ErrorCodes.Q_UNCORRECT;
-
-            if(pRichTextBox.Text.Length > 0 && !isCurrentAlgebraExpressionCorrect(pRichTextBox.Text)) {
-                return ErrorCodes.P_UNCORRECT;
-            }
-
-            if(qRichTextBox.Text.Length > 0 && !isCurrentAlgebraExpressionCorrect(qRichTextBox.Text)) {
-                return ErrorCodes.Q_UNCORRECT;
-            }
-
-            if(fRichTextBox.Text.Length > 0 && !isConventionalAlgebraExpressionCorrect(fRichTextBox.Text)) {
-                return ErrorCodes.F_UNCORRECT;
-            }
-
-            return ErrorCodes.ALL_IS_GOOD;
-        }
-
-        bool isCurrentAlgebraExpressionCorrect(string expression) {
-            bool result = true;
-            var x = Var("x");
-
-            try {
-                TropApprox.Current.Algebra.Calculate(expression.Substitute(x,(Number.Real)4/10));
-                if(!nonNegativeField) {
-                    TropApprox.Current.Algebra.Calculate(expression.Substitute(x, -0.4));
-                    TropApprox.Current.Algebra.Calculate(expression.Substitute(x, 0));
-                }
-            }
-            catch {
-                result = false;
-            }
-
-            return result;
-        }
-
-        bool isConventionalAlgebraExpressionCorrect(string expression) {
-            bool result = true;
-            var x = Var("x");
-
-            try {
-                expression.Substitute(x, 0.4).EvalNumerical();
-                expression.Substitute(x, 0.0).EvalNumerical();
-                if(!nonNegativeField) {
-                    expression.Substitute(x, -0.4).EvalNumerical();
-                }
-            }
-            catch {
-                result = false;
-            }
-
-            return result;
-        }
-
-        void showError(ErrorCodes errorCode) {
-            switch(errorCode) {
-                case ErrorCodes.P_UNCORRECT:
-                    MessageBox.Show("There's an error in P!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                case ErrorCodes.Q_UNCORRECT:
-                    MessageBox.Show("There's an error in Q!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                case ErrorCodes.F_UNCORRECT:
-                    MessageBox.Show("There's an error in F!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-
-                case ErrorCodes.POLYNOMIALS_EMPTY:
-                    MessageBox.Show("P(x) or Q(x) must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                case ErrorCodes.FROM_EMPTY:
-                    MessageBox.Show("From must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                case ErrorCodes.TO_EMPTY:
-                    MessageBox.Show("To must be filled in!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                case ErrorCodes.UNCORRECT_BORDERS:
-                    MessageBox.Show("From must be less than to!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-            }
-        }
-
-        enum ErrorCodes {
-            ALL_IS_GOOD = 0,
-            P_UNCORRECT = 1,
-            Q_UNCORRECT = 2,
-            F_UNCORRECT = 3,
-            POLYNOMIALS_EMPTY = 10,
-            FROM_EMPTY = 40,
-            TO_EMPTY = 50,
-            UNCORRECT_BORDERS = 60,
-        };
-
         private void aboutToolStripLabel_Click(object sender, EventArgs e) {
             string version = $"{Properties.Settings.Default["version"]}v";
             string Merzalov = "TropicalPalm названа в честь пальмы Мерцалова.";
@@ -594,7 +479,7 @@ namespace TropicalPalm {
         }
 
         private PolynomialPair[] preProcessFilePolynomials(string content) {
-            if(containsInappropriateCharacters(content)) {
+            if(Validation.containsInappropriateCharacters(content)) {
                 MessageBox.Show("Ошибка в данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
@@ -609,10 +494,6 @@ namespace TropicalPalm {
             }
 
             return makePolynomialPairs(polynomials);
-        }
-
-        private bool containsInappropriateCharacters(string content) {
-            return !Regex.Match(content, $"[1-9.{Environment.NewLine}\t]").Success;
         }
 
         private void selectBestRationalFunction(PolynomialPair[] _polynomialPairs) {
@@ -689,7 +570,6 @@ namespace TropicalPalm {
                     BuildButton.Click += runApproximateBuild;
                     return;
             }
-
         }
     }
 }

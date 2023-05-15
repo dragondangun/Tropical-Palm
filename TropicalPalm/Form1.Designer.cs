@@ -655,6 +655,7 @@
             this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
             this.xFromTextBox.TabIndex = 45;
             this.xFromTextBox.Text = "-10";
+            this.xFromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // label7
             // 
@@ -676,6 +677,7 @@
             this.xToTextBox.Size = new System.Drawing.Size(116, 24);
             this.xToTextBox.TabIndex = 47;
             this.xToTextBox.Text = "10";
+            this.xToTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
             // 
             // errorFuncCheckBox
             // 
