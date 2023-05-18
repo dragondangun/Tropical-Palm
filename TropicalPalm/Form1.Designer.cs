@@ -410,6 +410,7 @@
             this.rationalRadioButton.TabIndex = 63;
             this.rationalRadioButton.Text = "Rational";
             this.rationalRadioButton.UseVisualStyleBackColor = true;
+            this.rationalRadioButton.CheckedChanged += new System.EventHandler(this.rationalRadioButton_CheckedChanged);
             // 
             // label12
             // 

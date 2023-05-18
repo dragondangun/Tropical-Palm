@@ -440,15 +440,46 @@ namespace TropicalPalm {
 
             switch(tabControl.SelectedIndex) {
                 case 0:
+                    unblockAlgebras();
                     BuildButton.Click += manualInput;
                     return;
                 case 1:
+                    unblockAlgebras();
                     BuildButton.Click += fromFile;
                     return;
                 case 2:
+                    blockAlgebras();
                     BuildButton.Click += runApproximateBuild;
                     return;
             }
+        }
+
+        private void blockAlgebras() {
+            if(rationalRadioButton.Checked) {
+                maxPlusRadioButton.Checked = true;
+                minPlusRadioButton.Enabled = false;
+                maxTimesRadioButton.Enabled = false;
+                minTimesRadioButton.Enabled = false;
+            }
+            else {
+                if(maxTimesRadioButton.Checked || minTimesRadioButton.Checked) {
+                    maxPlusRadioButton.Checked = true;
+                }
+                minPlusRadioButton.Enabled = true;
+                maxTimesRadioButton.Enabled = false;
+                minTimesRadioButton.Enabled = false;
+            }
+        }
+
+        private void unblockAlgebras() {
+            maxPlusRadioButton.Enabled = true;
+            minPlusRadioButton.Enabled = true;
+            maxTimesRadioButton.Enabled = true;
+            minTimesRadioButton.Enabled = true;
+        }
+
+        private void rationalRadioButton_CheckedChanged(object sender, EventArgs e) {
+            blockAlgebras();
         }
     }
 }
