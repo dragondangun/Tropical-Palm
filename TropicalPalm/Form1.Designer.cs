@@ -127,7 +127,7 @@
             // 
             // fRichTextBox
             // 
-            this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.fRichTextBox.Location = new System.Drawing.Point(112, 352);
             this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.fRichTextBox.Multiline = false;
@@ -487,6 +487,7 @@
             // 
             // xsRichTextBox
             // 
+            this.xsRichTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.xsRichTextBox.Location = new System.Drawing.Point(36, 116);
             this.xsRichTextBox.Name = "xsRichTextBox";
             this.xsRichTextBox.Size = new System.Drawing.Size(442, 32);
