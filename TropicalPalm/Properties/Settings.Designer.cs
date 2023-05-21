@@ -25,7 +25,7 @@ namespace TropicalPalm.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2.1")]
         public string version {
             get {
                 return ((string)(this["version"]));
