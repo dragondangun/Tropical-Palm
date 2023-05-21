@@ -62,7 +62,7 @@ namespace TropicalPalm {
                 return ErrorCodes.UNCORRECT_BORDERS;
             }
 
-            string pattern = "[arr-wyzA-WYZа-яА-Я]";
+            string pattern = "[a-wyzA-WYZа-яА-Я ,!@#$%&?\"`~]";
             var m = Regex.Match(p, pattern);
             if(m.Success)
                 return ErrorCodes.P_UNCORRECT;
@@ -123,7 +123,7 @@ namespace TropicalPalm {
         }
 
         public static bool containsInappropriateCharacters(string content) {
-            return !Regex.Match(content, $"[1-9.{Environment.NewLine}\t]").Success;
+            return Regex.Match(content, $"[a-wyzA-WYZа-яА-Я ,!@#$%^&*()+/?\"`~]").Success;
         }
     }
 }
