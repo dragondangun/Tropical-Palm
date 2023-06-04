@@ -68,17 +68,17 @@ namespace TropicalPalm {
         }
 
         public static string TrimZeros(Entity entity) {
-            string result = "";
+            StringBuilder result = new();
             string temp;
             var arr = entity.ToString().Split(" ");
             foreach(var entry in arr) {
                 if(entry.Contains('E')) {
-                    result += $"({entry})";
+                    result.Append($"({entry})");
                     continue;
                 }
 
                 if(!entry.Contains('.')) {
-                    result += entry;
+                    result.Append(entry);
                     continue;
                 }
 
@@ -93,10 +93,10 @@ namespace TropicalPalm {
                     temp = temp.Length == 0 ? "0" : temp;
                 }
 
-                result += temp;
+                result.Append(temp);
             }
 
-            return result;
+            return result.ToString();
         }
 
         public static double[] RealToDouble(Number.Real[] arr) {
