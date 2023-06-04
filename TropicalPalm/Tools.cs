@@ -8,6 +8,9 @@ using static AngouriMath.Entity;
 
 namespace TropicalPalm {
     public static class Tools {
+        private static bool shortCoeffs = true;
+        public static bool ShortCoeffs { get => shortCoeffs; set => shortCoeffs = value; }
+
         public struct PlotStruct {
             Number.Real[] pY;
             public Number.Real[] PY { get => pY; }
@@ -65,6 +68,34 @@ namespace TropicalPalm {
                     max = v;
                 }
             }
+        }
+
+        public static string processCoeffs(Entity entity) {
+            return shortCoeffs ? ShortPolynomialsCoeffs(entity) : TrimZeros(entity);
+        }
+
+        public static string ShortPolynomialsCoeffs(Entity entity) {
+            StringBuilder result = new();
+            string temp;
+            var arr = entity.ToString().Split(" ");
+            foreach(var entry in arr) {
+                if(entry.Contains('E')) {
+                    result.Append($"({entry})");
+                    continue;
+                }
+
+                var index = entry.IndexOf('.');
+                if(index != -1) {
+                    result.Append(entry[0..(index+3)]);
+                    continue;
+                }
+                else {
+                    result.Append(entry);
+                }
+
+            }
+
+            return result.ToString();
         }
 
         public static string TrimZeros(Entity entity) {

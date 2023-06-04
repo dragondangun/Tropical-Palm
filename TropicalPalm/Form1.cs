@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using TropicalPalm.Forms;
 
 namespace TropicalPalm {
 
@@ -30,8 +31,8 @@ namespace TropicalPalm {
         PolynomialPair[] polynomialPairs;
 
         static bool nonNegativeField;
-        public static bool NonNegativeField { 
-            get => nonNegativeField; 
+        public static bool NonNegativeField {
+            get => nonNegativeField;
             set => nonNegativeField = value;
         }
 
@@ -67,12 +68,12 @@ namespace TropicalPalm {
                 e.Handled = true;
             }
         }
-       
+
         private void showRmse(Number.Real rootMeanSquaredError) {
             if(rootMeanSquaredError != -1) {
                 string RMSE = rootMeanSquaredError.ToString();
                 var dotIndex = RMSE.IndexOf('.');
-                RMSE = RMSE.Length > dotIndex+3 ? RMSE.Substring(0, dotIndex + 3) : RMSE;
+                RMSE = RMSE.Length > dotIndex + 3 ? RMSE.Substring(0, dotIndex + 3) : RMSE;
                 rootMeanSquaredErrorValueLabel.Text = RMSE;
                 rootMeanSquaredErrorValueLabel.Visible = true;
                 rootMeanSquaredErrorLabel.Visible = true;
@@ -109,7 +110,7 @@ namespace TropicalPalm {
             plot.Refresh();
         }
 
-        private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr) 
+        private void plotArrays(Number.Real[] pY, Number.Real[] qY, Number.Real[] pbyqY, Number.Real[] fY, Number.Real[] errY, Number.Real[] xArr)
             => plotArrays(new Tools.PlotStruct(pY, qY, pbyqY, fY, errY, xArr));
 
         private void minPlusRadioButton_CheckedChanged(object sender, EventArgs e) {
@@ -143,18 +144,18 @@ namespace TropicalPalm {
         private void sumFieldSettings() {
             ArraysFiller.InftyCheck = false;
             nonNegativeField = false;
-            ArraysFiller.Step = (Number.Real)1/100;
+            ArraysFiller.Step = (Number.Real)1 / 100;
         }
 
         private void mulFieldSettings() {
             ArraysFiller.InftyCheck = true;
             nonNegativeField = true;
-            ArraysFiller.Step = (Number.Real)1 /10;
+            ArraysFiller.Step = (Number.Real)1 / 10;
 
             double from = Convert.ToDouble(xFromTextBox.Text);
             from = from < 0 ? 0 : from;
             double to = Convert.ToDouble(xToTextBox.Text);
-            to = to < from ? from+10 : to;
+            to = to < from ? from + 10 : to;
 
             xFromTextBox.Text = from.ToString();
             xToTextBox.Text = to.ToString();
@@ -193,7 +194,7 @@ namespace TropicalPalm {
 
             try {
                 if(onePolynomial) {
-                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text+qRichTextBox.Text, ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
+                    rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text + qRichTextBox.Text, ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
                 }
                 else {
                     rootMeanSquaredError = ArraysFiller.fillArrays(pRichTextBox.Text, qRichTextBox.Text, ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
@@ -389,14 +390,14 @@ namespace TropicalPalm {
                 P = TropApprox.TropicalPolynomial.CreatePolynomial((Entity.Matrix)P, mLeft, mRight);
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), ps.PY, ps.FY, ps.ErrY, ps.XArr, range);
 
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.processCoeffs(P));
             }
             else {
                 Entity Q = null;
                 Task<Entity> rational = Task.Run(() => TropApprox.Approx.ApproximateFunction(fucntion, vector, mLeft, mRight, out P, out Q, d));
                 rational.Wait();
-                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.TrimZeros(P));
-                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = Tools.TrimZeros(Q));
+                pRichTextBoxROA.Invoke(() => pRichTextBoxROA.Text = Tools.processCoeffs(P));
+                qRichTextBoxROA.Invoke(() => qRichTextBoxROA.Text = Tools.processCoeffs(Q));
 
                 rootMeanSquaredError = ArraysFiller.fillArrays(P.ToString(), Q.ToString(), ps.PY, ps.QY, ps.PbyQY, ps.FY, ps.ErrY, ps.XArr, range);
             }
@@ -480,6 +481,11 @@ namespace TropicalPalm {
 
         private void rationalRadioButton_CheckedChanged(object sender, EventArgs e) {
             blockAlgebras();
+        }
+
+        private void settingsToolStripLabel_Click(object sender, EventArgs e) {
+            var settings = new Forms.Settings();
+            settings.ShowDialog();
         }
     }
 }

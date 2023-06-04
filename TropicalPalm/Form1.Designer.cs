@@ -23,720 +23,714 @@
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.plot = new ScottPlot.FormsPlot();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.qRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.pRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.fRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.BuildButton = new System.Windows.Forms.Button();
-            this.qRichTextBoxRO = new System.Windows.Forms.RichTextBox();
-            this.pRichTextBoxRO = new System.Windows.Forms.RichTextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
-            this.rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.manualTabPage = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.AutoTabPage = new System.Windows.Forms.TabPage();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.pathHolderLabel = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.pathLabel = new System.Windows.Forms.Label();
-            this.openFileButton = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ApproximateTabPage = new System.Windows.Forms.TabPage();
-            this.qRichTextBoxROA = new System.Windows.Forms.RichTextBox();
-            this.changeBordersCheckBox = new System.Windows.Forms.CheckBox();
-            this.rationalRadioButton = new System.Windows.Forms.RadioButton();
-            this.label12 = new System.Windows.Forms.Label();
-            this.polynomialRadioButton = new System.Windows.Forms.RadioButton();
-            this.nonSymmetryPowersCheckBox = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.pRichTextBoxROA = new System.Windows.Forms.RichTextBox();
-            this.mRightNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.xsRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.mLeftNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maxPlusRadioButton = new System.Windows.Forms.RadioButton();
-            this.maxTimesRadioButton = new System.Windows.Forms.RadioButton();
-            this.minPlusRadioButton = new System.Windows.Forms.RadioButton();
-            this.minTimesRadioButton = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.xFromTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.xToTextBox = new System.Windows.Forms.TextBox();
-            this.errorFuncCheckBox = new System.Windows.Forms.CheckBox();
-            this.toolStrip1.SuspendLayout();
-            this.tabControl.SuspendLayout();
-            this.manualTabPage.SuspendLayout();
-            this.AutoTabPage.SuspendLayout();
-            this.ApproximateTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mRightNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mLeftNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dNumericUpDown)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
+            plot = new ScottPlot.FormsPlot();
+            toolTip = new System.Windows.Forms.ToolTip(components);
+            qRichTextBox = new System.Windows.Forms.RichTextBox();
+            pRichTextBox = new System.Windows.Forms.RichTextBox();
+            fRichTextBox = new System.Windows.Forms.RichTextBox();
+            BuildButton = new System.Windows.Forms.Button();
+            qRichTextBoxRO = new System.Windows.Forms.RichTextBox();
+            pRichTextBoxRO = new System.Windows.Forms.RichTextBox();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            aboutToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            settingsToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            rootMeanSquaredErrorValueLabel = new System.Windows.Forms.Label();
+            rootMeanSquaredErrorLabel = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            tabControl = new System.Windows.Forms.TabControl();
+            manualTabPage = new System.Windows.Forms.TabPage();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            AutoTabPage = new System.Windows.Forms.TabPage();
+            progressBar = new System.Windows.Forms.ProgressBar();
+            pathHolderLabel = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
+            pathLabel = new System.Windows.Forms.Label();
+            openFileButton = new System.Windows.Forms.Button();
+            label11 = new System.Windows.Forms.Label();
+            ApproximateTabPage = new System.Windows.Forms.TabPage();
+            qRichTextBoxROA = new System.Windows.Forms.RichTextBox();
+            changeBordersCheckBox = new System.Windows.Forms.CheckBox();
+            rationalRadioButton = new System.Windows.Forms.RadioButton();
+            label12 = new System.Windows.Forms.Label();
+            polynomialRadioButton = new System.Windows.Forms.RadioButton();
+            nonSymmetryPowersCheckBox = new System.Windows.Forms.CheckBox();
+            label13 = new System.Windows.Forms.Label();
+            pRichTextBoxROA = new System.Windows.Forms.RichTextBox();
+            mRightNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            xsRichTextBox = new System.Windows.Forms.RichTextBox();
+            label5 = new System.Windows.Forms.Label();
+            mLeftNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            label9 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            dNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            label3 = new System.Windows.Forms.Label();
+            maxPlusRadioButton = new System.Windows.Forms.RadioButton();
+            maxTimesRadioButton = new System.Windows.Forms.RadioButton();
+            minPlusRadioButton = new System.Windows.Forms.RadioButton();
+            minTimesRadioButton = new System.Windows.Forms.RadioButton();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            label6 = new System.Windows.Forms.Label();
+            xFromTextBox = new System.Windows.Forms.TextBox();
+            label7 = new System.Windows.Forms.Label();
+            xToTextBox = new System.Windows.Forms.TextBox();
+            errorFuncCheckBox = new System.Windows.Forms.CheckBox();
+            toolStrip1.SuspendLayout();
+            tabControl.SuspendLayout();
+            manualTabPage.SuspendLayout();
+            AutoTabPage.SuspendLayout();
+            ApproximateTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)mRightNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)mLeftNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dNumericUpDown).BeginInit();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
             // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(508, 12);
-            this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.plot.Name = "plot";
-            this.plot.Size = new System.Drawing.Size(901, 553);
-            this.plot.TabIndex = 19;
+            plot.Location = new System.Drawing.Point(508, 12);
+            plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            plot.Name = "plot";
+            plot.Size = new System.Drawing.Size(901, 553);
+            plot.TabIndex = 19;
             // 
             // toolTip
             // 
-            this.toolTip.AutoPopDelay = 5000;
-            this.toolTip.InitialDelay = 500;
-            this.toolTip.ReshowDelay = 100;
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 100;
             // 
             // qRichTextBox
             // 
-            this.qRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.qRichTextBox.Location = new System.Drawing.Point(96, 50);
-            this.qRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.qRichTextBox.Multiline = false;
-            this.qRichTextBox.Name = "qRichTextBox";
-            this.qRichTextBox.Size = new System.Drawing.Size(313, 36);
-            this.qRichTextBox.TabIndex = 38;
-            this.qRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.qRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)\r\n");
+            qRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            qRichTextBox.Location = new System.Drawing.Point(96, 50);
+            qRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            qRichTextBox.Multiline = false;
+            qRichTextBox.Name = "qRichTextBox";
+            qRichTextBox.Size = new System.Drawing.Size(313, 36);
+            qRichTextBox.TabIndex = 38;
+            qRichTextBox.Text = "";
+            toolTip.SetToolTip(qRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)\r\n");
             // 
             // pRichTextBox
             // 
-            this.pRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pRichTextBox.Location = new System.Drawing.Point(96, 6);
-            this.pRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pRichTextBox.Multiline = false;
-            this.pRichTextBox.Name = "pRichTextBox";
-            this.pRichTextBox.Size = new System.Drawing.Size(313, 36);
-            this.pRichTextBox.TabIndex = 35;
-            this.pRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.pRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)");
+            pRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pRichTextBox.Location = new System.Drawing.Point(96, 6);
+            pRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pRichTextBox.Multiline = false;
+            pRichTextBox.Name = "pRichTextBox";
+            pRichTextBox.Size = new System.Drawing.Size(313, 36);
+            pRichTextBox.TabIndex = 35;
+            pRichTextBox.Text = "";
+            toolTip.SetToolTip(pRichTextBox, "Example: \r\n3*x^3+(-2)*x+1+x^(-0.5)");
             // 
             // fRichTextBox
             // 
-            this.fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.fRichTextBox.Location = new System.Drawing.Point(112, 352);
-            this.fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.fRichTextBox.Multiline = false;
-            this.fRichTextBox.Name = "fRichTextBox";
-            this.fRichTextBox.Size = new System.Drawing.Size(399, 36);
-            this.fRichTextBox.TabIndex = 39;
-            this.fRichTextBox.Text = "";
-            this.toolTip.SetToolTip(this.fRichTextBox, "Example:\r\nx^2+2*x+3*e+sin(x)");
+            fRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            fRichTextBox.Location = new System.Drawing.Point(112, 352);
+            fRichTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            fRichTextBox.Multiline = false;
+            fRichTextBox.Name = "fRichTextBox";
+            fRichTextBox.Size = new System.Drawing.Size(399, 36);
+            fRichTextBox.TabIndex = 39;
+            fRichTextBox.Text = "";
+            toolTip.SetToolTip(fRichTextBox, "Example:\r\nx^2+2*x+3*e+sin(x)");
             // 
             // BuildButton
             // 
-            this.BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BuildButton.Location = new System.Drawing.Point(33, 518);
-            this.BuildButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.BuildButton.Name = "BuildButton";
-            this.BuildButton.Size = new System.Drawing.Size(479, 76);
-            this.BuildButton.TabIndex = 48;
-            this.BuildButton.Text = "Build";
-            this.toolTip.SetToolTip(this.BuildButton, "Click to build plot\r\nNB: P(x) and Q(x) are obligatory to be filled in");
-            this.BuildButton.UseVisualStyleBackColor = true;
-            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
+            BuildButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            BuildButton.Location = new System.Drawing.Point(33, 518);
+            BuildButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BuildButton.Name = "BuildButton";
+            BuildButton.Size = new System.Drawing.Size(479, 76);
+            BuildButton.TabIndex = 48;
+            BuildButton.Text = "Build";
+            toolTip.SetToolTip(BuildButton, "Click to build plot\r\nNB: P(x) and Q(x) are obligatory to be filled in");
+            BuildButton.UseVisualStyleBackColor = true;
+            BuildButton.Click += BuildButton_Click;
             // 
             // qRichTextBoxRO
             // 
-            this.qRichTextBoxRO.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.qRichTextBoxRO.Location = new System.Drawing.Point(92, 53);
-            this.qRichTextBoxRO.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.qRichTextBoxRO.Multiline = false;
-            this.qRichTextBoxRO.Name = "qRichTextBoxRO";
-            this.qRichTextBoxRO.ReadOnly = true;
-            this.qRichTextBoxRO.Size = new System.Drawing.Size(313, 36);
-            this.qRichTextBoxRO.TabIndex = 42;
-            this.qRichTextBoxRO.Text = "";
+            qRichTextBoxRO.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            qRichTextBoxRO.Location = new System.Drawing.Point(92, 53);
+            qRichTextBoxRO.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            qRichTextBoxRO.Multiline = false;
+            qRichTextBoxRO.Name = "qRichTextBoxRO";
+            qRichTextBoxRO.ReadOnly = true;
+            qRichTextBoxRO.Size = new System.Drawing.Size(313, 36);
+            qRichTextBoxRO.TabIndex = 42;
+            qRichTextBoxRO.Text = "";
             // 
             // pRichTextBoxRO
             // 
-            this.pRichTextBoxRO.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pRichTextBoxRO.Location = new System.Drawing.Point(92, 9);
-            this.pRichTextBoxRO.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pRichTextBoxRO.Multiline = false;
-            this.pRichTextBoxRO.Name = "pRichTextBoxRO";
-            this.pRichTextBoxRO.ReadOnly = true;
-            this.pRichTextBoxRO.Size = new System.Drawing.Size(313, 36);
-            this.pRichTextBoxRO.TabIndex = 39;
-            this.pRichTextBoxRO.Text = "";
+            pRichTextBoxRO.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pRichTextBoxRO.Location = new System.Drawing.Point(92, 9);
+            pRichTextBoxRO.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pRichTextBoxRO.Multiline = false;
+            pRichTextBoxRO.Name = "pRichTextBoxRO";
+            pRichTextBoxRO.ReadOnly = true;
+            pRichTextBoxRO.Size = new System.Drawing.Size(313, 36);
+            pRichTextBoxRO.TabIndex = 39;
+            pRichTextBoxRO.Text = "";
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripLabel});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1398, 25);
-            this.toolStrip1.TabIndex = 23;
-            this.toolStrip1.Text = "toolStrip1";
+            toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutToolStripLabel, settingsToolStripLabel });
+            toolStrip1.Location = new System.Drawing.Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new System.Drawing.Size(1398, 25);
+            toolStrip1.TabIndex = 23;
+            toolStrip1.Text = "toolStrip1";
             // 
             // aboutToolStripLabel
             // 
-            this.aboutToolStripLabel.Name = "aboutToolStripLabel";
-            this.aboutToolStripLabel.Size = new System.Drawing.Size(82, 22);
-            this.aboutToolStripLabel.Text = "О программе";
-            this.aboutToolStripLabel.Click += new System.EventHandler(this.aboutToolStripLabel_Click);
+            aboutToolStripLabel.Name = "aboutToolStripLabel";
+            aboutToolStripLabel.Size = new System.Drawing.Size(82, 22);
+            aboutToolStripLabel.Text = "О программе";
+            aboutToolStripLabel.Click += aboutToolStripLabel_Click;
+            // 
+            // settingsToolStripLabel
+            // 
+            settingsToolStripLabel.Name = "settingsToolStripLabel";
+            settingsToolStripLabel.Size = new System.Drawing.Size(49, 22);
+            settingsToolStripLabel.Text = "Settings";
+            settingsToolStripLabel.Click += settingsToolStripLabel_Click;
             // 
             // rootMeanSquaredErrorValueLabel
             // 
-            this.rootMeanSquaredErrorValueLabel.AutoSize = true;
-            this.rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(621, 569);
-            this.rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
-            this.rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 29);
-            this.rootMeanSquaredErrorValueLabel.TabIndex = 26;
-            this.rootMeanSquaredErrorValueLabel.Visible = false;
+            rootMeanSquaredErrorValueLabel.AutoSize = true;
+            rootMeanSquaredErrorValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            rootMeanSquaredErrorValueLabel.Location = new System.Drawing.Point(621, 569);
+            rootMeanSquaredErrorValueLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            rootMeanSquaredErrorValueLabel.Name = "rootMeanSquaredErrorValueLabel";
+            rootMeanSquaredErrorValueLabel.Size = new System.Drawing.Size(0, 29);
+            rootMeanSquaredErrorValueLabel.TabIndex = 26;
+            rootMeanSquaredErrorValueLabel.Visible = false;
             // 
             // rootMeanSquaredErrorLabel
             // 
-            this.rootMeanSquaredErrorLabel.AutoSize = true;
-            this.rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(520, 568);
-            this.rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
-            this.rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(93, 29);
-            this.rootMeanSquaredErrorLabel.TabIndex = 25;
-            this.rootMeanSquaredErrorLabel.Text = "RMSE:";
-            this.rootMeanSquaredErrorLabel.Visible = false;
+            rootMeanSquaredErrorLabel.AutoSize = true;
+            rootMeanSquaredErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            rootMeanSquaredErrorLabel.Location = new System.Drawing.Point(520, 568);
+            rootMeanSquaredErrorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            rootMeanSquaredErrorLabel.Name = "rootMeanSquaredErrorLabel";
+            rootMeanSquaredErrorLabel.Size = new System.Drawing.Size(93, 29);
+            rootMeanSquaredErrorLabel.TabIndex = 25;
+            rootMeanSquaredErrorLabel.Text = "RMSE:";
+            rootMeanSquaredErrorLabel.Visible = false;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(621, 565);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 29);
-            this.label8.TabIndex = 26;
-            this.label8.Visible = false;
+            label8.AutoSize = true;
+            label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label8.Location = new System.Drawing.Point(621, 565);
+            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(0, 29);
+            label8.TabIndex = 26;
+            label8.Visible = false;
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.manualTabPage);
-            this.tabControl.Controls.Add(this.AutoTabPage);
-            this.tabControl.Controls.Add(this.ApproximateTabPage);
-            this.tabControl.Location = new System.Drawing.Point(12, 28);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(505, 318);
-            this.tabControl.TabIndex = 35;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            tabControl.Controls.Add(manualTabPage);
+            tabControl.Controls.Add(AutoTabPage);
+            tabControl.Controls.Add(ApproximateTabPage);
+            tabControl.Location = new System.Drawing.Point(12, 28);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new System.Drawing.Size(505, 318);
+            tabControl.TabIndex = 35;
+            tabControl.SelectedIndexChanged += tabControl_SelectedIndexChanged;
             // 
             // manualTabPage
             // 
-            this.manualTabPage.Controls.Add(this.qRichTextBox);
-            this.manualTabPage.Controls.Add(this.label2);
-            this.manualTabPage.Controls.Add(this.label1);
-            this.manualTabPage.Controls.Add(this.pRichTextBox);
-            this.manualTabPage.Location = new System.Drawing.Point(4, 24);
-            this.manualTabPage.Name = "manualTabPage";
-            this.manualTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.manualTabPage.Size = new System.Drawing.Size(497, 290);
-            this.manualTabPage.TabIndex = 0;
-            this.manualTabPage.Text = "Manual";
-            this.manualTabPage.UseVisualStyleBackColor = true;
+            manualTabPage.Controls.Add(qRichTextBox);
+            manualTabPage.Controls.Add(label2);
+            manualTabPage.Controls.Add(label1);
+            manualTabPage.Controls.Add(pRichTextBox);
+            manualTabPage.Location = new System.Drawing.Point(4, 24);
+            manualTabPage.Name = "manualTabPage";
+            manualTabPage.Padding = new System.Windows.Forms.Padding(3);
+            manualTabPage.Size = new System.Drawing.Size(497, 290);
+            manualTabPage.TabIndex = 0;
+            manualTabPage.Text = "Manual";
+            manualTabPage.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(46, 54);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 18);
-            this.label2.TabIndex = 37;
-            this.label2.Text = "Q(x)";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(46, 54);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(37, 18);
+            label2.TabIndex = 37;
+            label2.Text = "Q(x)";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(48, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 18);
-            this.label1.TabIndex = 36;
-            this.label1.Text = "P(x)";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(48, 10);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(35, 18);
+            label1.TabIndex = 36;
+            label1.Text = "P(x)";
             // 
             // AutoTabPage
             // 
-            this.AutoTabPage.Controls.Add(this.qRichTextBoxRO);
-            this.AutoTabPage.Controls.Add(this.progressBar);
-            this.AutoTabPage.Controls.Add(this.pathHolderLabel);
-            this.AutoTabPage.Controls.Add(this.label10);
-            this.AutoTabPage.Controls.Add(this.pathLabel);
-            this.AutoTabPage.Controls.Add(this.openFileButton);
-            this.AutoTabPage.Controls.Add(this.label11);
-            this.AutoTabPage.Controls.Add(this.pRichTextBoxRO);
-            this.AutoTabPage.Location = new System.Drawing.Point(4, 24);
-            this.AutoTabPage.Name = "AutoTabPage";
-            this.AutoTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AutoTabPage.Size = new System.Drawing.Size(497, 290);
-            this.AutoTabPage.TabIndex = 1;
-            this.AutoTabPage.Text = "Autoselect";
-            this.AutoTabPage.UseVisualStyleBackColor = true;
+            AutoTabPage.Controls.Add(qRichTextBoxRO);
+            AutoTabPage.Controls.Add(progressBar);
+            AutoTabPage.Controls.Add(pathHolderLabel);
+            AutoTabPage.Controls.Add(label10);
+            AutoTabPage.Controls.Add(pathLabel);
+            AutoTabPage.Controls.Add(openFileButton);
+            AutoTabPage.Controls.Add(label11);
+            AutoTabPage.Controls.Add(pRichTextBoxRO);
+            AutoTabPage.Location = new System.Drawing.Point(4, 24);
+            AutoTabPage.Name = "AutoTabPage";
+            AutoTabPage.Padding = new System.Windows.Forms.Padding(3);
+            AutoTabPage.Size = new System.Drawing.Size(497, 290);
+            AutoTabPage.TabIndex = 1;
+            AutoTabPage.Text = "Autoselect";
+            AutoTabPage.UseVisualStyleBackColor = true;
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(92, 133);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(313, 32);
-            this.progressBar.TabIndex = 58;
+            progressBar.Location = new System.Drawing.Point(92, 133);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new System.Drawing.Size(313, 32);
+            progressBar.TabIndex = 58;
             // 
             // pathHolderLabel
             // 
-            this.pathHolderLabel.AutoSize = true;
-            this.pathHolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pathHolderLabel.Location = new System.Drawing.Point(44, 104);
-            this.pathHolderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.pathHolderLabel.Name = "pathHolderLabel";
-            this.pathHolderLabel.Size = new System.Drawing.Size(42, 18);
-            this.pathHolderLabel.TabIndex = 56;
-            this.pathHolderLabel.Text = "Path:";
+            pathHolderLabel.AutoSize = true;
+            pathHolderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pathHolderLabel.Location = new System.Drawing.Point(44, 104);
+            pathHolderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            pathHolderLabel.Name = "pathHolderLabel";
+            pathHolderLabel.Size = new System.Drawing.Size(42, 18);
+            pathHolderLabel.TabIndex = 56;
+            pathHolderLabel.Text = "Path:";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(42, 57);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 18);
-            this.label10.TabIndex = 41;
-            this.label10.Text = "Q(x)";
+            label10.AutoSize = true;
+            label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label10.Location = new System.Drawing.Point(42, 57);
+            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(37, 18);
+            label10.TabIndex = 41;
+            label10.Text = "Q(x)";
             // 
             // pathLabel
             // 
-            this.pathLabel.AutoSize = true;
-            this.pathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pathLabel.Location = new System.Drawing.Point(92, 104);
-            this.pathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.pathLabel.Name = "pathLabel";
-            this.pathLabel.Size = new System.Drawing.Size(0, 18);
-            this.pathLabel.TabIndex = 57;
+            pathLabel.AutoSize = true;
+            pathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pathLabel.Location = new System.Drawing.Point(92, 104);
+            pathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            pathLabel.Name = "pathLabel";
+            pathLabel.Size = new System.Drawing.Size(0, 18);
+            pathLabel.TabIndex = 57;
             // 
             // openFileButton
             // 
-            this.openFileButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.openFileButton.Location = new System.Drawing.Point(412, 7);
-            this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(80, 80);
-            this.openFileButton.TabIndex = 55;
-            this.openFileButton.Text = "Open file";
-            this.openFileButton.UseVisualStyleBackColor = true;
-            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
+            openFileButton.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            openFileButton.Location = new System.Drawing.Point(412, 7);
+            openFileButton.Name = "openFileButton";
+            openFileButton.Size = new System.Drawing.Size(80, 80);
+            openFileButton.TabIndex = 55;
+            openFileButton.Text = "Open file";
+            openFileButton.UseVisualStyleBackColor = true;
+            openFileButton.Click += openFileButton_Click;
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(44, 13);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 18);
-            this.label11.TabIndex = 40;
-            this.label11.Text = "P(x)";
+            label11.AutoSize = true;
+            label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label11.Location = new System.Drawing.Point(44, 13);
+            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(35, 18);
+            label11.TabIndex = 40;
+            label11.Text = "P(x)";
             // 
             // ApproximateTabPage
             // 
-            this.ApproximateTabPage.Controls.Add(this.qRichTextBoxROA);
-            this.ApproximateTabPage.Controls.Add(this.changeBordersCheckBox);
-            this.ApproximateTabPage.Controls.Add(this.rationalRadioButton);
-            this.ApproximateTabPage.Controls.Add(this.label12);
-            this.ApproximateTabPage.Controls.Add(this.polynomialRadioButton);
-            this.ApproximateTabPage.Controls.Add(this.nonSymmetryPowersCheckBox);
-            this.ApproximateTabPage.Controls.Add(this.label13);
-            this.ApproximateTabPage.Controls.Add(this.pRichTextBoxROA);
-            this.ApproximateTabPage.Controls.Add(this.mRightNumericUpDown);
-            this.ApproximateTabPage.Controls.Add(this.xsRichTextBox);
-            this.ApproximateTabPage.Controls.Add(this.label5);
-            this.ApproximateTabPage.Controls.Add(this.mLeftNumericUpDown);
-            this.ApproximateTabPage.Controls.Add(this.label9);
-            this.ApproximateTabPage.Controls.Add(this.label4);
-            this.ApproximateTabPage.Controls.Add(this.dNumericUpDown);
-            this.ApproximateTabPage.Location = new System.Drawing.Point(4, 24);
-            this.ApproximateTabPage.Name = "ApproximateTabPage";
-            this.ApproximateTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ApproximateTabPage.Size = new System.Drawing.Size(497, 290);
-            this.ApproximateTabPage.TabIndex = 2;
-            this.ApproximateTabPage.Text = "Approximate";
-            this.ApproximateTabPage.UseVisualStyleBackColor = true;
+            ApproximateTabPage.Controls.Add(qRichTextBoxROA);
+            ApproximateTabPage.Controls.Add(changeBordersCheckBox);
+            ApproximateTabPage.Controls.Add(rationalRadioButton);
+            ApproximateTabPage.Controls.Add(label12);
+            ApproximateTabPage.Controls.Add(polynomialRadioButton);
+            ApproximateTabPage.Controls.Add(nonSymmetryPowersCheckBox);
+            ApproximateTabPage.Controls.Add(label13);
+            ApproximateTabPage.Controls.Add(pRichTextBoxROA);
+            ApproximateTabPage.Controls.Add(mRightNumericUpDown);
+            ApproximateTabPage.Controls.Add(xsRichTextBox);
+            ApproximateTabPage.Controls.Add(label5);
+            ApproximateTabPage.Controls.Add(mLeftNumericUpDown);
+            ApproximateTabPage.Controls.Add(label9);
+            ApproximateTabPage.Controls.Add(label4);
+            ApproximateTabPage.Controls.Add(dNumericUpDown);
+            ApproximateTabPage.Location = new System.Drawing.Point(4, 24);
+            ApproximateTabPage.Name = "ApproximateTabPage";
+            ApproximateTabPage.Padding = new System.Windows.Forms.Padding(3);
+            ApproximateTabPage.Size = new System.Drawing.Size(497, 290);
+            ApproximateTabPage.TabIndex = 2;
+            ApproximateTabPage.Text = "Approximate";
+            ApproximateTabPage.UseVisualStyleBackColor = true;
             // 
             // qRichTextBoxROA
             // 
-            this.qRichTextBoxROA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.qRichTextBoxROA.Location = new System.Drawing.Point(60, 60);
-            this.qRichTextBoxROA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.qRichTextBoxROA.Multiline = false;
-            this.qRichTextBoxROA.Name = "qRichTextBoxROA";
-            this.qRichTextBoxROA.ReadOnly = true;
-            this.qRichTextBoxROA.Size = new System.Drawing.Size(419, 36);
-            this.qRichTextBoxROA.TabIndex = 62;
-            this.qRichTextBoxROA.Text = "";
+            qRichTextBoxROA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            qRichTextBoxROA.Location = new System.Drawing.Point(60, 60);
+            qRichTextBoxROA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            qRichTextBoxROA.Multiline = false;
+            qRichTextBoxROA.Name = "qRichTextBoxROA";
+            qRichTextBoxROA.ReadOnly = true;
+            qRichTextBoxROA.Size = new System.Drawing.Size(419, 36);
+            qRichTextBoxROA.TabIndex = 62;
+            qRichTextBoxROA.Text = "";
             // 
             // changeBordersCheckBox
             // 
-            this.changeBordersCheckBox.AutoSize = true;
-            this.changeBordersCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.changeBordersCheckBox.Location = new System.Drawing.Point(232, 220);
-            this.changeBordersCheckBox.Name = "changeBordersCheckBox";
-            this.changeBordersCheckBox.Size = new System.Drawing.Size(140, 25);
-            this.changeBordersCheckBox.TabIndex = 64;
-            this.changeBordersCheckBox.Text = "Change borders";
-            this.changeBordersCheckBox.UseVisualStyleBackColor = true;
+            changeBordersCheckBox.AutoSize = true;
+            changeBordersCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            changeBordersCheckBox.Location = new System.Drawing.Point(232, 220);
+            changeBordersCheckBox.Name = "changeBordersCheckBox";
+            changeBordersCheckBox.Size = new System.Drawing.Size(140, 25);
+            changeBordersCheckBox.TabIndex = 64;
+            changeBordersCheckBox.Text = "Change borders";
+            changeBordersCheckBox.UseVisualStyleBackColor = true;
             // 
             // rationalRadioButton
             // 
-            this.rationalRadioButton.AutoSize = true;
-            this.rationalRadioButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rationalRadioButton.Location = new System.Drawing.Point(173, 259);
-            this.rationalRadioButton.Name = "rationalRadioButton";
-            this.rationalRadioButton.Size = new System.Drawing.Size(85, 25);
-            this.rationalRadioButton.TabIndex = 63;
-            this.rationalRadioButton.Text = "Rational";
-            this.rationalRadioButton.UseVisualStyleBackColor = true;
-            this.rationalRadioButton.CheckedChanged += new System.EventHandler(this.rationalRadioButton_CheckedChanged);
+            rationalRadioButton.AutoSize = true;
+            rationalRadioButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            rationalRadioButton.Location = new System.Drawing.Point(173, 259);
+            rationalRadioButton.Name = "rationalRadioButton";
+            rationalRadioButton.Size = new System.Drawing.Size(85, 25);
+            rationalRadioButton.TabIndex = 63;
+            rationalRadioButton.Text = "Rational";
+            rationalRadioButton.UseVisualStyleBackColor = true;
+            rationalRadioButton.CheckedChanged += rationalRadioButton_CheckedChanged;
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(9, 64);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(37, 18);
-            this.label12.TabIndex = 61;
-            this.label12.Text = "Q(x)";
+            label12.AutoSize = true;
+            label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label12.Location = new System.Drawing.Point(9, 64);
+            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(37, 18);
+            label12.TabIndex = 61;
+            label12.Text = "Q(x)";
             // 
             // polynomialRadioButton
             // 
-            this.polynomialRadioButton.AutoSize = true;
-            this.polynomialRadioButton.Checked = true;
-            this.polynomialRadioButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.polynomialRadioButton.Location = new System.Drawing.Point(34, 259);
-            this.polynomialRadioButton.Name = "polynomialRadioButton";
-            this.polynomialRadioButton.Size = new System.Drawing.Size(105, 25);
-            this.polynomialRadioButton.TabIndex = 62;
-            this.polynomialRadioButton.TabStop = true;
-            this.polynomialRadioButton.Text = "Polynomial";
-            this.polynomialRadioButton.UseVisualStyleBackColor = true;
+            polynomialRadioButton.AutoSize = true;
+            polynomialRadioButton.Checked = true;
+            polynomialRadioButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            polynomialRadioButton.Location = new System.Drawing.Point(34, 259);
+            polynomialRadioButton.Name = "polynomialRadioButton";
+            polynomialRadioButton.Size = new System.Drawing.Size(105, 25);
+            polynomialRadioButton.TabIndex = 62;
+            polynomialRadioButton.TabStop = true;
+            polynomialRadioButton.Text = "Polynomial";
+            polynomialRadioButton.UseVisualStyleBackColor = true;
             // 
             // nonSymmetryPowersCheckBox
             // 
-            this.nonSymmetryPowersCheckBox.AutoSize = true;
-            this.nonSymmetryPowersCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.nonSymmetryPowersCheckBox.Location = new System.Drawing.Point(36, 220);
-            this.nonSymmetryPowersCheckBox.Name = "nonSymmetryPowersCheckBox";
-            this.nonSymmetryPowersCheckBox.Size = new System.Drawing.Size(190, 25);
-            this.nonSymmetryPowersCheckBox.TabIndex = 61;
-            this.nonSymmetryPowersCheckBox.Text = "Non-symmetry powers";
-            this.nonSymmetryPowersCheckBox.UseVisualStyleBackColor = true;
-            this.nonSymmetryPowersCheckBox.CheckedChanged += new System.EventHandler(this.nonSymmetryPowersCheckBox_CheckedChanged);
+            nonSymmetryPowersCheckBox.AutoSize = true;
+            nonSymmetryPowersCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            nonSymmetryPowersCheckBox.Location = new System.Drawing.Point(36, 220);
+            nonSymmetryPowersCheckBox.Name = "nonSymmetryPowersCheckBox";
+            nonSymmetryPowersCheckBox.Size = new System.Drawing.Size(190, 25);
+            nonSymmetryPowersCheckBox.TabIndex = 61;
+            nonSymmetryPowersCheckBox.Text = "Non-symmetry powers";
+            nonSymmetryPowersCheckBox.UseVisualStyleBackColor = true;
+            nonSymmetryPowersCheckBox.CheckedChanged += nonSymmetryPowersCheckBox_CheckedChanged;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(11, 20);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(35, 18);
-            this.label13.TabIndex = 60;
-            this.label13.Text = "P(x)";
+            label13.AutoSize = true;
+            label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label13.Location = new System.Drawing.Point(11, 20);
+            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(35, 18);
+            label13.TabIndex = 60;
+            label13.Text = "P(x)";
             // 
             // pRichTextBoxROA
             // 
-            this.pRichTextBoxROA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pRichTextBoxROA.Location = new System.Drawing.Point(59, 16);
-            this.pRichTextBoxROA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pRichTextBoxROA.Multiline = false;
-            this.pRichTextBoxROA.Name = "pRichTextBoxROA";
-            this.pRichTextBoxROA.ReadOnly = true;
-            this.pRichTextBoxROA.Size = new System.Drawing.Size(419, 36);
-            this.pRichTextBoxROA.TabIndex = 59;
-            this.pRichTextBoxROA.Text = "";
+            pRichTextBoxROA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pRichTextBoxROA.Location = new System.Drawing.Point(59, 16);
+            pRichTextBoxROA.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pRichTextBoxROA.Multiline = false;
+            pRichTextBoxROA.Name = "pRichTextBoxROA";
+            pRichTextBoxROA.ReadOnly = true;
+            pRichTextBoxROA.Size = new System.Drawing.Size(419, 36);
+            pRichTextBoxROA.TabIndex = 59;
+            pRichTextBoxROA.Text = "";
             // 
             // mRightNumericUpDown
             // 
-            this.mRightNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.mRightNumericUpDown.Location = new System.Drawing.Point(184, 160);
-            this.mRightNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.mRightNumericUpDown.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.mRightNumericUpDown.Name = "mRightNumericUpDown";
-            this.mRightNumericUpDown.Size = new System.Drawing.Size(140, 24);
-            this.mRightNumericUpDown.TabIndex = 60;
-            this.mRightNumericUpDown.Visible = false;
+            mRightNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            mRightNumericUpDown.Location = new System.Drawing.Point(184, 160);
+            mRightNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            mRightNumericUpDown.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+            mRightNumericUpDown.Name = "mRightNumericUpDown";
+            mRightNumericUpDown.Size = new System.Drawing.Size(140, 24);
+            mRightNumericUpDown.TabIndex = 60;
+            mRightNumericUpDown.Visible = false;
             // 
             // xsRichTextBox
             // 
-            this.xsRichTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xsRichTextBox.Location = new System.Drawing.Point(36, 116);
-            this.xsRichTextBox.Name = "xsRichTextBox";
-            this.xsRichTextBox.Size = new System.Drawing.Size(442, 32);
-            this.xsRichTextBox.TabIndex = 59;
-            this.xsRichTextBox.Text = "";
+            xsRichTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            xsRichTextBox.Location = new System.Drawing.Point(36, 116);
+            xsRichTextBox.Name = "xsRichTextBox";
+            xsRichTextBox.Size = new System.Drawing.Size(442, 32);
+            xsRichTextBox.TabIndex = 59;
+            xsRichTextBox.Text = "";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(5, 122);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 18);
-            this.label5.TabIndex = 57;
-            this.label5.Text = "Xs";
+            label5.AutoSize = true;
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.Location = new System.Drawing.Point(5, 122);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(26, 18);
+            label5.TabIndex = 57;
+            label5.Text = "Xs";
             // 
             // mLeftNumericUpDown
             // 
-            this.mLeftNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.mLeftNumericUpDown.Location = new System.Drawing.Point(36, 160);
-            this.mLeftNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.mLeftNumericUpDown.Name = "mLeftNumericUpDown";
-            this.mLeftNumericUpDown.Size = new System.Drawing.Size(140, 24);
-            this.mLeftNumericUpDown.TabIndex = 55;
+            mLeftNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            mLeftNumericUpDown.Location = new System.Drawing.Point(36, 160);
+            mLeftNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            mLeftNumericUpDown.Name = "mLeftNumericUpDown";
+            mLeftNumericUpDown.Size = new System.Drawing.Size(140, 24);
+            mLeftNumericUpDown.TabIndex = 55;
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(11, 192);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(16, 18);
-            this.label9.TabIndex = 58;
-            this.label9.Text = "d";
+            label9.AutoSize = true;
+            label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label9.Location = new System.Drawing.Point(11, 192);
+            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(16, 18);
+            label9.TabIndex = 58;
+            label9.Text = "d";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(11, 162);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 18);
-            this.label4.TabIndex = 56;
-            this.label4.Text = "M";
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label4.Location = new System.Drawing.Point(11, 162);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(21, 18);
+            label4.TabIndex = 56;
+            label4.Text = "M";
             // 
             // dNumericUpDown
             // 
-            this.dNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dNumericUpDown.Location = new System.Drawing.Point(36, 190);
-            this.dNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.dNumericUpDown.Name = "dNumericUpDown";
-            this.dNumericUpDown.Size = new System.Drawing.Size(140, 24);
-            this.dNumericUpDown.TabIndex = 57;
-            this.dNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            dNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dNumericUpDown.Location = new System.Drawing.Point(36, 190);
+            dNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            dNumericUpDown.Name = "dNumericUpDown";
+            dNumericUpDown.Size = new System.Drawing.Size(140, 24);
+            dNumericUpDown.TabIndex = 57;
+            dNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(71, 355);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 18);
-            this.label3.TabIndex = 40;
-            this.label3.Text = "f(x)";
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label3.Location = new System.Drawing.Point(71, 355);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(29, 18);
+            label3.TabIndex = 40;
+            label3.Text = "f(x)";
             // 
             // maxPlusRadioButton
             // 
-            this.maxPlusRadioButton.AutoSize = true;
-            this.maxPlusRadioButton.Checked = true;
-            this.maxPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.maxPlusRadioButton.Location = new System.Drawing.Point(8, 33);
-            this.maxPlusRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.maxPlusRadioButton.Name = "maxPlusRadioButton";
-            this.maxPlusRadioButton.Size = new System.Drawing.Size(81, 22);
-            this.maxPlusRadioButton.TabIndex = 0;
-            this.maxPlusRadioButton.TabStop = true;
-            this.maxPlusRadioButton.Text = "(max, +)";
-            this.maxPlusRadioButton.UseVisualStyleBackColor = true;
-            this.maxPlusRadioButton.CheckedChanged += new System.EventHandler(this.maxPlusRadioButton_CheckedChanged);
+            maxPlusRadioButton.AutoSize = true;
+            maxPlusRadioButton.Checked = true;
+            maxPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            maxPlusRadioButton.Location = new System.Drawing.Point(8, 33);
+            maxPlusRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            maxPlusRadioButton.Name = "maxPlusRadioButton";
+            maxPlusRadioButton.Size = new System.Drawing.Size(81, 22);
+            maxPlusRadioButton.TabIndex = 0;
+            maxPlusRadioButton.TabStop = true;
+            maxPlusRadioButton.Text = "(max, +)";
+            maxPlusRadioButton.UseVisualStyleBackColor = true;
+            maxPlusRadioButton.CheckedChanged += maxPlusRadioButton_CheckedChanged;
             // 
             // maxTimesRadioButton
             // 
-            this.maxTimesRadioButton.AutoSize = true;
-            this.maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.maxTimesRadioButton.Location = new System.Drawing.Point(9, 61);
-            this.maxTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.maxTimesRadioButton.Name = "maxTimesRadioButton";
-            this.maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
-            this.maxTimesRadioButton.TabIndex = 1;
-            this.maxTimesRadioButton.Text = "(max, ×)";
-            this.maxTimesRadioButton.UseVisualStyleBackColor = true;
-            this.maxTimesRadioButton.CheckedChanged += new System.EventHandler(this.maxTimesRadioButton_CheckedChanged);
+            maxTimesRadioButton.AutoSize = true;
+            maxTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            maxTimesRadioButton.Location = new System.Drawing.Point(9, 61);
+            maxTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            maxTimesRadioButton.Name = "maxTimesRadioButton";
+            maxTimesRadioButton.Size = new System.Drawing.Size(81, 22);
+            maxTimesRadioButton.TabIndex = 1;
+            maxTimesRadioButton.Text = "(max, ×)";
+            maxTimesRadioButton.UseVisualStyleBackColor = true;
+            maxTimesRadioButton.CheckedChanged += maxTimesRadioButton_CheckedChanged;
             // 
             // minPlusRadioButton
             // 
-            this.minPlusRadioButton.AutoSize = true;
-            this.minPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minPlusRadioButton.Location = new System.Drawing.Point(402, 33);
-            this.minPlusRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.minPlusRadioButton.Name = "minPlusRadioButton";
-            this.minPlusRadioButton.Size = new System.Drawing.Size(77, 22);
-            this.minPlusRadioButton.TabIndex = 2;
-            this.minPlusRadioButton.Text = "(min, +)";
-            this.minPlusRadioButton.UseVisualStyleBackColor = true;
-            this.minPlusRadioButton.CheckedChanged += new System.EventHandler(this.minPlusRadioButton_CheckedChanged);
+            minPlusRadioButton.AutoSize = true;
+            minPlusRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            minPlusRadioButton.Location = new System.Drawing.Point(402, 33);
+            minPlusRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            minPlusRadioButton.Name = "minPlusRadioButton";
+            minPlusRadioButton.Size = new System.Drawing.Size(77, 22);
+            minPlusRadioButton.TabIndex = 2;
+            minPlusRadioButton.Text = "(min, +)";
+            minPlusRadioButton.UseVisualStyleBackColor = true;
+            minPlusRadioButton.CheckedChanged += minPlusRadioButton_CheckedChanged;
             // 
             // minTimesRadioButton
             // 
-            this.minTimesRadioButton.AutoSize = true;
-            this.minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minTimesRadioButton.Location = new System.Drawing.Point(402, 61);
-            this.minTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.minTimesRadioButton.Name = "minTimesRadioButton";
-            this.minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
-            this.minTimesRadioButton.TabIndex = 3;
-            this.minTimesRadioButton.Text = "(min, ×)";
-            this.minTimesRadioButton.UseVisualStyleBackColor = true;
-            this.minTimesRadioButton.CheckedChanged += new System.EventHandler(this.minTimesRadioButton_CheckedChanged);
+            minTimesRadioButton.AutoSize = true;
+            minTimesRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            minTimesRadioButton.Location = new System.Drawing.Point(402, 61);
+            minTimesRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            minTimesRadioButton.Name = "minTimesRadioButton";
+            minTimesRadioButton.Size = new System.Drawing.Size(77, 22);
+            minTimesRadioButton.TabIndex = 3;
+            minTimesRadioButton.Text = "(min, ×)";
+            minTimesRadioButton.UseVisualStyleBackColor = true;
+            minTimesRadioButton.CheckedChanged += minTimesRadioButton_CheckedChanged;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.minTimesRadioButton);
-            this.groupBox1.Controls.Add(this.minPlusRadioButton);
-            this.groupBox1.Controls.Add(this.maxTimesRadioButton);
-            this.groupBox1.Controls.Add(this.maxPlusRadioButton);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.Location = new System.Drawing.Point(25, 418);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(486, 94);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Select algebra";
+            groupBox1.Controls.Add(minTimesRadioButton);
+            groupBox1.Controls.Add(minPlusRadioButton);
+            groupBox1.Controls.Add(maxTimesRadioButton);
+            groupBox1.Controls.Add(maxPlusRadioButton);
+            groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            groupBox1.Location = new System.Drawing.Point(25, 418);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(486, 94);
+            groupBox1.TabIndex = 41;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Select algebra";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(52, 397);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 18);
-            this.label6.TabIndex = 44;
-            this.label6.Text = "x from";
+            label6.AutoSize = true;
+            label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label6.Location = new System.Drawing.Point(52, 397);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(50, 18);
+            label6.TabIndex = 44;
+            label6.Text = "x from";
             // 
             // xFromTextBox
             // 
-            this.xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xFromTextBox.Location = new System.Drawing.Point(114, 394);
-            this.xFromTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.xFromTextBox.Name = "xFromTextBox";
-            this.xFromTextBox.Size = new System.Drawing.Size(116, 24);
-            this.xFromTextBox.TabIndex = 45;
-            this.xFromTextBox.Text = "-10";
-            this.xFromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
+            xFromTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            xFromTextBox.Location = new System.Drawing.Point(114, 394);
+            xFromTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            xFromTextBox.Name = "xFromTextBox";
+            xFromTextBox.Size = new System.Drawing.Size(116, 24);
+            xFromTextBox.TabIndex = 45;
+            xFromTextBox.Text = "-10";
+            xFromTextBox.KeyPress += TextBoxInputHandler;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(237, 397);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(21, 18);
-            this.label7.TabIndex = 46;
-            this.label7.Text = "to";
+            label7.AutoSize = true;
+            label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label7.Location = new System.Drawing.Point(237, 397);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(21, 18);
+            label7.TabIndex = 46;
+            label7.Text = "to";
             // 
             // xToTextBox
             // 
-            this.xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.xToTextBox.Location = new System.Drawing.Point(267, 394);
-            this.xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.xToTextBox.Name = "xToTextBox";
-            this.xToTextBox.Size = new System.Drawing.Size(116, 24);
-            this.xToTextBox.TabIndex = 47;
-            this.xToTextBox.Text = "10";
-            this.xToTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInputHandler);
+            xToTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            xToTextBox.Location = new System.Drawing.Point(267, 394);
+            xToTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            xToTextBox.Name = "xToTextBox";
+            xToTextBox.Size = new System.Drawing.Size(116, 24);
+            xToTextBox.TabIndex = 47;
+            xToTextBox.Text = "10";
+            xToTextBox.KeyPress += TextBoxInputHandler;
             // 
             // errorFuncCheckBox
             // 
-            this.errorFuncCheckBox.AutoSize = true;
-            this.errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.errorFuncCheckBox.Location = new System.Drawing.Point(401, 396);
-            this.errorFuncCheckBox.Name = "errorFuncCheckBox";
-            this.errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
-            this.errorFuncCheckBox.TabIndex = 49;
-            this.errorFuncCheckBox.Text = "Error function";
-            this.errorFuncCheckBox.UseVisualStyleBackColor = true;
+            errorFuncCheckBox.AutoSize = true;
+            errorFuncCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            errorFuncCheckBox.Location = new System.Drawing.Point(401, 396);
+            errorFuncCheckBox.Name = "errorFuncCheckBox";
+            errorFuncCheckBox.Size = new System.Drawing.Size(112, 23);
+            errorFuncCheckBox.TabIndex = 49;
+            errorFuncCheckBox.Text = "Error function";
+            errorFuncCheckBox.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1398, 606);
-            this.Controls.Add(this.errorFuncCheckBox);
-            this.Controls.Add(this.BuildButton);
-            this.Controls.Add(this.xToTextBox);
-            this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.xFromTextBox);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.rootMeanSquaredErrorValueLabel);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.fRichTextBox);
-            this.Controls.Add(this.rootMeanSquaredErrorLabel);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.plot);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "Form1";
-            this.Text = "Tropical Palm";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.tabControl.ResumeLayout(false);
-            this.manualTabPage.ResumeLayout(false);
-            this.manualTabPage.PerformLayout();
-            this.AutoTabPage.ResumeLayout(false);
-            this.AutoTabPage.PerformLayout();
-            this.ApproximateTabPage.ResumeLayout(false);
-            this.ApproximateTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mRightNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mLeftNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dNumericUpDown)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1398, 606);
+            Controls.Add(errorFuncCheckBox);
+            Controls.Add(BuildButton);
+            Controls.Add(xToTextBox);
+            Controls.Add(tabControl);
+            Controls.Add(label7);
+            Controls.Add(xFromTextBox);
+            Controls.Add(label8);
+            Controls.Add(label6);
+            Controls.Add(groupBox1);
+            Controls.Add(rootMeanSquaredErrorValueLabel);
+            Controls.Add(label3);
+            Controls.Add(fRichTextBox);
+            Controls.Add(rootMeanSquaredErrorLabel);
+            Controls.Add(toolStrip1);
+            Controls.Add(plot);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "Form1";
+            Text = "Tropical Palm";
+            Load += Form1_Load;
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            tabControl.ResumeLayout(false);
+            manualTabPage.ResumeLayout(false);
+            manualTabPage.PerformLayout();
+            AutoTabPage.ResumeLayout(false);
+            AutoTabPage.PerformLayout();
+            ApproximateTabPage.ResumeLayout(false);
+            ApproximateTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)mRightNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)mLeftNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dNumericUpDown).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
-#endregion
+        #endregion
         private ScottPlot.FormsPlot plot;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -788,6 +782,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.RichTextBox pRichTextBoxROA;
+        private System.Windows.Forms.ToolStripLabel settingsToolStripLabel;
     }
 }
 
